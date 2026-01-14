@@ -2223,12 +2223,64 @@ section {
 }
 
 /* Footer Columns */
-.footer-col h4 {
+.footer-col h4,
+.footer-heading {
     font-family: var(--font-display);
     font-size: 1rem;
     letter-spacing: 0.1em;
     color: var(--text-primary);
     margin-bottom: 1.5rem;
+}
+
+.footer-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.footer-nav a {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-weight: 500;
+}
+
+.footer-nav a:hover {
+    color: var(--accent-400);
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-contact-item:hover {
+    color: var(--accent-400);
+}
+
+.footer-contact-item svg {
+    flex-shrink: 0;
+    color: var(--accent-400);
 }
 
 .footer-links {
@@ -2241,7 +2293,7 @@ section {
 
 .footer-links a {
     font-size: 0.9rem;
-    color: var(--text-faint);
+    color: var(--text-secondary);
     transition: color 0.2s ease;
 }
 
@@ -2256,9 +2308,37 @@ section {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 1rem;
-    font-size: 0.8rem;
-    color: var(--border-light);
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-legal p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.footer-legal-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-legal-nav a {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-legal-nav a:hover {
+    color: var(--accent-400);
 }
 
 .footer-badges {
