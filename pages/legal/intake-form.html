@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Recovery Plus Client Intake Form and Liability Waiver - Complete before your first session.">
+    <title>Intake Form & Liability Waiver | Recovery Plus</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../css/main.css">
+
+    <style>
+        /* Print-Friendly Styles */
+        @media print {
+            .header, .footer, .mobile-sticky, .theme-toggle {
+                display: none !important;
+            }
+
+            body {
+                padding-bottom: 0;
+                background: white;
+                color: black;
+            }
+
+            .form-container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .form-section {
+                page-break-inside: avoid;
+            }
+
+            .btn {
+                display: none;
+            }
+        }
+
+        /* Form Specific Styles */
+        .form-hero {
+            min-height: 50vh;
+            padding-top: 120px;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        .form-intro {
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--accent-400);
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .form-intro h3 {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            margin-bottom: 1rem;
+            margin-top: 0;
+        }
+
+        .form-intro p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-section {
+            margin-bottom: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .form-section h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            color: var(--accent-400);
+        }
+
+        .form-section h3 {
+            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .form-section p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-label .required {
+            color: var(--red);
+            margin-left: 0.25rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-400);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-help {
+            font-size: 0.85rem;
+            color: var(--text-faint);
+            margin-top: 0.5rem;
+        }
+
+        /* Checkbox and Radio Styles */
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover,
+        .radio-item:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--border-light);
+        }
+
+        .checkbox-item input[type="checkbox"],
+        .radio-item input[type="radio"] {
+            margin-top: 0.25rem;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-label,
+        .radio-label {
+            flex: 1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .checkbox-label strong,
+        .radio-label strong {
+            color: var(--text-primary);
+        }
+
+        /* Alert Box */
+        .alert-box {
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid var(--red);
+            border-left: 3px solid var(--red);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .alert-box h4 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: none;
+            color: var(--red);
+            margin-bottom: 0.75rem;
+        }
+
+        .alert-box ul {
+            margin-left: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .alert-box li {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Signature Field */
+        .signature-field {
+            background: var(--bg-primary);
+            border: 2px dashed var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .signature-field p {
+            font-size: 0.9rem;
+            color: var(--text-faint);
+            margin-bottom: 1rem;
+        }
+
+        .signature-placeholder {
+            height: 120px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-faint);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        /* Submit Section */
+        .form-submit {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 2px solid var(--border-color);
+            text-align: center;
+        }
+
+        .form-submit .btn {
+            min-width: 250px;
+        }
+
+        .form-submit p {
+            font-size: 0.85rem;
+            color: var(--text-faint);
+            margin-top: 1rem;
+        }
+
+        /* Prohibited Items Warning */
+        .prohibited-warning {
+            background: rgba(200, 255, 0, 0.05);
+            border: 1px solid var(--neon);
+            border-left: 3px solid var(--neon);
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .prohibited-warning h4 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: none;
+            color: var(--neon);
+            margin-bottom: 0.75rem;
+        }
+
+        .prohibited-warning p {
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .prohibited-list {
+            display: grid;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .prohibited-list li {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            padding-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="../../index.html" class="logo">
+                    <span class="logo-mark">R+</span>
+                </a>
+
+                <div class="header-actions">
+                    <a href="tel:+17077611528" class="header-phone">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        (707) 761-1528
+                    </a>
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Form Hero -->
+    <section class="form-hero hero">
+        <div class="hero-bg">
+            <div class="hero-grid"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="eyebrow hero-eyebrow">Client Registration</div>
+                <h1>Intake Form & Liability Waiver</h1>
+                <p class="hero-sub">Please complete this form before your first session. Your safety is our priority.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Content -->
+    <section class="container">
+        <div class="form-container">
+
+            <div class="form-intro">
+                <h3>Important Information</h3>
+                <p><strong>Please read carefully:</strong> This form collects essential health information to ensure your safety during cryotherapy and recovery services. All information is kept strictly confidential and will only be used to provide safe and effective treatments.</p>
+                <p>Fields marked with <span style="color: var(--red);">*</span> are required.</p>
+            </div>
+
+            <form id="intakeForm" action="#" method="POST">
+
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h2>Personal Information</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="firstName">First Name <span class="required">*</span></label>
+                            <input type="text" id="firstName" name="firstName" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="lastName">Last Name <span class="required">*</span></label>
+                            <input type="text" id="lastName" name="lastName" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Contact Phone <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="(707) 555-1234" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="dob">Date of Birth <span class="required">*</span></label>
+                        <input type="date" id="dob" name="dob" class="form-input" required>
+                        <p class="form-help">You must be 18 years or older. If under 18, a parent/guardian must complete this form.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Age Verification <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="ageVerification" value="over18" required>
+                                <span class="radio-label"><strong>Yes,</strong> I am at least 18 years of age</span>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="ageVerification" value="under18">
+                                <span class="radio-label"><strong>Under 18:</strong> Parent/Guardian completing this form</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="guardianName" style="display: none;">
+                        <label class="form-label" for="guardianFullName">Parent/Guardian Full Name</label>
+                        <input type="text" id="guardianFullName" name="guardianFullName" class="form-input">
+                    </div>
+                </div>
+
+                <!-- Emergency Contact -->
+                <div class="form-section">
+                    <h2>Emergency Contact</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="emergencyName">Emergency Contact Name <span class="required">*</span></label>
+                            <input type="text" id="emergencyName" name="emergencyName" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="emergencyPhone">Emergency Contact Phone <span class="required">*</span></label>
+                            <input type="tel" id="emergencyPhone" name="emergencyPhone" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="emergencyRelationship">Relationship to Client</label>
+                        <input type="text" id="emergencyRelationship" name="emergencyRelationship" class="form-input" placeholder="e.g., Spouse, Parent, Sibling">
+                    </div>
+                </div>
+
+                <!-- Medical Disclosure -->
+                <div class="form-section">
+                    <h2>Medical Disclosure</h2>
+                    <p>Please select all conditions that currently apply to you. This information is critical for your safety during treatments.</p>
+
+                    <div class="alert-box">
+                        <h4>Important Safety Notice</h4>
+                        <p><strong>The following conditions may prevent you from safely receiving cryotherapy or related services.</strong> Please disclose all applicable conditions:</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Health Conditions <span class="required">*</span></label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="pregnancy">
+                                <span class="checkbox-label"><strong>Pregnancy</strong> or suspected pregnancy</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="cardiac">
+                                <span class="checkbox-label"><strong>Heart/cardiac issues</strong> or pacemaker</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="blood_pressure">
+                                <span class="checkbox-label"><strong>Uncontrolled high or low blood pressure</strong></span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="blood_disorders">
+                                <span class="checkbox-label"><strong>Blood disorders</strong> (e.g., anemia, clotting disorders)</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="seizures">
+                                <span class="checkbox-label"><strong>Seizure disorders</strong> or epilepsy</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="cold_illness">
+                                <span class="checkbox-label"><strong>Cold-related illness</strong> (e.g., Raynaud's disease, cold urticaria)</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="diabetes">
+                                <span class="checkbox-label"><strong>Diabetes or neuropathy</strong></span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="wounds">
+                                <span class="checkbox-label"><strong>Open wounds, infections, or rashes</strong> in treatment areas</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="recent_surgery">
+                                <span class="checkbox-label"><strong>Recent surgery or injury</strong> (within 6 weeks)</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="nerve_disorders">
+                                <span class="checkbox-label"><strong>Nerve disorders</strong> or neuropathy</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="implants">
+                                <span class="checkbox-label"><strong>Joint replacements or implants</strong> in treatment areas</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="none">
+                                <span class="checkbox-label"><strong>None of the above</strong></span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="conditions[]" value="other">
+                                <span class="checkbox-label"><strong>Other</strong> (please specify below)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="otherConditions">Other Medical Conditions or Concerns</label>
+                        <textarea id="otherConditions" name="otherConditions" class="form-textarea" placeholder="Please provide details about any other health conditions, medications, or concerns..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-item" style="border: 2px solid var(--accent-400);">
+                            <input type="checkbox" name="truthfulDisclosure" value="yes" required>
+                            <span class="checkbox-label"><strong>I confirm that I have truthfully disclosed all known health conditions and will inform staff of any changes before receiving future treatments.</strong> <span class="required">*</span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Risks & Consent -->
+                <div class="form-section">
+                    <h2>Risks & Consent</h2>
+
+                    <p><strong>I understand that cryotherapy, compression therapy, cupping therapy, and percussion therapy are wellness and recovery services and not medical treatments.</strong></p>
+
+                    <p>I acknowledge that potential side effects may include, but are not limited to:</p>
+
+                    <ul style="margin-left: 1.5rem; margin-bottom: 2rem;">
+                        <li>Redness, numbness, or tingling</li>
+                        <li>Temporary discomfort, bruising, or skin irritation</li>
+                        <li>Dizziness or lightheadedness</li>
+                        <li>Muscle soreness</li>
+                        <li>Rare but possible frostbite or burns (for cryotherapy)</li>
+                    </ul>
+
+                    <div class="form-group">
+                        <label class="checkbox-item" style="border: 2px solid var(--accent-400);">
+                            <input type="checkbox" name="riskConsent" value="yes" required>
+                            <span class="checkbox-label"><strong>I understand the risks and consent to receive services from Recovery Plus. I confirm I am not under the influence of alcohol, drugs, or medication that could impair my ability to safely receive these services. I voluntarily assume all risks, known and unknown, associated with these services.</strong> <span class="required">*</span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Release & Indemnity -->
+                <div class="form-section">
+                    <h2>Release & Indemnity</h2>
+
+                    <p>I hereby release Recovery Plus, its owners, employees, contractors, and affiliates from all liability for any injury, loss, or damages that may result from my participation in these services.</p>
+
+                    <p>I agree to indemnify and hold harmless Recovery Plus from any claims, lawsuits, or expenses (including legal fees) related to my participation in these services, whether caused by negligence or otherwise.</p>
+
+                    <div class="form-group">
+                        <label class="checkbox-item" style="border: 2px solid var(--accent-400);">
+                            <input type="checkbox" name="releaseIndemnity" value="yes" required>
+                            <span class="checkbox-label"><strong>I agree to indemnify and hold harmless Recovery Plus from any claims related to my participation.</strong> <span class="required">*</span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Prohibited Items -->
+                <div class="form-section">
+                    <h2>Prohibited Items During CO₂-Based Cryotherapy</h2>
+
+                    <div class="prohibited-warning">
+                        <h4>Safety Requirements</h4>
+                        <p><strong>For your safety, the following items are strictly prohibited during localized cryotherapy treatments:</strong></p>
+
+                        <ul class="prohibited-list">
+                            <li><strong>Lotions, oils, or creams</strong> applied within the last 2 hours (risk of frostbite/skin injury)</li>
+                            <li><strong>Wet or damp clothing/towels</strong> in the treatment area</li>
+                            <li><strong>Metal jewelry, piercings, or body chains</strong> in or near the treated area</li>
+                            <li><strong>Watches, fitness trackers, or electronic devices</strong></li>
+                            <li><strong>Adhesive bandages or medical patches</strong> on treatment area</li>
+                            <li><strong>Clothing with metal zippers, snaps, or decorations</strong> that may contact skin</li>
+                            <li><strong>Makeup</strong> in facial treatment areas (for localized facial cryo)</li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-item" style="border: 2px solid var(--neon);">
+                            <input type="checkbox" name="prohibitedItems" value="understood" required>
+                            <span class="checkbox-label"><strong>I understand and agree to remove or avoid these items before treatment.</strong> <span class="required">*</span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Photo/Video Consent -->
+                <div class="form-section">
+                    <h2>Photo/Video Consent (Optional)</h2>
+
+                    <p>Recovery Plus may take photos or videos during sessions for marketing, educational, or social media purposes. This is completely optional and will not affect your service.</p>
+
+                    <div class="form-group">
+                        <label class="form-label">Media Consent</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="photoConsent" value="yes">
+                                <span class="radio-label"><strong>I grant permission</strong> for photos/videos to be taken during my session for marketing or educational use</span>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="photoConsent" value="no" checked>
+                                <span class="radio-label"><strong>I do not consent</strong> to any photo/video use</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acknowledgment -->
+                <div class="form-section">
+                    <h2>Acknowledgment & Signature</h2>
+
+                    <div class="form-group">
+                        <label class="checkbox-item" style="border: 2px solid var(--accent-400);">
+                            <input type="checkbox" name="waiversApply" value="yes" required>
+                            <span class="checkbox-label"><strong>I understand this waiver and consent form will apply to all current and future sessions unless revoked in writing.</strong> <span class="required">*</span></span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signatureDate">Date Signed <span class="required">*</span></label>
+                        <input type="date" id="signatureDate" name="signatureDate" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signatureName">Full Name (Digital Signature) <span class="required">*</span></label>
+                        <input type="text" id="signatureName" name="signatureName" class="form-input" placeholder="Type your full name as your digital signature" required>
+                        <p class="form-help">By typing your name, you agree that this constitutes your legal signature and confirms your agreement to all terms in this document.</p>
+                    </div>
+
+                    <div class="signature-field">
+                        <p><strong>Digital Signature Placeholder</strong></p>
+                        <div class="signature-placeholder">
+                            Signature will appear here once form is completed
+                        </div>
+                        <p class="form-help">In the future, you may be asked to sign using a touchscreen or mouse for enhanced verification.</p>
+                    </div>
+                </div>
+
+                <!-- Submit Section -->
+                <div class="form-submit">
+                    <button type="submit" class="btn btn-primary">
+                        <span>Submit Form</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </button>
+                    <p>By submitting this form, you acknowledge that you have read, understood, and agree to all terms and conditions outlined above.</p>
+                </div>
+
+            </form>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-mark">R+</span>
+                    </div>
+                    <p>Mobile cryotherapy and recovery services in Vacaville and surrounding areas. Professional wellness solutions delivered to your location.</p>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/company/recovery-plus" target="_blank" rel="noopener" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/recoveryplus" target="_blank" rel="noopener" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/recoveryplus" target="_blank" rel="noopener" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="../services/cryotherapy.html">Cryotherapy</a></li>
+                        <li><a href="../services/compression.html">Compression Therapy</a></li>
+                        <li><a href="../services/cupping.html">Cupping Therapy</a></li>
+                        <li><a href="../services/percussion.html">Percussion Therapy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="../../index.html#about">About Us</a></li>
+                        <li><a href="../../index.html#service-area">Service Area</a></li>
+                        <li><a href="../../index.html#faq">FAQ</a></li>
+                        <li><a href="../../index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="intake-form.html">Intake Form</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>&copy; 2025 Recovery Plus. All rights reserved.</div>
+                <div class="footer-badges">
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        Licensed & Insured
+                    </span>
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        Professional Service
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky Bar -->
+    <div class="mobile-sticky">
+        <a href="tel:+17077611528">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Call
+        </a>
+        <a href="mailto:brianrecoveryplus@gmail.com">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            Email
+        </a>
+        <a href="../../index.html#pricing" class="primary">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Book Now
+        </a>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../../js/main.js"></script>
+
+    <script>
+        // Form interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show/hide guardian field based on age selection
+            const ageRadios = document.querySelectorAll('input[name="ageVerification"]');
+            const guardianField = document.getElementById('guardianName');
+
+            ageRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'under18') {
+                        guardianField.style.display = 'block';
+                        document.getElementById('guardianFullName').required = true;
+                    } else {
+                        guardianField.style.display = 'none';
+                        document.getElementById('guardianFullName').required = false;
+                    }
+                });
+            });
+
+            // Auto-populate current date for signature
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('signatureDate').value = today;
+
+            // Form submission handler
+            const form = document.getElementById('intakeForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // In a real implementation, this would submit to a server
+                alert('Thank you for completing the intake form! Your information has been recorded. Our team will review it before your first session.');
+
+                // Optionally redirect to confirmation page or reset form
+                // form.reset();
+            });
+
+            // "None" checkbox logic - uncheck others if "None" is selected
+            const conditionCheckboxes = document.querySelectorAll('input[name="conditions[]"]');
+            const noneCheckbox = document.querySelector('input[name="conditions[]"][value="none"]');
+
+            if (noneCheckbox) {
+                conditionCheckboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        if (this.value === 'none' && this.checked) {
+                            conditionCheckboxes.forEach(cb => {
+                                if (cb.value !== 'none') cb.checked = false;
+                            });
+                        } else if (this.checked && this.value !== 'none') {
+                            noneCheckbox.checked = false;
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

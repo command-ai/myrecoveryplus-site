@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-In | Recovery Plus - Mobile Cryotherapy</title>
+    <meta name="description" content="Check in for your Recovery Plus cryotherapy session. Quick and easy mobile check-in.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <!-- Inline critical styles for check-in page -->
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        h1, h2, h3 {
+            font-family: Impact, 'Arial Black', sans-serif;
+        }
+
+        html.fonts-loaded body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        html.fonts-loaded h1, html.fonts-loaded h2, html.fonts-loaded h3 {
+            font-family: 'Bebas Neue', Impact, 'Arial Black', sans-serif;
+        }
+
+        .checkin-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+            padding-top: 140px; /* Add space below fixed header */
+        }
+
+        .checkin-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkin-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .checkin-header h1 {
+            font-size: 2rem;
+            color: var(--accent-400);
+            margin-bottom: 0.5rem;
+        }
+
+        .checkin-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .phone-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.125rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: border-color 0.2s;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+
+        .phone-input:focus {
+            outline: none;
+            border-color: var(--accent-400);
+        }
+
+        .phone-input.error {
+            border-color: var(--red);
+        }
+
+        .error-message {
+            display: none;
+            color: var(--red);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        .checkin-btn {
+            width: 100%;
+            padding: 1.25rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s, background-color 0.2s;
+            font-family: var(--font-display);
+            letter-spacing: 0.05em;
+        }
+
+        .checkin-btn:hover:not(:disabled) {
+            background: var(--accent-500);
+            transform: translateY(-2px);
+        }
+
+        .checkin-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .loading-spinner.visible {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--accent-400);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result-message {
+            display: none;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .result-message.visible {
+            display: block;
+        }
+
+        .result-message.success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 2px solid var(--green);
+            color: var(--green);
+        }
+
+        .result-message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid var(--red);
+            color: var(--red);
+        }
+
+        .result-message.warning {
+            background: rgba(251, 191, 36, 0.1);
+            border: 2px solid var(--yellow);
+            color: var(--yellow);
+        }
+
+        .result-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-family: var(--font-display);
+        }
+
+        .result-text {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .sessions-remaining {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-400);
+            margin: 1rem 0;
+        }
+
+        .help-text {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .help-text a {
+            color: var(--accent-400);
+            text-decoration: none;
+        }
+
+        .help-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Package offerings */
+        .package-offerings {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .package-offerings-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .package-card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .package-card:hover {
+            border-color: var(--accent-400);
+            transform: translateY(-2px);
+        }
+
+        .package-card.featured {
+            border-color: var(--accent-400);
+            background: var(--accent-400);
+            color: var(--bg-primary);
+        }
+
+        .package-card.featured .package-price,
+        .package-card.featured .package-sessions {
+            color: var(--bg-primary);
+        }
+
+        .package-card.featured .package-name {
+            color: var(--bg-primary);
+        }
+
+        .package-badge {
+            display: inline-block;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .package-card.featured .package-badge {
+            background: var(--bg-primary);
+            color: var(--accent-400);
+        }
+
+        .package-name {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-family: var(--font-display);
+        }
+
+        .package-price {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent-400);
+            margin-bottom: 0.25rem;
+        }
+
+        .package-sessions {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-display);
+        }
+
+        .action-btn.primary {
+            background: var(--accent-400);
+            color: var(--bg-primary);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--accent-500);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .action-btn.secondary:hover {
+            border-color: var(--accent-400);
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 640px) {
+            .checkin-container {
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+
+            .checkin-card {
+                padding: 1.5rem;
+            }
+
+            .checkin-header h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="header" data-header role="banner">
+        <div class="container">
+            <div class="header-inner">
+                <!-- Logo -->
+                <a href="../index.html" class="logo" aria-label="Recovery Plus Home">
+                    <img src="https://static.wixstatic.com/media/af441a_914e0d8d3c724bf1bd4c7a6456ada3ea~mv2.png/v1/crop/x_223,y_521,w_1065,h_477/fill/w_714,h_320,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Untitled%20design.png" alt="Recovery Plus">
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop" aria-label="Primary Navigation">
+                    <a href="../index.html" class="nav-link">Home</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="pricing.html" class="nav-link">Pricing</a>
+                    <a href="booking.html" class="nav-link">Booking</a>
+                    <a href="checkin.html" class="nav-link">Check-In</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="header-actions">
+                    <a href="tel:+17077611528" class="header-phone" aria-label="Call us at 707-761-1528">
+                        (707) 761-1528
+                    </a>
+
+                    <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark/light theme">
+                        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+
+                    <a href="booking.html" class="btn btn-primary header-cta">
+                        <span>Book Now</span>
+                    </a>
+
+                    <button class="mobile-menu-toggle" data-mobile-menu-toggle aria-label="Toggle mobile menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-menu" data-mobile-menu role="navigation" aria-label="Mobile Navigation" aria-hidden="true">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" data-mobile-menu-close aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <nav class="mobile-nav">
+                <a href="../index.html" class="mobile-nav-link">Home</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="pricing.html" class="mobile-nav-link">Pricing</a>
+                <a href="booking.html" class="mobile-nav-link">Booking</a>
+                <a href="checkin.html" class="mobile-nav-link">Check-In</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+            </nav>
+            <div class="mobile-menu-footer">
+                <a href="tel:+17077611528" class="mobile-cta-button">Call Now</a>
+                <a href="booking.html" class="mobile-cta-button mobile-cta-primary">Book Session</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" data-mobile-menu-overlay></div>
+
+    <!-- Check-in Container -->
+    <div class="checkin-container">
+        <div class="checkin-card">
+            <div class="checkin-header">
+                <h1>CHECK-IN</h1>
+                <p>Enter your phone number to check in</p>
+            </div>
+
+            <form id="checkinForm">
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input
+                        type="tel"
+                        id="phoneNumber"
+                        class="phone-input"
+                        placeholder="(707) 555-0123"
+                        maxlength="14"
+                        autocomplete="tel"
+                        required>
+                    <div class="error-message" id="phoneError">Please enter a valid phone number</div>
+                </div>
+
+                <button type="submit" class="checkin-btn" id="checkinBtn">
+                    CHECK IN
+                </button>
+            </form>
+
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner"></div>
+                <p style="margin-top: 1rem; color: var(--text-secondary);">Processing check-in...</p>
+            </div>
+
+            <div class="result-message" id="resultMessage">
+                <div class="result-icon" id="resultIcon"></div>
+                <div class="result-title" id="resultTitle"></div>
+                <div class="result-text" id="resultText"></div>
+                <div class="sessions-remaining" id="sessionsRemaining"></div>
+            </div>
+
+            <div class="help-text">
+                Need help? <a href="contact.html">Contact us</a> or call <a href="tel:707-761-1528">707-761-1528</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JavaScript -->
+    <script src="../js/main.js"></script>
+
+    <!-- Check-in JavaScript -->
+    <script>
+        (function() {
+            'use strict';
+
+            // DOM Elements
+            const form = document.getElementById('checkinForm');
+            const phoneInput = document.getElementById('phoneNumber');
+            const phoneError = document.getElementById('phoneError');
+            const checkinBtn = document.getElementById('checkinBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const resultMessage = document.getElementById('resultMessage');
+            const resultIcon = document.getElementById('resultIcon');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultText = document.getElementById('resultText');
+            const sessionsRemaining = document.getElementById('sessionsRemaining');
+
+            // Phone formatting
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 0) {
+                    if (value.length <= 3) {
+                        value = '(' + value;
+                    } else if (value.length <= 6) {
+                        value = '(' + value.slice(0, 3) + ') ' + value.slice(3);
+                    } else {
+                        value = '(' + value.slice(0, 3) + ') ' + value.slice(3, 6) + '-' + value.slice(6, 10);
+                    }
+                }
+                e.target.value = value;
+            });
+
+            // Form validation
+            function validatePhone(phone) {
+                const cleaned = phone.replace(/\D/g, '');
+                return cleaned.length === 10;
+            }
+
+            // Show result
+            function showResult(type, title, text, remaining = null, resultData = null) {
+                // Hide form and loading
+                form.style.display = 'none';
+                loadingSpinner.classList.remove('visible');
+
+                // Set result content
+                resultMessage.className = 'result-message visible ' + type;
+
+                if (type === 'success') {
+                    resultIcon.textContent = '✓';
+                } else if (type === 'error') {
+                    resultIcon.textContent = '✕';
+                } else if (type === 'warning') {
+                    resultIcon.textContent = '⚠';
+                }
+
+                resultTitle.textContent = title;
+                resultText.textContent = text;
+
+                if (remaining !== null) {
+                    sessionsRemaining.textContent = remaining + ' session' + (remaining !== 1 ? 's' : '') + ' remaining';
+                    sessionsRemaining.style.display = 'block';
+                } else {
+                    sessionsRemaining.style.display = 'none';
+                }
+
+                // Show package offerings if applicable
+                if (resultData && resultData.showPackages) {
+                    renderPackageOfferings(resultData);
+                }
+
+                // Auto-reset after 5 seconds for success
+                if (type === 'success') {
+                    setTimeout(resetForm, 5000);
+                }
+            }
+
+            // Render package offerings
+            function renderPackageOfferings(resultData) {
+                const packages = [
+                    { name: '4 Sessions', price: 100, sessions: 4, popular: false },
+                    { name: '8 Sessions', price: 180, sessions: 8, popular: true },
+                    { name: '12 Sessions', price: 240, sessions: 12, popular: false }
+                ];
+
+                const container = document.createElement('div');
+                container.className = 'package-offerings';
+
+                // Title based on context
+                let titleText = 'Available Packages';
+                if (resultData.client && resultData.client.previousPackage) {
+                    titleText = 'Get More Sessions';
+                }
+
+                const title = document.createElement('div');
+                title.className = 'package-offerings-title';
+                title.textContent = titleText;
+
+                const grid = document.createElement('div');
+                grid.className = 'package-grid';
+
+                packages.forEach(pkg => {
+                    const card = document.createElement('div');
+                    card.className = 'package-card';
+
+                    // Mark previous package as featured
+                    const isPrevious = resultData.client && resultData.client.previousPackage &&
+                                     resultData.client.previousPackage.price === pkg.price;
+                    if (isPrevious) {
+                        card.classList.add('featured');
+
+                        const badge = document.createElement('div');
+                        badge.className = 'package-badge';
+                        badge.textContent = 'YOUR PACKAGE';
+                        card.appendChild(badge);
+                    } else if (pkg.popular) {
+                        const badge = document.createElement('div');
+                        badge.className = 'package-badge';
+                        badge.textContent = 'POPULAR';
+                        card.appendChild(badge);
+                    }
+
+                    const name = document.createElement('div');
+                    name.className = 'package-name';
+                    name.textContent = pkg.name;
+
+                    const price = document.createElement('div');
+                    price.className = 'package-price';
+                    price.textContent = '$' + pkg.price;
+
+                    const sessions = document.createElement('div');
+                    sessions.className = 'package-sessions';
+                    sessions.textContent = pkg.sessions + ' Sessions';
+
+                    card.appendChild(name);
+                    card.appendChild(price);
+                    card.appendChild(sessions);
+
+                    card.addEventListener('click', () => {
+                        window.location.href = 'booking.html?package=' + pkg.sessions;
+                    });
+
+                    grid.appendChild(card);
+                });
+
+                container.appendChild(title);
+                container.appendChild(grid);
+
+                // Action buttons
+                const actions = document.createElement('div');
+                actions.className = 'action-buttons';
+
+                const tryAgainBtn = document.createElement('button');
+                tryAgainBtn.className = 'action-btn secondary';
+                tryAgainBtn.textContent = 'TRY AGAIN';
+                tryAgainBtn.addEventListener('click', resetForm);
+
+                const viewAllBtn = document.createElement('button');
+                viewAllBtn.className = 'action-btn primary';
+                viewAllBtn.textContent = 'VIEW ALL OPTIONS';
+                viewAllBtn.addEventListener('click', () => {
+                    window.location.href = 'pricing.html';
+                });
+
+                actions.appendChild(tryAgainBtn);
+                actions.appendChild(viewAllBtn);
+
+                container.appendChild(actions);
+
+                resultMessage.appendChild(container);
+            }
+
+            // Reset form
+            function resetForm() {
+                form.style.display = 'block';
+                resultMessage.classList.remove('visible');
+
+                // Clear package offerings if exists
+                const packageOfferings = resultMessage.querySelector('.package-offerings');
+                if (packageOfferings) {
+                    packageOfferings.remove();
+                }
+
+                phoneInput.value = '';
+                phoneInput.focus();
+            }
+
+            // Mock check-in API (replace with real backend)
+            async function processCheckin(phone) {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // Mock client database with previous package info
+                const mockClients = {
+                    '7077610000': {
+                        name: 'John Doe',
+                        package: { active: true, sessions: 7, type: '8-session', price: 180 }
+                    },
+                    '7077610001': {
+                        name: 'Jane Smith',
+                        package: { active: true, sessions: 1, type: '4-session', price: 100 },
+                        previousPackage: { type: '4-session', price: 100 }
+                    },
+                    '7077610002': {
+                        name: 'Bob Johnson',
+                        package: { active: true, sessions: 0, type: '4-session', price: 100 },
+                        previousPackage: { type: '4-session', price: 100 }
+                    },
+                    '7077610003': {
+                        name: 'Alice Brown',
+                        package: { active: false, expired: true, type: '8-session', price: 180 },
+                        previousPackage: { type: '8-session', price: 180 }
+                    },
+                    '7077610004': {
+                        name: 'Charlie Davis',
+                        package: null
+                    }
+                };
+
+                const cleaned = phone.replace(/\D/g, '');
+                const client = mockClients[cleaned];
+
+                if (!client) {
+                    return {
+                        success: false,
+                        type: 'unknown',
+                        message: 'Client not found. Please contact us to set up your account.',
+                        showPackages: true
+                    };
+                }
+
+                if (!client.package) {
+                    return {
+                        success: false,
+                        type: 'no_package',
+                        message: 'No active package found. Please purchase a package to check in.',
+                        showPackages: true
+                    };
+                }
+
+                if (client.package.expired) {
+                    return {
+                        success: false,
+                        type: 'expired',
+                        message: 'Your package has expired. Please renew your package.',
+                        client: client,
+                        showPackages: true
+                    };
+                }
+
+                if (client.package.sessions === 0) {
+                    return {
+                        success: false,
+                        type: 'exhausted',
+                        message: 'All sessions used. Please purchase a new package to continue.',
+                        client: client,
+                        showPackages: true
+                    };
+                }
+
+                // Success - decrement session
+                const newRemaining = client.package.sessions - 1;
+
+                return {
+                    success: true,
+                    remaining: newRemaining,
+                    message: 'Check-in successful! Welcome, ' + client.name + '!'
+                };
+            }
+
+            // Form submission
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                // Validate phone
+                const phone = phoneInput.value;
+                if (!validatePhone(phone)) {
+                    phoneInput.classList.add('error');
+                    phoneError.classList.add('visible');
+                    return;
+                }
+
+                phoneInput.classList.remove('error');
+                phoneError.classList.remove('visible');
+
+                // Show loading
+                checkinBtn.disabled = true;
+                loadingSpinner.classList.add('visible');
+
+                try {
+                    const result = await processCheckin(phone);
+
+                    if (result.success) {
+                        showResult('success', 'Check-In Successful!', result.message, result.remaining, null);
+                    } else {
+                        let type = 'error';
+                        let title = 'Check-In Failed';
+
+                        if (result.type === 'exhausted' || result.type === 'expired') {
+                            type = 'warning';
+                            title = result.type === 'exhausted' ? 'Sessions Exhausted' : 'Package Expired';
+                        } else if (result.type === 'no_package') {
+                            type = 'warning';
+                            title = 'No Package Found';
+                        } else if (result.type === 'unknown') {
+                            title = 'Client Not Found';
+                        }
+
+                        showResult(type, title, result.message, null, result);
+                    }
+                } catch (error) {
+                    showResult('error', 'Error', 'An error occurred. Please try again or contact us for assistance.');
+                } finally {
+                    checkinBtn.disabled = false;
+                }
+            });
+
+            // Focus phone input on load
+            phoneInput.focus();
+        })();
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="https://static.wixstatic.com/media/af441a_914e0d8d3c724bf1bd4c7a6456ada3ea~mv2.png/v1/crop/x_223,y_521,w_1065,h_477/fill/w_714,h_320,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Untitled%20design.png" alt="Recovery Plus">
+                    </a>
+                    <p>Mobile cryotherapy for Northern California. We come to you.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/recoveryplus" aria-label="Instagram" target="_blank" rel="noopener">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/recoveryplus" aria-label="Facebook" target="_blank" rel="noopener">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html#services">Cryotherapy</a></li>
+                        <li><a href="pricing.html">Pricing Plans</a></li>
+                        <li><a href="../index.html#services">Pain Relief</a></li>
+                        <li><a href="../index.html#services">Facials</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html#about">About</a></li>
+                        <li><a href="../index.html#science">The Science</a></li>
+                        <li><a href="../index.html#faq">FAQ</a></li>
+                        <li><a href="../index.html#testimonials">Reviews</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:7077611528">(707) 761-1528</a></li>
+                        <li><a href="sms:7077611528">Text Us</a></li>
+                        <li><a href="mailto:Brian.recoveryplus@outlook.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Recovery Plus. All rights reserved. Built by KeySolutionz</p>
+                <div class="footer-badges">
+                    <span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        HSA/FSA
+                    </span>
+                    <span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Insured
+                    </span>
+                    <span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Certified
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky Bottom Nav -->
+    <div class="mobile-sticky">
+        <a href="tel:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Call
+        </a>
+        <a href="sms:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            Text
+        </a>
+        <a href="booking.html" class="primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Book
+        </a>
+    </div>
+</body>
+</html>

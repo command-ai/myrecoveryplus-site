@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Plans | Recovery Plus - Mobile Cryotherapy</title>
+    <meta name="description" content="View Recovery Plus pricing plans for cryotherapy packages, pain relief, and monthly subscriptions. Flexible options to fit your wellness goals.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <style>
+        /* Page-specific pricing styles */
+        .pricing-page-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 0 60px;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-primary);
+        }
+
+        .pricing-page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+        }
+
+        .pricing-page-hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pricing-page-hero h1 {
+            margin-bottom: 1rem;
+        }
+
+        .pricing-page-hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Pricing Section Categories */
+        .pricing-section {
+            padding: 4rem 0;
+        }
+
+        .pricing-section:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        .pricing-category-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-category-header h2 {
+            margin-bottom: 0.75rem;
+        }
+
+        .pricing-category-header p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Single Session Card */
+        .single-session-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--bg-tertiary);
+            padding: 3rem 2.5rem;
+            border: 2px solid var(--accent-400);
+            box-shadow: var(--glow);
+            text-align: center;
+        }
+
+        .single-session-card .pricing-badge {
+            display: inline-block;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            padding: 0.5rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .single-session-card h3 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        .single-session-price {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .single-session-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Comparison Table */
+        .comparison-table-wrapper {
+            overflow-x: auto;
+            margin: 3rem 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+        }
+
+        .comparison-table thead {
+            background: var(--bg-secondary);
+        }
+
+        .comparison-table th {
+            padding: 1rem;
+            text-align: left;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .comparison-table th.featured {
+            background: var(--accent-400);
+            color: var(--bg-primary);
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .comparison-table tr:hover {
+            background: var(--bg-hover);
+        }
+
+        .comparison-table .price-cell {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .comparison-table .checkmark {
+            color: var(--neon);
+            font-size: 1.25rem;
+        }
+
+        /* Mobile pricing cards for small screens */
+        @media (max-width: 767px) {
+            .comparison-table {
+                display: none;
+            }
+
+            .mobile-comparison-grid {
+                display: grid;
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .mobile-comparison-grid {
+                display: none;
+            }
+        }
+
+        .mobile-comparison-card {
+            background: var(--bg-tertiary);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .mobile-comparison-card.featured {
+            border-color: var(--accent-400);
+            box-shadow: var(--glow);
+        }
+
+        .mobile-comparison-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .mobile-comparison-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .mobile-comparison-item:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-comparison-label {
+            color: var(--text-muted);
+        }
+
+        .mobile-comparison-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Pricing Notes */
+        .pricing-notes {
+            background: var(--bg-tertiary);
+            padding: 2rem;
+            border-left: 3px solid var(--accent-400);
+            margin-top: 3rem;
+        }
+
+        .pricing-notes h3 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: none;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .pricing-notes ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pricing-notes li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .pricing-notes li svg {
+            color: var(--accent-400);
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+
+        /* FAQ Section on pricing page */
+        .pricing-faq {
+            background: var(--bg-primary);
+            padding: 4rem 0;
+        }
+
+        .pricing-faq h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header" data-header>
+        <div class="container header-inner">
+            <a href="../index.html" class="logo">
+                <img src="https://static.wixstatic.com/media/af441a_914e0d8d3c724bf1bd4c7a6456ada3ea~mv2.png/v1/crop/x_223,y_521,w_1065,h_477/fill/w_714,h_320,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Untitled%20design.png" alt="Recovery Plus">
+            </a>
+
+            <nav class="nav-desktop" aria-label="Primary Navigation">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="booking.html" class="nav-link">Booking</a>
+                <a href="checkin.html" class="nav-link">Check-In</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="tel:+17077611528" class="header-phone" aria-label="Call us at 707-761-1528">
+                    (707) 761-1528
+                </a>
+
+                <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark/light theme">
+                    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+
+                <a href="booking.html" class="btn btn-primary header-cta">
+                    <span>Book Now</span>
+                </a>
+
+                <button class="mobile-menu-toggle" data-mobile-menu-toggle aria-label="Toggle mobile menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-menu" data-mobile-menu role="navigation" aria-label="Mobile Navigation" aria-hidden="true">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" data-mobile-menu-close aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <nav class="mobile-nav">
+                <a href="../index.html" class="mobile-nav-link">Home</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="pricing.html" class="mobile-nav-link">Pricing</a>
+                <a href="booking.html" class="mobile-nav-link">Booking</a>
+                <a href="checkin.html" class="mobile-nav-link">Check-In</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+            </nav>
+            <div class="mobile-menu-footer">
+                <a href="tel:+17077611528" class="mobile-cta-button">Call Now</a>
+                <a href="booking.html" class="mobile-cta-button mobile-cta-primary">Book Session</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" data-mobile-menu-overlay></div>
+
+    <!-- PRICING HERO -->
+    <section class="pricing-page-hero">
+        <div class="container">
+            <span class="eyebrow">Transparent Pricing</span>
+            <h1>Choose Your<br><span class="highlight">Recovery Plan</span></h1>
+            <p>Flexible packages and subscriptions designed for every recovery goal. No hidden fees.</p>
+        </div>
+    </section>
+
+    <!-- MONTHLY SUBSCRIPTIONS -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-category-header">
+                <span class="eyebrow">Best Value</span>
+                <h2>Monthly Subscriptions</h2>
+                <p>Consistent recovery with unlimited flexibility. Cancel anytime.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Bronze -->
+                <div class="pricing-card">
+                    <div class="pricing-name">Bronze Level</div>
+                    <div class="pricing-price">$140<span>/mo</span></div>
+                    <div class="pricing-note">Month-to-month</div>
+                    <div class="pricing-desc">
+                        4 Cryo Sessions + 4 Add-ons (Cupping, Compression, or Stem Machine)
+                    </div>
+                    <a href="#book" class="btn btn-primary">
+                        <span>Select Bronze</span>
+                    </a>
+                </div>
+
+                <!-- Silver -->
+                <div class="pricing-card">
+                    <div class="pricing-name">Silver Level</div>
+                    <div class="pricing-price">$250<span>/mo</span></div>
+                    <div class="pricing-note">Month-to-month</div>
+                    <div class="pricing-desc">
+                        8 Cryo Sessions + 8 Add-ons (Cupping, Compression, or Stem Machine)
+                    </div>
+                    <a href="#book" class="btn btn-primary">
+                        <span>Select Silver</span>
+                    </a>
+                </div>
+
+                <!-- Gold - Featured -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-name">Gold Level</div>
+                    <div class="pricing-price">$360<span>/mo</span></div>
+                    <div class="pricing-note">Month-to-month</div>
+                    <div class="pricing-desc">
+                        12 Cryo Sessions + 4 Cryo Facials + 12 Add-ons (Cupping, Compression, or Stem Machine)
+                    </div>
+                    <a href="#book" class="btn btn-primary">
+                        <span>Select Gold</span>
+                    </a>
+                </div>
+
+                <!-- Single Session -->
+                <div class="pricing-card">
+                    <div class="pricing-name">Single Session</div>
+                    <div class="pricing-price">$35</div>
+                    <div class="pricing-note">10 minutes</div>
+                    <div class="pricing-desc">
+                        1 Cryo Session + 1 Add-on (Perfect for trying cryotherapy)
+                    </div>
+                    <a href="#book" class="btn btn-primary">
+                        <span>Book Now</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="pricing-notes">
+                <h3>Important Subscription Details</h3>
+                <ul>
+                    <li>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="16" x2="12" y2="12"/>
+                            <line x1="12" y1="8" x2="12.01" y2="8"/>
+                        </svg>
+                        Unused sessions will not roll over to the next month
+                    </li>
+                    <li>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Cancel anytime with no penalties
+                    </li>
+                    <li>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Mobile service - we come to you
+                    </li>
+                    <li>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Flexible scheduling to fit your routine
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CRYO FACIAL PACKAGES -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-category-header">
+                <span class="eyebrow">Skin Rejuvenation</span>
+                <h2>Cryo Facial Packages</h2>
+                <p>Targeted facial treatments for glowing, youthful skin. Valid for 12 months.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- 4 Sessions -->
+                <div class="pricing-card">
+                    <div class="pricing-name">4 Session Package</div>
+                    <div class="pricing-price">$140</div>
+                    <div class="pricing-note">Valid for 12 months</div>
+                    <div class="pricing-desc">
+                        4 Cryo Facial sessions for skin tightening and rejuvenation
+                    </div>
+                    <a href="#book" class="btn btn-primary">
+                        <span>Select Service</span>
+                    </a>
+                </div>
+
+                <!-- 8 Sessions -->
+                <div class="pricing-card">
+                    <div class="pricing-name">8 Session Package</div>
+                    <div class="pricing-price">$252</div>
+                    <div class="pricing-note">Valid for 12 months</div>
+                    <div class="pricing-desc">
+                        8 Cryo Facial sessions for consistent skin improvement
+                    </div>
+                    <a href="#book" class="btn btn-primary">
+                        <span>Select Service</span>
+                    </a>
+                </div>
+
+                <!-- 12 Sessions -->
+                <div class="pricing-card">
+                    <div class="pricing-name">12 Session Package</div>
+                    <div class="pricing-price">$346</div>
+                    <div class="pricing-note">Valid for 12 months</div>
+                    <div class="pricing-desc">
+                        12 Cryo Facial sessions for maximum skin transformation
+                    </div>
+                    <a href="#book" class="btn btn-primary">
+                        <span>Select Service</span>
+                    </a>
+                </div>
+
+                <!-- 16 Sessions -->
+                <div class="pricing-card">
+                    <div class="pricing-name">16 Session Package</div>
+                    <div class="pricing-price">$446</div>
+                    <div class="pricing-note">Valid for 12 months</div>
+                    <div class="pricing-desc">
+                        16 Cryo Facial sessions for long-term skin health
+                    </div>
+                    <a href="#book" class="btn btn-primary">
+                        <span>Select Service</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAIN RELIEF PACKAGES -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-category-header">
+                <span class="eyebrow">Therapeutic Recovery</span>
+                <h2>Pain Relief Packages</h2>
+                <p>Targeted cryotherapy for pain management and injury recovery. Valid for 12 months.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- 4 Sessions -->
+                <div class="pricing-card">
+                    <div class="pricing-name">4 Session Package</div>
+                    <div class="pricing-price">$180</div>
+                    <div class="pricing-note">Valid for 12 months</div>
+                    <div class="pricing-desc">
+                        4 Pain Relief sessions for acute pain management
+                    </div>
+                    <a href="#book" class="btn btn-primary">
+                        <span>Select Service</span>
+                    </a>
+                </div>
+
+                <!-- 8 Sessions -->
+                <div class="pricing-card">
+                    <div class="pricing-name">8 Session Package</div>
+                    <div class="pricing-price">$324</div>
+                    <div class="pricing-note">Valid for 12 months</div>
+                    <div class="pricing-desc">
+                        8 Pain Relief sessions for ongoing recovery
+                    </div>
+                    <a href="#book" class="btn btn-primary">
+                        <span>Select Service</span>
+                    </a>
+                </div>
+
+                <!-- 12 Sessions -->
+                <div class="pricing-card">
+                    <div class="pricing-name">12 Session Package</div>
+                    <div class="pricing-price">$445</div>
+                    <div class="pricing-note">Valid for 12 months</div>
+                    <div class="pricing-desc">
+                        12 Pain Relief sessions for chronic pain relief
+                    </div>
+                    <a href="#book" class="btn btn-primary">
+                        <span>Select Service</span>
+                    </a>
+                </div>
+
+                <!-- 16 Sessions -->
+                <div class="pricing-card">
+                    <div class="pricing-name">16 Session Package</div>
+                    <div class="pricing-price">$574</div>
+                    <div class="pricing-note">Valid for 12 months</div>
+                    <div class="pricing-desc">
+                        16 Pain Relief sessions for comprehensive pain management
+                    </div>
+                    <a href="#book" class="btn btn-primary">
+                        <span>Select Service</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-category-header">
+                <span class="eyebrow">Compare Plans</span>
+                <h2>Find Your Perfect Fit</h2>
+                <p>Side-by-side comparison of our most popular subscription plans.</p>
+            </div>
+
+            <!-- Desktop Table -->
+            <div class="comparison-table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Bronze</th>
+                            <th>Silver</th>
+                            <th class="featured">Gold</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Monthly Price</td>
+                            <td class="price-cell">$140</td>
+                            <td class="price-cell">$250</td>
+                            <td class="price-cell">$360</td>
+                        </tr>
+                        <tr>
+                            <td>Cryo Sessions</td>
+                            <td>4 per month</td>
+                            <td>8 per month</td>
+                            <td>12 per month</td>
+                        </tr>
+                        <tr>
+                            <td>Cryo Facials</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>4 per month</td>
+                        </tr>
+                        <tr>
+                            <td>Add-ons (Cupping/Compression/Stem)</td>
+                            <td>4 per month</td>
+                            <td>8 per month</td>
+                            <td>12 per month</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile Service</td>
+                            <td><span class="checkmark">✓</span></td>
+                            <td><span class="checkmark">✓</span></td>
+                            <td><span class="checkmark">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Flexible Scheduling</td>
+                            <td><span class="checkmark">✓</span></td>
+                            <td><span class="checkmark">✓</span></td>
+                            <td><span class="checkmark">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Cancel Anytime</td>
+                            <td><span class="checkmark">✓</span></td>
+                            <td><span class="checkmark">✓</span></td>
+                            <td><span class="checkmark">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Priority Booking</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><span class="checkmark">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Best For</td>
+                            <td>Getting Started</td>
+                            <td>Regular Recovery</td>
+                            <td>Complete Wellness</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile Cards -->
+            <div class="mobile-comparison-grid">
+                <div class="mobile-comparison-card">
+                    <h4>Bronze - $140/month</h4>
+                    <div class="mobile-comparison-item">
+                        <span class="mobile-comparison-label">Cryo Sessions</span>
+                        <span class="mobile-comparison-value">4/month</span>
+                    </div>
+                    <div class="mobile-comparison-item">
+                        <span class="mobile-comparison-label">Cryo Facials</span>
+                        <span class="mobile-comparison-value">-</span>
+                    </div>
+                    <div class="mobile-comparison-item">
+                        <span class="mobile-comparison-label">Add-ons</span>
+                        <span class="mobile-comparison-value">4/month</span>
+                    </div>
+                    <div class="mobile-comparison-item">
+                        <span class="mobile-comparison-label">Best For</span>
+                        <span class="mobile-comparison-value">Getting Started</span>
+                    </div>
+                    <a href="#book" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">
+                        <span>Select Bronze</span>
+                    </a>
+                </div>
+
+                <div class="mobile-comparison-card">
+                    <h4>Silver - $250/month</h4>
+                    <div class="mobile-comparison-item">
+                        <span class="mobile-comparison-label">Cryo Sessions</span>
+                        <span class="mobile-comparison-value">8/month</span>
+                    </div>
+                    <div class="mobile-comparison-item">
+                        <span class="mobile-comparison-label">Cryo Facials</span>
+                        <span class="mobile-comparison-value">-</span>
+                    </div>
+                    <div class="mobile-comparison-item">
+                        <span class="mobile-comparison-label">Add-ons</span>
+                        <span class="mobile-comparison-value">8/month</span>
+                    </div>
+                    <div class="mobile-comparison-item">
+                        <span class="mobile-comparison-label">Best For</span>
+                        <span class="mobile-comparison-value">Regular Recovery</span>
+                    </div>
+                    <a href="#book" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">
+                        <span>Select Silver</span>
+                    </a>
+                </div>
+
+                <div class="mobile-comparison-card featured">
+                    <h4>Gold - $360/month ⭐</h4>
+                    <div class="mobile-comparison-item">
+                        <span class="mobile-comparison-label">Cryo Sessions</span>
+                        <span class="mobile-comparison-value">12/month</span>
+                    </div>
+                    <div class="mobile-comparison-item">
+                        <span class="mobile-comparison-label">Cryo Facials</span>
+                        <span class="mobile-comparison-value">4/month</span>
+                    </div>
+                    <div class="mobile-comparison-item">
+                        <span class="mobile-comparison-label">Add-ons</span>
+                        <span class="mobile-comparison-value">12/month</span>
+                    </div>
+                    <div class="mobile-comparison-item">
+                        <span class="mobile-comparison-label">Best For</span>
+                        <span class="mobile-comparison-value">Complete Wellness</span>
+                    </div>
+                    <a href="#book" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">
+                        <span>Select Gold</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="https://static.wixstatic.com/media/af441a_914e0d8d3c724bf1bd4c7a6456ada3ea~mv2.png/v1/crop/x_223,y_521,w_1065,h_477/fill/w_714,h_320,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Untitled%20design.png" alt="Recovery Plus">
+                    </a>
+                    <p>Mobile cryotherapy for Northern California. We come to you.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/recoveryplus" aria-label="Instagram" target="_blank" rel="noopener">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/recoveryplus" aria-label="Facebook" target="_blank" rel="noopener">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html#services">Cryotherapy</a></li>
+                        <li><a href="pricing.html">Pricing Plans</a></li>
+                        <li><a href="../index.html#services">Pain Relief</a></li>
+                        <li><a href="../index.html#services">Facials</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html#about">About</a></li>
+                        <li><a href="../index.html#science">The Science</a></li>
+                        <li><a href="../index.html#faq">FAQ</a></li>
+                        <li><a href="../index.html#testimonials">Reviews</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:7077611528">(707) 761-1528</a></li>
+                        <li><a href="sms:7077611528">Text Us</a></li>
+                        <li><a href="mailto:Brian.recoveryplus@outlook.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Recovery Plus. All rights reserved. Built by KeySolutionz</p>
+                <div class="footer-badges">
+                    <span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        HSA/FSA
+                    </span>
+                    <span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Insured
+                    </span>
+                    <span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Certified
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MOBILE STICKY BAR -->
+    <div class="mobile-sticky">
+        <a href="tel:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Call
+        </a>
+        <a href="sms:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            Text
+        </a>
+        <a href="#book" class="primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            Book
+        </a>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/main.js"></script>
+</body>
+</html>

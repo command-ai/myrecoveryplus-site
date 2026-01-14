@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book your mobile cryotherapy session with Recovery Plus. Cryo facials, pain relief packages, and monthly subscriptions available in Vacaville, CA.">
+    <meta name="keywords" content="cryotherapy booking, mobile cryo, book appointment, Vacaville CA">
+    <title>Book Your Session | Recovery Plus - Mobile Cryotherapy</title>
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <!-- Inline Critical Styles -->
+    <style>
+        /* ====================================================================
+           BOOKING PAGE SPECIFIC STYLES
+           ==================================================================== */
+
+        /* Booking Container */
+        .booking-container {
+            padding: 120px 0 80px;
+            min-height: 100vh;
+        }
+
+        /* Progress Indicator */
+        .booking-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .booking-progress::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border-color);
+            z-index: 0;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            height: 2px;
+            background: var(--accent-400);
+            transition: width 0.4s ease;
+            z-index: 1;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .progress-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .progress-circle {
+            background: var(--accent-400);
+            border-color: var(--accent-400);
+            color: var(--bg-primary);
+            box-shadow: var(--glow);
+        }
+
+        .progress-step.completed .progress-circle {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-400);
+            color: var(--accent-400);
+        }
+
+        .progress-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: var(--text-faint);
+            text-align: center;
+            display: none;
+        }
+
+        .progress-step.active .progress-label,
+        .progress-step.completed .progress-label {
+            color: var(--text-secondary);
+        }
+
+        @media (min-width: 640px) {
+            .progress-label {
+                display: block;
+            }
+
+            .progress-circle {
+                width: 48px;
+                height: 48px;
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Booking Form Wrapper */
+        .booking-form-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .booking-form-wrapper {
+                padding: 3rem;
+            }
+        }
+
+        /* Form Steps */
+        .form-step {
+            display: none;
+            animation: fadeUp 0.4s ease-out;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .step-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .step-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Service Selection Grid */
+        .service-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 640px) {
+            .service-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Service Card Button */
+        .service-option {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: left;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .service-option:hover {
+            border-color: var(--accent-400);
+            background: var(--bg-card);
+        }
+
+        .service-option.selected {
+            border-color: var(--accent-400);
+            background: var(--bg-card);
+        }
+
+        .service-option.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .service-option h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .service-option .service-price {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: var(--accent-400);
+            margin-bottom: 0.5rem;
+        }
+
+        .service-option .service-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Calendar Widget */
+        .calendar-widget {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-placeholder {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-muted);
+        }
+
+        .calendar-placeholder h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* Time Slots */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .time-slot {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            padding: 1rem;
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .time-slot:hover {
+            border-color: var(--accent-400);
+            color: var(--accent-400);
+        }
+
+        .time-slot.selected {
+            background: var(--accent-400);
+            border-color: var(--accent-400);
+            color: var(--bg-primary);
+        }
+
+        .time-slot.unavailable {
+            opacity: 0.4;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
+        /* Availability Indicator */
+        .availability-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .availability-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group label .required {
+            color: var(--red);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-400);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .form-group input.error,
+        .form-group textarea.error,
+        .form-group select.error {
+            border-color: var(--red);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .error-message {
+            display: none;
+            color: var(--red);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .form-group input.error + .error-message,
+        .form-group textarea.error + .error-message {
+            display: block;
+        }
+
+        .form-help {
+            font-size: 0.8rem;
+            color: var(--text-faint);
+            margin-top: 0.5rem;
+        }
+
+        /* Checkbox/Radio Inputs */
+        .checkbox-group,
+        .radio-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-label,
+        .radio-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            cursor: pointer;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkbox-label:hover,
+        .radio-label:hover {
+            border-color: var(--accent-400);
+        }
+
+        .checkbox-label input[type="checkbox"],
+        .radio-label input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            cursor: pointer;
+            flex-shrink: 0;
+            accent-color: var(--accent-400);
+        }
+
+        .checkbox-text,
+        .radio-text {
+            flex: 1;
+        }
+
+        .checkbox-text strong,
+        .radio-text strong {
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .checkbox-text small,
+        .radio-text small {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .checkbox-text a {
+            color: var(--accent-400);
+            text-decoration: underline;
+        }
+
+        /* Review Summary */
+        .booking-summary {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-section {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .summary-section:first-child {
+            padding-top: 0;
+        }
+
+        .summary-section:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .summary-section h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            gap: 1rem;
+        }
+
+        .summary-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: right;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            border-top: 2px solid var(--accent-400);
+        }
+
+        .summary-total-label {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+        }
+
+        .summary-total-value {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--accent-400);
+        }
+
+        /* Promo Code */
+        .promo-code-section {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .promo-code-section input {
+            flex: 1;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+        }
+
+        .promo-code-section button {
+            padding: 1rem 2rem;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .promo-code-section button:hover {
+            border-color: var(--accent-400);
+            color: var(--accent-400);
+        }
+
+        .promo-message {
+            font-size: 0.875rem;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            border-left: 3px solid;
+        }
+
+        .promo-message.success {
+            background: rgba(200, 255, 0, 0.1);
+            border-color: var(--neon);
+            color: var(--neon);
+        }
+
+        .promo-message.error {
+            background: rgba(255, 59, 48, 0.1);
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        /* Form Navigation Buttons */
+        .form-navigation {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .form-navigation .btn {
+            flex: 1;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        @media (max-width: 639px) {
+            .form-navigation {
+                flex-direction: column-reverse;
+            }
+
+            .form-navigation .btn {
+                width: 100%;
+            }
+        }
+
+        /* Contact Info Box */
+        .contact-info-box {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-400);
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info-box h4 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info-box p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-info-box a {
+            color: var(--accent-400);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contact-info-box a:hover {
+            color: var(--text-primary);
+            text-decoration: underline;
+        }
+
+        /* Success Screen */
+        .success-screen {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            background: var(--accent-400);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--bg-primary);
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .success-screen h2 {
+            margin-bottom: 1rem;
+        }
+
+        .success-screen p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Loading State */
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--accent-400);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn.loading .loading-spinner {
+            display: inline-block;
+        }
+
+        .btn.loading span {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" data-header>
+        <div class="container">
+            <div class="header-inner">
+                <!-- Logo -->
+                <a href="../index.html" class="logo">
+                    <img src="../images/logo.png" alt="Recovery Plus Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="logo-mark" style="display: none; width: 40px; height: 40px; background: var(--accent-400); color: var(--bg-primary); font-family: var(--font-display); font-size: 1.5rem; display: flex; align-items: center; justify-content: center;">R+</div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop" aria-label="Primary Navigation">
+                    <a href="../index.html" class="nav-link">Home</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="pricing.html" class="nav-link">Pricing</a>
+                    <a href="booking.html" class="nav-link">Booking</a>
+                    <a href="checkin.html" class="nav-link">Check-In</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="header-actions">
+                    <a href="tel:+17077611528" class="header-phone" aria-label="Call us at 707-761-1528">
+                        (707) 761-1528
+                    </a>
+
+                    <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark/light theme">
+                        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+
+                    <button class="mobile-menu-toggle" data-mobile-menu-toggle aria-label="Toggle mobile menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-menu" data-mobile-menu role="navigation" aria-label="Mobile Navigation" aria-hidden="true">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" data-mobile-menu-close aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <nav class="mobile-nav">
+                <a href="../index.html" class="mobile-nav-link">Home</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="pricing.html" class="mobile-nav-link">Pricing</a>
+                <a href="booking.html" class="mobile-nav-link">Booking</a>
+                <a href="checkin.html" class="mobile-nav-link">Check-In</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+            </nav>
+            <div class="mobile-menu-footer">
+                <a href="tel:+17077611528" class="mobile-cta-button">Call Now</a>
+                <a href="booking.html" class="mobile-cta-button mobile-cta-primary">Book Session</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" data-mobile-menu-overlay></div>
+
+    <!-- Main Content -->
+    <main class="booking-container">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="section-header center" style="margin-bottom: 3rem;">
+                <span class="eyebrow">Book Your Session</span>
+                <h1 style="font-size: clamp(3rem, 8vw, 5rem);">SCHEDULE YOUR <span class="highlight">RECOVERY</span></h1>
+                <p>Complete the booking form below to schedule your mobile cryotherapy session. We'll bring the recovery to you!</p>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="booking-progress">
+                <div class="progress-line" style="width: 0%;"></div>
+
+                <div class="progress-step active" data-step="1">
+                    <div class="progress-circle">1</div>
+                    <span class="progress-label">Service</span>
+                </div>
+
+                <div class="progress-step" data-step="2">
+                    <div class="progress-circle">2</div>
+                    <span class="progress-label">Date & Time</span>
+                </div>
+
+                <div class="progress-step" data-step="3">
+                    <div class="progress-circle">3</div>
+                    <span class="progress-label">Your Info</span>
+                </div>
+
+                <div class="progress-step" data-step="4">
+                    <div class="progress-circle">4</div>
+                    <span class="progress-label">Waiver</span>
+                </div>
+
+                <div class="progress-step" data-step="5">
+                    <div class="progress-circle">5</div>
+                    <span class="progress-label">Confirm</span>
+                </div>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="booking-form-wrapper">
+                <form id="bookingForm" data-booking-form novalidate>
+
+                    <!-- STEP 1: Select Service -->
+                    <div class="form-step active" data-step="1">
+                        <div class="step-header">
+                            <h2>SELECT YOUR SERVICE</h2>
+                            <p>Choose from our mobile cryotherapy services, packages, or subscriptions</p>
+                        </div>
+
+                        <div class="service-grid">
+                            <!-- Mobile Single Session -->
+                            <button type="button" class="service-option" data-service="mobile-single" data-price="35" data-service-name="Mobile Single Session" data-sessions="1">
+                                <h3>Mobile Single Session</h3>
+                                <div class="service-price">$35</div>
+                                <p class="service-desc">Single whole body cryotherapy session. We come to you!</p>
+                            </button>
+
+                            <!-- Cryo Facial 4 Sessions -->
+                            <button type="button" class="service-option" data-service="cryo-facial-4" data-price="100" data-service-name="Cryo Facial Package - 4 Sessions" data-sessions="4">
+                                <h3>Cryo Facial - 4 Sessions</h3>
+                                <div class="service-price">$100</div>
+                                <p class="service-desc">4 cryotherapy facial sessions for skin rejuvenation</p>
+                            </button>
+
+                            <!-- Cryo Facial 8 Sessions -->
+                            <button type="button" class="service-option" data-service="cryo-facial-8" data-price="180" data-service-name="Cryo Facial Package - 8 Sessions" data-sessions="8">
+                                <h3>Cryo Facial - 8 Sessions</h3>
+                                <div class="service-price">$180</div>
+                                <p class="service-desc">8 sessions package for maximum facial benefits</p>
+                            </button>
+
+                            <!-- Cryo Facial 12 Sessions -->
+                            <button type="button" class="service-option" data-service="cryo-facial-12" data-price="240" data-service-name="Cryo Facial Package - 12 Sessions" data-sessions="12">
+                                <h3>Cryo Facial - 12 Sessions</h3>
+                                <div class="service-price">$240</div>
+                                <p class="service-desc">12 sessions for comprehensive skin transformation</p>
+                            </button>
+
+                            <!-- Cryo Facial 16 Sessions -->
+                            <button type="button" class="service-option" data-service="cryo-facial-16" data-price="300" data-service-name="Cryo Facial Package - 16 Sessions" data-sessions="16">
+                                <h3>Cryo Facial - 16 Sessions</h3>
+                                <div class="service-price">$300</div>
+                                <p class="service-desc">16 sessions for ultimate facial wellness</p>
+                            </button>
+
+                            <!-- Pain Relief 4 Sessions -->
+                            <button type="button" class="service-option" data-service="pain-relief-4" data-price="120" data-service-name="Pain Relief Package - 4 Sessions" data-sessions="4">
+                                <h3>Pain Relief - 4 Sessions</h3>
+                                <div class="service-price">$120</div>
+                                <p class="service-desc">4 targeted pain relief sessions</p>
+                            </button>
+
+                            <!-- Pain Relief 8 Sessions -->
+                            <button type="button" class="service-option" data-service="pain-relief-8" data-price="220" data-service-name="Pain Relief Package - 8 Sessions" data-sessions="8">
+                                <h3>Pain Relief - 8 Sessions</h3>
+                                <div class="service-price">$220</div>
+                                <p class="service-desc">8 sessions for chronic pain management</p>
+                            </button>
+
+                            <!-- Pain Relief 12 Sessions -->
+                            <button type="button" class="service-option" data-service="pain-relief-12" data-price="300" data-service-name="Pain Relief Package - 12 Sessions" data-sessions="12">
+                                <h3>Pain Relief - 12 Sessions</h3>
+                                <div class="service-price">$300</div>
+                                <p class="service-desc">12 sessions for lasting pain relief</p>
+                            </button>
+
+                            <!-- Pain Relief 16 Sessions -->
+                            <button type="button" class="service-option" data-service="pain-relief-16" data-price="380" data-service-name="Pain Relief Package - 16 Sessions" data-sessions="16">
+                                <h3>Pain Relief - 16 Sessions</h3>
+                                <div class="service-price">$380</div>
+                                <p class="service-desc">16 sessions for comprehensive wellness</p>
+                            </button>
+
+                            <!-- Bronze Subscription -->
+                            <button type="button" class="service-option" data-service="subscription-bronze" data-price="99" data-service-name="Bronze Monthly Subscription" data-sessions="4">
+                                <h3>Bronze Subscription</h3>
+                                <div class="service-price">$99<span>/mo</span></div>
+                                <p class="service-desc">4 sessions per month. Perfect for maintenance</p>
+                            </button>
+
+                            <!-- Silver Subscription -->
+                            <button type="button" class="service-option" data-service="subscription-silver" data-price="179" data-service-name="Silver Monthly Subscription" data-sessions="8">
+                                <h3>Silver Subscription</h3>
+                                <div class="service-price">$179<span>/mo</span></div>
+                                <p class="service-desc">8 sessions per month. Great for active recovery</p>
+                            </button>
+
+                            <!-- Gold Subscription -->
+                            <button type="button" class="service-option" data-service="subscription-gold" data-price="299" data-service-name="Gold Monthly Subscription" data-sessions="999">
+                                <h3>Gold Subscription</h3>
+                                <div class="service-price">$299<span>/mo</span></div>
+                                <p class="service-desc">Unlimited sessions. Ultimate wellness plan</p>
+                            </button>
+
+                            <!-- Freeze Party -->
+                            <button type="button" class="service-option" data-service="freeze-party" data-price="0" data-service-name="Freeze Party" data-sessions="1">
+                                <h3>Freeze Party</h3>
+                                <div class="service-price">Custom</div>
+                                <p class="service-desc">Host a cryotherapy party! Pricing based on group size</p>
+                            </button>
+                        </div>
+
+                        <input type="hidden" name="service" id="selectedService" required>
+                        <input type="hidden" name="servicePrice" id="selectedServicePrice">
+                        <input type="hidden" name="serviceName" id="selectedServiceName">
+
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-primary" id="step1Next" data-next-step disabled>
+                                <span>Continue to Date & Time</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: Choose Date & Time -->
+                    <div class="form-step" data-step="2">
+                        <div class="step-header">
+                            <h2>CHOOSE DATE & TIME</h2>
+                            <p id="step2Subtitle">Select your preferred appointment date and time</p>
+                            <div id="sessionProgress" style="display: none; margin-top: 1rem;">
+                                <span style="color: var(--accent-400); font-family: var(--font-display); font-size: 1.25rem;">
+                                    SESSION <span id="currentSessionNum">1</span> OF <span id="totalSessionsNum">1</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Scheduled Sessions List -->
+                        <div id="scheduledSessionsList" style="display: none; margin-bottom: 2rem;">
+                            <h4 style="font-family: var(--font-body); font-size: 1rem; margin-bottom: 1rem; color: var(--text-primary);">Scheduled Sessions:</h4>
+                            <div id="sessionsListContainer"></div>
+                        </div>
+
+                        <div class="availability-indicator">
+                            <span class="availability-dot"></span>
+                            <span>Mobile unit available in your area</span>
+                        </div>
+
+                        <!-- Calendar Widget -->
+                        <div class="calendar-widget" data-booking-calendar>
+                            <div class="calendar-placeholder">
+                                <h4>Select Your Date</h4>
+                                <p>Calendar integration ready for implementation</p>
+                                <p style="font-size: 0.875rem; margin-top: 1rem;">Supports: Calendly, Acuity Scheduling, Square Appointments</p>
+                            </div>
+                        </div>
+
+                        <!-- Date Input (Fallback) -->
+                        <div class="form-group">
+                            <label for="appointmentDate">
+                                Preferred Date <span class="required">*</span>
+                            </label>
+                            <input
+                                type="date"
+                                id="appointmentDate"
+                                name="appointmentDate"
+                                required
+                                min=""
+                                data-validate="required">
+                        </div>
+
+                        <!-- Time Slots -->
+                        <div class="form-group">
+                            <label>Available Time Slots <span class="required">*</span></label>
+                            <div class="time-slots">
+                                <button type="button" class="time-slot" data-time="09:00 AM">9:00 AM</button>
+                                <button type="button" class="time-slot" data-time="10:00 AM">10:00 AM</button>
+                                <button type="button" class="time-slot" data-time="11:00 AM">11:00 AM</button>
+                                <button type="button" class="time-slot" data-time="12:00 PM">12:00 PM</button>
+                                <button type="button" class="time-slot" data-time="01:00 PM">1:00 PM</button>
+                                <button type="button" class="time-slot" data-time="02:00 PM">2:00 PM</button>
+                                <button type="button" class="time-slot" data-time="03:00 PM">3:00 PM</button>
+                                <button type="button" class="time-slot" data-time="04:00 PM">4:00 PM</button>
+                                <button type="button" class="time-slot" data-time="05:00 PM">5:00 PM</button>
+                                <button type="button" class="time-slot" data-time="06:00 PM">6:00 PM</button>
+                            </div>
+                            <input type="hidden" name="appointmentTime" id="selectedTime" required>
+                        </div>
+
+                        <!-- Add Session Button (for multi-session packages) -->
+                        <div id="addSessionContainer" style="display: none; margin: 2rem 0;">
+                            <button type="button" class="btn btn-outline" id="addSessionBtn" style="width: 100%;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <span>Add Another Session</span>
+                            </button>
+                        </div>
+
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-outline" data-prev-step>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                                <span>Back</span>
+                            </button>
+                            <button type="button" class="btn btn-primary" data-next-step id="step2Next" disabled>
+                                <span>Continue to Your Info</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: Your Information -->
+                    <div class="form-step" data-step="3">
+                        <div class="step-header">
+                            <h2>YOUR INFORMATION</h2>
+                            <p>Tell us where to bring the mobile cryotherapy unit</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fullName">
+                                Full Name <span class="required">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="fullName"
+                                name="fullName"
+                                required
+                                minlength="2"
+                                placeholder="John Doe"
+                                data-validate="required">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">
+                                Email Address <span class="required">*</span>
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                required
+                                placeholder="john@example.com"
+                                data-validate="required,email">
+                            <div class="form-help">We'll send your booking confirmation here</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">
+                                Phone Number <span class="required">*</span>
+                            </label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                required
+                                placeholder="(707) 555-0123"
+                                data-validate="required,phone">
+                            <div class="form-help">We'll text you appointment reminders</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">
+                                Service Address <span class="required">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="address"
+                                name="address"
+                                required
+                                placeholder="123 Main Street"
+                                data-validate="required">
+                            <div class="form-help">Where should we bring the mobile unit?</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city">
+                                City <span class="required">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="city"
+                                name="city"
+                                required
+                                placeholder="Vacaville"
+                                value="Vacaville"
+                                data-validate="required">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="zipCode">
+                                ZIP Code <span class="required">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="zipCode"
+                                name="zipCode"
+                                required
+                                placeholder="95688"
+                                pattern="^\d{5}(-\d{4})?$"
+                                data-validate="required">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="specialRequests">
+                                Special Requests or Notes
+                            </label>
+                            <textarea
+                                id="specialRequests"
+                                name="specialRequests"
+                                placeholder="Any special accommodations or questions we should know about?"></textarea>
+                        </div>
+
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-outline" data-prev-step>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                                <span>Back</span>
+                            </button>
+                            <button type="button" class="btn btn-primary" data-next-step>
+                                <span>Continue to Waiver</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: Liability Waiver & Informed Consent -->
+                    <div class="form-step" data-step="4">
+                        <div class="step-header">
+                            <h2>WAIVER & CONSENT</h2>
+                            <p>Please review and acknowledge the liability waiver and medical disclosure requirements</p>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="medicalDisclosure"
+                                    id="medicalDisclosure"
+                                    required>
+                                <div class="checkbox-text">
+                                    <strong>Medical Disclosure</strong>
+                                    <small>I confirm that I do not have any of the following contraindications: pregnancy, severe hypertension, heart conditions, cold allergies, or open wounds. I understand that I should consult with my physician before using cryotherapy if I have any medical concerns.</small>
+                                </div>
+                            </label>
+
+                            <label class="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="liabilityWaiver"
+                                    id="liabilityWaiver"
+                                    required>
+                                <div class="checkbox-text">
+                                    <strong>Liability Waiver</strong>
+                                    <small>I acknowledge that I have read and agree to the <a href="#" target="_blank">full liability waiver and release form</a>. I understand the risks associated with cryotherapy and agree to hold Recovery Plus harmless from any injuries or damages that may occur during my session.</small>
+                                </div>
+                            </label>
+
+                            <label class="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="informedConsent"
+                                    id="informedConsent"
+                                    required>
+                                <div class="checkbox-text">
+                                    <strong>Informed Consent</strong>
+                                    <small>I have been informed of the benefits and potential risks of cryotherapy. I understand the procedure and consent to receive cryotherapy treatment from Recovery Plus. I will follow all safety instructions provided by the technician.</small>
+                                </div>
+                            </label>
+
+                            <label class="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="ageConfirmation"
+                                    id="ageConfirmation"
+                                    required>
+                                <div class="checkbox-text">
+                                    <strong>Age Confirmation</strong>
+                                    <small>I confirm that I am 18 years of age or older. If under 18, I confirm that I have parental consent and a parent or guardian will be present during the session.</small>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="contact-info-box">
+                            <h4>QUESTIONS ABOUT THE WAIVER?</h4>
+                            <p>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                Call us: <a href="tel:707-761-1528">707-761-1528</a>
+                            </p>
+                            <p>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                Email: <a href="mailto:Brian.recoveryplus@outlook.com">Brian.recoveryplus@outlook.com</a>
+                            </p>
+                            <p>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                Location: 322 Parker Street, Vacaville, CA
+                            </p>
+                        </div>
+
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-outline" data-prev-step>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                                <span>Back</span>
+                            </button>
+                            <button type="button" class="btn btn-primary" data-next-step id="step4Next" disabled>
+                                <span>Review Booking</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 5: Review & Confirm -->
+                    <div class="form-step" data-step="5">
+                        <div class="step-header">
+                            <h2>REVIEW & CONFIRM</h2>
+                            <p>Please review your booking details before confirming</p>
+                        </div>
+
+                        <!-- Booking Summary -->
+                        <div class="booking-summary">
+                            <div class="summary-section">
+                                <h4>SERVICE DETAILS</h4>
+                                <div class="summary-row">
+                                    <span class="summary-label">Service:</span>
+                                    <span class="summary-value" id="summaryService">-</span>
+                                </div>
+                                <div id="summarySessionsList">
+                                    <!-- Sessions will be dynamically inserted here -->
+                                </div>
+                            </div>
+
+                            <div class="summary-section">
+                                <h4>CONTACT INFORMATION</h4>
+                                <div class="summary-row">
+                                    <span class="summary-label">Name:</span>
+                                    <span class="summary-value" id="summaryName">-</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-label">Email:</span>
+                                    <span class="summary-value" id="summaryEmail">-</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-label">Phone:</span>
+                                    <span class="summary-value" id="summaryPhone">-</span>
+                                </div>
+                            </div>
+
+                            <div class="summary-section">
+                                <h4>SERVICE ADDRESS</h4>
+                                <div class="summary-row">
+                                    <span class="summary-label">Address:</span>
+                                    <span class="summary-value" id="summaryAddress">-</span>
+                                </div>
+                            </div>
+
+                            <div class="summary-section">
+                                <h4>PRICING</h4>
+                                <div class="summary-row">
+                                    <span class="summary-label">Service Price:</span>
+                                    <span class="summary-value" id="summaryPrice">-</span>
+                                </div>
+                                <div class="summary-row" id="discountRow" style="display: none;">
+                                    <span class="summary-label">Discount:</span>
+                                    <span class="summary-value" id="summaryDiscount" style="color: var(--neon);">-</span>
+                                </div>
+                                <div class="summary-total">
+                                    <span class="summary-total-label">TOTAL:</span>
+                                    <span class="summary-total-value" id="summaryTotal">$0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Promo Code -->
+                        <div class="promo-code-section">
+                            <input
+                                type="text"
+                                id="promoCode"
+                                name="promoCode"
+                                placeholder="Enter promo code (e.g., First25)"
+                                style="text-transform: uppercase;">
+                            <button type="button" id="applyPromo">APPLY</button>
+                        </div>
+                        <div id="promoMessage" style="display: none;"></div>
+
+                        <!-- Payment Method Selection -->
+                        <div class="form-group">
+                            <label>Payment Method <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="paymentMethod" value="cash" checked>
+                                    <div class="radio-text">
+                                        <strong>Cash</strong>
+                                        <small>Pay in cash when we arrive</small>
+                                    </div>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="paymentMethod" value="card">
+                                    <div class="radio-text">
+                                        <strong>Credit/Debit Card</strong>
+                                        <small>Pay with card when we arrive (Square payment)</small>
+                                    </div>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="paymentMethod" value="venmo">
+                                    <div class="radio-text">
+                                        <strong>Venmo/Cash App</strong>
+                                        <small>Digital payment options available</small>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-navigation">
+                            <button type="button" class="btn btn-outline" data-prev-step>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                                <span>Back</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="confirmBooking">
+                                <div class="loading-spinner"></div>
+                                <span>Confirm Booking</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+                <!-- Success Screen (Hidden initially) -->
+                <div id="successScreen" class="success-screen" style="display: none;">
+                    <div class="success-icon">✓</div>
+                    <h2>BOOKING CONFIRMED!</h2>
+                    <p>Thank you for booking with Recovery Plus. We've sent a confirmation email to <strong id="confirmEmail"></strong>. We'll see you soon!</p>
+                    <div class="form-navigation" style="justify-content: center;">
+                        <a href="../index.html" class="btn btn-outline">
+                            <span>Back to Home</span>
+                        </a>
+                        <a href="booking.html" class="btn btn-primary">
+                            <span>Book Another Session</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="../images/logo.png" alt="Recovery Plus Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-mark" style="display: none; width: 40px; height: 40px; background: var(--accent-400); color: var(--bg-primary); font-family: var(--font-display); font-size: 1.5rem; display: flex; align-items: center; justify-content: center;">R+</div>
+                    </a>
+                    <p>Mobile cryotherapy services bringing recovery directly to you in Vacaville and surrounding areas.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-col">
+                    <h4>QUICK LINKS</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="booking.html">Book Now</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="footer-col">
+                    <h4>SERVICES</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html#mobile">Mobile Cryo</a></li>
+                        <li><a href="services.html#facial">Cryo Facial</a></li>
+                        <li><a href="services.html#pain-relief">Pain Relief</a></li>
+                        <li><a href="services.html#subscriptions">Subscriptions</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="footer-col">
+                    <h4>CONTACT</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:707-761-1528">707-761-1528</a></li>
+                        <li><a href="mailto:Brian.recoveryplus@outlook.com">Brian.recoveryplus@outlook.com</a></li>
+                        <li>322 Parker Street<br>Vacaville, CA</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 Recovery Plus. All rights reserved. Built by KeySolutionz</p>
+                <div class="footer-badges">
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                        Licensed & Insured
+                    </span>
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                        5-Star Rated
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="../js/main.js"></script>
+
+    <!-- Booking Form JavaScript -->
+    <script>
+        // ========================================================================
+        // BOOKING FORM FUNCTIONALITY
+        // ========================================================================
+
+        (function() {
+            'use strict';
+
+            // State
+            let currentStep = 1;
+            const totalSteps = 5;
+            let bookingData = {
+                service: null,
+                servicePrice: 0,
+                serviceName: '',
+                totalSessions: 1,
+                sessions: [], // Array of {date, time} objects
+                promoApplied: false,
+                discount: 0
+            };
+
+            // DOM Elements
+            const form = document.getElementById('bookingForm');
+            const steps = document.querySelectorAll('.form-step');
+            const progressSteps = document.querySelectorAll('.progress-step');
+            const progressLine = document.querySelector('.progress-line');
+            const successScreen = document.getElementById('successScreen');
+
+            // Initialize
+            function init() {
+                setupServiceSelection();
+                setupDateTimeSelection();
+                setupWaiverValidation();
+                setupPromoCode();
+                setupFormNavigation();
+                setupFormSubmission();
+                setMinDate();
+            }
+
+            // Set minimum date to today
+            function setMinDate() {
+                const dateInput = document.getElementById('appointmentDate');
+                if (dateInput) {
+                    const today = new Date().toISOString().split('T')[0];
+                    dateInput.setAttribute('min', today);
+                }
+            }
+
+            // Service Selection
+            function setupServiceSelection() {
+                const serviceOptions = document.querySelectorAll('.service-option');
+                const nextBtn = document.getElementById('step1Next');
+
+                serviceOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        // Remove selected class from all
+                        serviceOptions.forEach(opt => opt.classList.remove('selected'));
+
+                        // Add to clicked
+                        this.classList.add('selected');
+
+                        // Store selection
+                        const service = this.dataset.service;
+                        const price = parseFloat(this.dataset.price);
+                        const serviceName = this.dataset.serviceName;
+                        const sessions = parseInt(this.dataset.sessions) || 1;
+
+                        document.getElementById('selectedService').value = service;
+                        document.getElementById('selectedServicePrice').value = price;
+                        document.getElementById('selectedServiceName').value = serviceName;
+
+                        bookingData.service = service;
+                        bookingData.servicePrice = price;
+                        bookingData.serviceName = serviceName;
+                        bookingData.totalSessions = sessions;
+                        bookingData.sessions = []; // Reset sessions array
+
+                        // Enable next button
+                        nextBtn.disabled = false;
+                    });
+                });
+            }
+
+            // Date & Time Selection (Multi-Session Support)
+            function setupDateTimeSelection() {
+                const timeSlots = document.querySelectorAll('.time-slot');
+                const dateInput = document.getElementById('appointmentDate');
+                const nextBtn = document.getElementById('step2Next');
+                const addSessionBtn = document.getElementById('addSessionBtn');
+                const sessionProgress = document.getElementById('sessionProgress');
+                const currentSessionNum = document.getElementById('currentSessionNum');
+                const totalSessionsNum = document.getElementById('totalSessionsNum');
+                const sessionsListContainer = document.getElementById('sessionsListContainer');
+                const scheduledSessionsList = document.getElementById('scheduledSessionsList');
+                const addSessionContainer = document.getElementById('addSessionContainer');
+
+                let currentDate = '';
+                let currentTime = '';
+
+                // Time slot selection
+                timeSlots.forEach(slot => {
+                    slot.addEventListener('click', function() {
+                        if (this.classList.contains('unavailable')) return;
+
+                        timeSlots.forEach(s => s.classList.remove('selected'));
+                        this.classList.add('selected');
+
+                        currentTime = this.dataset.time;
+                        document.getElementById('selectedTime').value = currentTime;
+
+                        checkCurrentSessionCompletion();
+                    });
+                });
+
+                // Date selection
+                if (dateInput) {
+                    dateInput.addEventListener('change', function() {
+                        currentDate = this.value;
+                        checkCurrentSessionCompletion();
+                    });
+                }
+
+                // Add Session Button
+                if (addSessionBtn) {
+                    addSessionBtn.addEventListener('click', addCurrentSession);
+                }
+
+                function checkCurrentSessionCompletion() {
+                    const hasDate = dateInput && dateInput.value;
+                    const hasTime = currentTime;
+                    const canAddSession = hasDate && hasTime;
+
+                    if (bookingData.totalSessions > 1) {
+                        // Multi-session: show add button
+                        addSessionBtn.disabled = !canAddSession;
+                    } else {
+                        // Single session: enable continue button
+                        if (canAddSession && bookingData.sessions.length === 0) {
+                            bookingData.sessions = [{date: dateInput.value, time: currentTime}];
+                        }
+                        nextBtn.disabled = !(canAddSession);
+                    }
+                }
+
+                function addCurrentSession() {
+                    if (!currentDate || !currentTime) return;
+
+                    // Add session to array
+                    bookingData.sessions.push({
+                        date: currentDate,
+                        time: currentTime
+                    });
+
+                    // Update UI
+                    renderSessionsList();
+                    clearCurrentSelection();
+                    updateSessionProgress();
+                    checkAllSessionsScheduled();
+                }
+
+                function renderSessionsList() {
+                    sessionsListContainer.textContent = '';
+
+                    bookingData.sessions.forEach((session, index) => {
+                        const sessionItem = document.createElement('div');
+                        sessionItem.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 4px; margin-bottom: 0.5rem;';
+
+                        const sessionInfo = document.createElement('div');
+                        const sessionLabel = document.createElement('strong');
+                        sessionLabel.style.color = 'var(--accent-400)';
+                        sessionLabel.textContent = 'Session ' + (index + 1) + ':';
+
+                        const sessionDetails = document.createElement('span');
+                        sessionDetails.style.cssText = 'margin-left: 1rem; color: var(--text-secondary);';
+                        sessionDetails.textContent = formatDate(session.date) + ' at ' + session.time;
+
+                        sessionInfo.appendChild(sessionLabel);
+                        sessionInfo.appendChild(sessionDetails);
+
+                        const removeBtn = document.createElement('button');
+                        removeBtn.type = 'button';
+                        removeBtn.className = 'remove-session-btn';
+                        removeBtn.style.cssText = 'background: transparent; border: none; color: var(--red); cursor: pointer; padding: 0.25rem 0.5rem;';
+                        removeBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+                        removeBtn.addEventListener('click', () => removeSession(index));
+
+                        sessionItem.appendChild(sessionInfo);
+                        sessionItem.appendChild(removeBtn);
+                        sessionsListContainer.appendChild(sessionItem);
+                    });
+
+                    scheduledSessionsList.style.display = bookingData.sessions.length > 0 ? 'block' : 'none';
+                }
+
+                function removeSession(index) {
+                    bookingData.sessions.splice(index, 1);
+                    renderSessionsList();
+                    updateSessionProgress();
+                    checkAllSessionsScheduled();
+                }
+
+                function clearCurrentSelection() {
+                    timeSlots.forEach(s => s.classList.remove('selected'));
+                    if (dateInput) dateInput.value = '';
+                    currentDate = '';
+                    currentTime = '';
+                    document.getElementById('selectedTime').value = '';
+                }
+
+                function updateSessionProgress() {
+                    if (bookingData.totalSessions > 1) {
+                        sessionProgress.style.display = 'block';
+                        currentSessionNum.textContent = bookingData.sessions.length + 1;
+                        totalSessionsNum.textContent = bookingData.totalSessions;
+                        addSessionContainer.style.display = 'block';
+                    }
+                }
+
+                function checkAllSessionsScheduled() {
+                    const allScheduled = bookingData.sessions.length >= bookingData.totalSessions;
+                    const hasMinimum = bookingData.sessions.length >= 1;
+
+                    nextBtn.disabled = !hasMinimum;
+
+                    if (allScheduled) {
+                        addSessionBtn.disabled = true;
+                        const checkmark = document.createElement('span');
+                        checkmark.textContent = 'All Sessions Scheduled ✓';
+                        addSessionBtn.textContent = '';
+                        addSessionBtn.appendChild(checkmark);
+                    } else {
+                        addSessionBtn.textContent = '';
+                        addSessionBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>Add Another Session</span>';
+                    }
+                }
+
+                function formatDate(dateStr) {
+                    const date = new Date(dateStr + 'T00:00:00');
+                    return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+                }
+
+                // Initialize multi-session UI on step 2 entry
+                document.addEventListener('stepChanged', function(e) {
+                    if (e.detail.step === 2) {
+                        updateSessionProgress();
+                    }
+                });
+            }
+
+            // Waiver Validation
+            function setupWaiverValidation() {
+                const checkboxes = [
+                    'medicalDisclosure',
+                    'liabilityWaiver',
+                    'informedConsent',
+                    'ageConfirmation'
+                ];
+                const nextBtn = document.getElementById('step4Next');
+
+                checkboxes.forEach(id => {
+                    const checkbox = document.getElementById(id);
+                    if (checkbox) {
+                        checkbox.addEventListener('change', validateWaivers);
+                    }
+                });
+
+                function validateWaivers() {
+                    const allChecked = checkboxes.every(id => {
+                        const checkbox = document.getElementById(id);
+                        return checkbox && checkbox.checked;
+                    });
+                    nextBtn.disabled = !allChecked;
+                }
+            }
+
+            // Promo Code
+            function setupPromoCode() {
+                const promoInput = document.getElementById('promoCode');
+                const applyBtn = document.getElementById('applyPromo');
+                const promoMessage = document.getElementById('promoMessage');
+
+                applyBtn.addEventListener('click', function() {
+                    const code = promoInput.value.trim().toUpperCase();
+
+                    if (code === 'FIRST25') {
+                        // Apply 25% discount
+                        bookingData.promoApplied = true;
+                        bookingData.discount = bookingData.servicePrice * 0.25;
+
+                        promoMessage.className = 'promo-message success';
+                        promoMessage.textContent = '✓ Promo code applied! You saved 25%';
+                        promoMessage.style.display = 'block';
+
+                        updateSummary();
+                    } else if (code) {
+                        promoMessage.className = 'promo-message error';
+                        promoMessage.textContent = '✕ Invalid promo code';
+                        promoMessage.style.display = 'block';
+                    }
+                });
+            }
+
+            // Form Navigation
+            function setupFormNavigation() {
+                // Next buttons
+                document.querySelectorAll('[data-next-step]').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        if (validateCurrentStep()) {
+                            goToStep(currentStep + 1);
+                        }
+                    });
+                });
+
+                // Previous buttons
+                document.querySelectorAll('[data-prev-step]').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        goToStep(currentStep - 1);
+                    });
+                });
+            }
+
+            // Validate Current Step
+            function validateCurrentStep() {
+                // Special validation for Step 2 (Date & Time) with multi-session support
+                if (currentStep === 2) {
+                    // If sessions are scheduled, validation passes
+                    if (bookingData.sessions && bookingData.sessions.length > 0) {
+                        return true;
+                    }
+                    // Otherwise check the date and time fields normally
+                }
+
+                const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+                const inputs = currentStepEl.querySelectorAll('input[required], textarea[required], select[required]');
+
+                let isValid = true;
+                inputs.forEach(input => {
+                    if (input.type === 'checkbox') {
+                        if (!input.checked) {
+                            isValid = false;
+                        }
+                    } else if (input.type === 'hidden') {
+                        if (!input.value) {
+                            isValid = false;
+                        }
+                    } else if (!input.value.trim()) {
+                        isValid = false;
+                        input.classList.add('error');
+                    } else {
+                        input.classList.remove('error');
+                    }
+                });
+
+                return isValid;
+            }
+
+            // Go to Step
+            function goToStep(stepNumber) {
+                if (stepNumber < 1 || stepNumber > totalSteps) return;
+
+                // Hide all steps
+                steps.forEach(step => step.classList.remove('active'));
+
+                // Show target step
+                const targetStep = document.querySelector(`.form-step[data-step="${stepNumber}"]`);
+                if (targetStep) {
+                    targetStep.classList.add('active');
+                }
+
+                // Update progress
+                updateProgress(stepNumber);
+
+                // Update current step
+                currentStep = stepNumber;
+
+                // Dispatch step changed event for multi-session UI
+                const stepChangedEvent = new CustomEvent('stepChanged', {
+                    detail: { step: stepNumber }
+                });
+                document.dispatchEvent(stepChangedEvent);
+
+                // Update summary if on last step
+                if (stepNumber === 5) {
+                    updateSummary();
+                }
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Update Progress
+            function updateProgress(stepNumber) {
+                progressSteps.forEach((step, index) => {
+                    const stepNum = index + 1;
+                    if (stepNum < stepNumber) {
+                        step.classList.add('completed');
+                        step.classList.remove('active');
+                    } else if (stepNum === stepNumber) {
+                        step.classList.add('active');
+                        step.classList.remove('completed');
+                    } else {
+                        step.classList.remove('active', 'completed');
+                    }
+                });
+
+                // Update progress line
+                const progressPercent = ((stepNumber - 1) / (totalSteps - 1)) * 100;
+                progressLine.style.width = `${progressPercent}%`;
+            }
+
+            // Update Summary
+            function updateSummary() {
+                // Service details
+                document.getElementById('summaryService').textContent = bookingData.serviceName;
+
+                // Populate all sessions
+                const sessionsListEl = document.getElementById('summarySessionsList');
+                sessionsListEl.textContent = '';
+
+                bookingData.sessions.forEach((session, index) => {
+                    const sessionRow = document.createElement('div');
+                    sessionRow.className = 'summary-row';
+                    sessionRow.style.borderLeft = '3px solid var(--accent-400)';
+                    sessionRow.style.paddingLeft = '0.75rem';
+                    sessionRow.style.marginTop = '0.5rem';
+
+                    const label = document.createElement('span');
+                    label.className = 'summary-label';
+                    label.textContent = bookingData.sessions.length > 1 ? 'Session ' + (index + 1) + ':' : 'Date & Time:';
+
+                    const value = document.createElement('span');
+                    value.className = 'summary-value';
+                    const formattedDate = new Date(session.date + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+                    value.textContent = formattedDate + ' at ' + session.time;
+
+                    sessionRow.appendChild(label);
+                    sessionRow.appendChild(value);
+                    sessionsListEl.appendChild(sessionRow);
+                });
+
+                // Contact info
+                document.getElementById('summaryName').textContent = document.getElementById('fullName').value;
+                document.getElementById('summaryEmail').textContent = document.getElementById('email').value;
+                document.getElementById('summaryPhone').textContent = document.getElementById('phone').value;
+
+                // Address
+                const address = document.getElementById('address').value;
+                const city = document.getElementById('city').value;
+                const zipCode = document.getElementById('zipCode').value;
+                document.getElementById('summaryAddress').textContent = `${address}, ${city}, CA ${zipCode}`;
+
+                // Pricing
+                const basePrice = bookingData.servicePrice;
+                document.getElementById('summaryPrice').textContent = `$${basePrice.toFixed(2)}`;
+
+                // Discount
+                if (bookingData.promoApplied) {
+                    document.getElementById('discountRow').style.display = 'flex';
+                    document.getElementById('summaryDiscount').textContent = `-$${bookingData.discount.toFixed(2)}`;
+                } else {
+                    document.getElementById('discountRow').style.display = 'none';
+                }
+
+                // Total
+                const total = basePrice - bookingData.discount;
+                document.getElementById('summaryTotal').textContent = `$${total.toFixed(2)}`;
+            }
+
+            // Form Submission
+            function setupFormSubmission() {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    if (!validateCurrentStep()) {
+                        alert('Please complete all required fields');
+                        return;
+                    }
+
+                    // Show loading state
+                    const submitBtn = document.getElementById('confirmBooking');
+                    submitBtn.classList.add('loading');
+                    submitBtn.disabled = true;
+
+                    // Simulate booking submission
+                    setTimeout(() => {
+                        handleBookingSuccess();
+                    }, 2000);
+                });
+            }
+
+            // Handle Booking Success
+            function handleBookingSuccess() {
+                // Hide form
+                form.style.display = 'none';
+
+                // Show success screen
+                successScreen.style.display = 'block';
+
+                // Set confirmation email
+                document.getElementById('confirmEmail').textContent = document.getElementById('email').value;
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // In production, you would:
+                // 1. Send booking data to server
+                // 2. Process payment if applicable
+                // 3. Send confirmation emails
+                // 4. Add to calendar system
+                console.log('Booking submitted:', new FormData(form));
+            }
+
+            // Initialize on load
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+        })();
+    </script>
+
+    <!-- Mobile Sticky Bottom Nav -->
+    <div class="mobile-sticky">
+        <a href="tel:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Call
+        </a>
+        <a href="sms:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            Text
+        </a>
+        <a href="checkin.html" class="primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 11 12 14 22 4"/>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+            Check-In
+        </a>
+    </div>
+</body>
+</html>
