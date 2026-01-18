@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="See before and after results from Recovery Plus cryotherapy treatments. View real transformations in skin health, pain relief, and inflammation reduction.">
+    <meta name="keywords" content="cryotherapy results, before after cryotherapy, cryo facial results, pain relief results, Recovery Plus gallery">
+    <meta name="author" content="Recovery Plus">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Results Gallery | Recovery Plus Mobile Cryotherapy">
+    <meta property="og:description" content="See the transformative results of cryotherapy. Before and after photos showing real improvements.">
+    <meta property="og:image" content="../images/og-gallery.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Results Gallery | Recovery Plus">
+    <meta name="twitter:description" content="Before and after cryotherapy results from real clients.">
+
+    <title>Results Gallery | Recovery Plus Mobile Cryotherapy</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=optional" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <style>
+        /* Gallery Page Specific Styles */
+        .gallery-filter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-400);
+            border-color: var(--accent-400);
+            color: #000;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .gallery-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--accent-400);
+            box-shadow: var(--glow);
+            transform: translateY(-4px);
+        }
+
+        .gallery-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+        }
+
+        .gallery-image {
+            aspect-ratio: 4/3;
+            background: var(--bg-tertiary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-image.before {
+            border-right: 1px solid var(--border-color);
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: var(--text-faint);
+        }
+
+        .gallery-placeholder svg {
+            width: 48px;
+            height: 48px;
+            opacity: 0.5;
+        }
+
+        .gallery-placeholder span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .gallery-label {
+            position: absolute;
+            top: 0.75rem;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+        }
+
+        .gallery-label.before-label {
+            left: 0.75rem;
+        }
+
+        .gallery-label.after-label {
+            right: 0.75rem;
+            background: var(--neon);
+            color: #000;
+        }
+
+        .gallery-divider {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: var(--bg-primary);
+            border: 2px solid var(--accent-400);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .gallery-divider svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent-400);
+        }
+
+        .gallery-info {
+            padding: 1.5rem;
+        }
+
+        .gallery-category {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent-400);
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-title {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: none;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .gallery-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .gallery-meta-item {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .gallery-meta-item span {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Disclaimer Section */
+        .disclaimer-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .disclaimer-section h3 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .disclaimer-section p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Category headers */
+        .category-header {
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-header:first-child {
+            margin-top: 0;
+        }
+
+        .category-header h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--text-primary);
+        }
+
+        .category-header p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================================
+         HEADER
+         ======================================================================== -->
+    <header class="header" data-header>
+        <div class="container header-inner">
+            <!-- Logo -->
+            <a href="../index.html" class="logo" aria-label="Recovery Plus Home">
+                <img src="../images/logo.png" alt="Recovery Plus" class="logo-full">
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="nav-desktop" aria-label="Main navigation">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services/index.html" class="nav-link">Services</a>
+                <a href="gallery.html" class="nav-link" aria-current="page">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <!-- Phone -->
+                <a href="tel:7077611528" class="header-phone" aria-label="Call us">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <span>(707) 761-1528</span>
+                </a>
+
+                <!-- CTA Button -->
+                <a href="contact.html" class="btn btn-primary header-cta">
+                    <span>Book Now</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark/light mode">
+                    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================================================
+         HERO SECTION
+         ======================================================================== -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="hero-grid"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-eyebrow eyebrow">
+                    Before & After
+                </div>
+                <h1>
+                    SEE THE<br>
+                    <span class="highlight">RESULTS</span>
+                </h1>
+                <p class="hero-sub">
+                    Real transformations from real clients. See how cryotherapy has helped with skin rejuvenation, pain relief, and inflammation reduction.
+                </p>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         GALLERY SECTION - SKIN/FACIAL
+         ======================================================================== -->
+    <section>
+        <div class="container">
+            <div class="category-header">
+                <h3>Skin & Facial Results</h3>
+                <p>Cryo facial treatments help tighten skin, reduce puffiness, and promote a healthy glow.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- Gallery Item 1 -->
+                <div class="gallery-item" data-category="facial">
+                    <div class="gallery-comparison">
+                        <div class="gallery-image before">
+                            <span class="gallery-label before-label">Before</span>
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>Before Image</span>
+                            </div>
+                        </div>
+                        <div class="gallery-image after">
+                            <span class="gallery-label after-label">After</span>
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>After Image</span>
+                            </div>
+                        </div>
+                        <div class="gallery-divider">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-category">Cryo Facial</span>
+                        <h4 class="gallery-title">Reduced Puffiness & Improved Skin Tone</h4>
+                        <p class="gallery-description">Client experienced significant reduction in facial puffiness and more even skin tone after a series of cryo facial treatments.</p>
+                        <div class="gallery-meta">
+                            <div class="gallery-meta-item">Sessions: <span>6</span></div>
+                            <div class="gallery-meta-item">Duration: <span>8 weeks</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 2 -->
+                <div class="gallery-item" data-category="facial">
+                    <div class="gallery-comparison">
+                        <div class="gallery-image before">
+                            <span class="gallery-label before-label">Before</span>
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>Before Image</span>
+                            </div>
+                        </div>
+                        <div class="gallery-image after">
+                            <span class="gallery-label after-label">After</span>
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>After Image</span>
+                            </div>
+                        </div>
+                        <div class="gallery-divider">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-category">Cryo Facial</span>
+                        <h4 class="gallery-title">Tighter Skin & Reduced Fine Lines</h4>
+                        <p class="gallery-description">Visible improvement in skin firmness and reduction of fine lines around the eyes and forehead area.</p>
+                        <div class="gallery-meta">
+                            <div class="gallery-meta-item">Sessions: <span>8</span></div>
+                            <div class="gallery-meta-item">Duration: <span>10 weeks</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================================================
+                 GALLERY SECTION - PAIN RELIEF
+                 ======================================================================== -->
+            <div class="category-header">
+                <h3>Pain Relief Results</h3>
+                <p>Documented improvements in mobility and pain levels for clients with chronic conditions.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- Gallery Item 3 -->
+                <div class="gallery-item" data-category="pain">
+                    <div class="gallery-comparison">
+                        <div class="gallery-image before">
+                            <span class="gallery-label before-label">Before</span>
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>Before Image</span>
+                            </div>
+                        </div>
+                        <div class="gallery-image after">
+                            <span class="gallery-label after-label">After</span>
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>After Image</span>
+                            </div>
+                        </div>
+                        <div class="gallery-divider">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-category">Arthritis Relief</span>
+                        <h4 class="gallery-title">Improved Hand Mobility</h4>
+                        <p class="gallery-description">Senior client with rheumatoid arthritis showing improved grip strength and reduced joint swelling after regular treatments.</p>
+                        <div class="gallery-meta">
+                            <div class="gallery-meta-item">Sessions: <span>12</span></div>
+                            <div class="gallery-meta-item">Duration: <span>12 weeks</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 4 -->
+                <div class="gallery-item" data-category="pain">
+                    <div class="gallery-comparison">
+                        <div class="gallery-image before">
+                            <span class="gallery-label before-label">Before</span>
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>Before Image</span>
+                            </div>
+                        </div>
+                        <div class="gallery-image after">
+                            <span class="gallery-label after-label">After</span>
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>After Image</span>
+                            </div>
+                        </div>
+                        <div class="gallery-divider">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-category">Back Pain</span>
+                        <h4 class="gallery-title">Lower Back Pain Reduction</h4>
+                        <p class="gallery-description">Client reported 70% reduction in chronic lower back pain after completing a targeted cryotherapy protocol.</p>
+                        <div class="gallery-meta">
+                            <div class="gallery-meta-item">Sessions: <span>10</span></div>
+                            <div class="gallery-meta-item">Duration: <span>6 weeks</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================================================
+                 GALLERY SECTION - INFLAMMATION
+                 ======================================================================== -->
+            <div class="category-header">
+                <h3>Inflammation Reduction</h3>
+                <p>See the visible reduction in swelling and inflammation from sports injuries and chronic conditions.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- Gallery Item 5 -->
+                <div class="gallery-item" data-category="inflammation">
+                    <div class="gallery-comparison">
+                        <div class="gallery-image before">
+                            <span class="gallery-label before-label">Before</span>
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>Before Image</span>
+                            </div>
+                        </div>
+                        <div class="gallery-image after">
+                            <span class="gallery-label after-label">After</span>
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>After Image</span>
+                            </div>
+                        </div>
+                        <div class="gallery-divider">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-category">Sports Injury</span>
+                        <h4 class="gallery-title">Knee Swelling Reduction</h4>
+                        <p class="gallery-description">Athlete with knee injury showing significant swelling reduction within 48 hours of cryotherapy treatment.</p>
+                        <div class="gallery-meta">
+                            <div class="gallery-meta-item">Sessions: <span>3</span></div>
+                            <div class="gallery-meta-item">Duration: <span>1 week</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 6 -->
+                <div class="gallery-item" data-category="inflammation">
+                    <div class="gallery-comparison">
+                        <div class="gallery-image before">
+                            <span class="gallery-label before-label">Before</span>
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>Before Image</span>
+                            </div>
+                        </div>
+                        <div class="gallery-image after">
+                            <span class="gallery-label after-label">After</span>
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <span>After Image</span>
+                            </div>
+                        </div>
+                        <div class="gallery-divider">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <span class="gallery-category">Muscle Recovery</span>
+                        <h4 class="gallery-title">Post-Workout Inflammation</h4>
+                        <p class="gallery-description">CrossFit athlete showing reduced muscle inflammation and faster recovery after intense competition.</p>
+                        <div class="gallery-meta">
+                            <div class="gallery-meta-item">Sessions: <span>2</span></div>
+                            <div class="gallery-meta-item">Duration: <span>48 hours</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="disclaimer-section">
+                <h3>Important Information</h3>
+                <p>Results shown are from real Recovery Plus clients but individual results may vary. Cryotherapy results depend on various factors including the individual's condition, treatment frequency, and overall health. These images are for illustrative purposes and do not guarantee specific outcomes. Always consult with a healthcare provider before starting any new treatment program. Cryotherapy is not intended to diagnose, treat, cure, or prevent any disease.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         FINAL CTA
+         ======================================================================== -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready for Your<br><span class="highlight">Transformation?</span></h2>
+            <p class="final-cta-sub">
+                Start your recovery journey today and experience the benefits of mobile cryotherapy.
+            </p>
+            <div class="final-cta-buttons">
+                <a href="contact.html" class="btn btn-primary">
+                    <span>Book Your Session</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+                <a href="tel:7077611528" class="btn btn-outline">
+                    <span>Call: (707) 761-1528</span>
+                </a>
+            </div>
+            <p class="final-cta-note">First-time clients receive 25% off with code: FIRST25</p>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         FOOTER
+         ======================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="../images/logo.png" alt="Recovery Plus">
+                    </a>
+                    <p>Elite mobile cryotherapy bringing professional recovery directly to you. Recover stronger. Perform longer.</p>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/company/recovery-plus" target="_blank" rel="noopener" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/recoveryplus" target="_blank" rel="noopener" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/recoveryplus" target="_blank" rel="noopener" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Services Column -->
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services/mobile.html">Mobile Services</a></li>
+                        <li><a href="services/subscriptions.html">Monthly Subscriptions</a></li>
+                        <li><a href="services/pain-relief.html">Pain Relief Packages</a></li>
+                        <li><a href="services/cryo-facial.html">Cryo Facial</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company Column -->
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="gallery.html">Results Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Column -->
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:7077611528">(707) 761-1528</a></li>
+                        <li><a href="mailto:Brian.recoveryplus@outlook.com">Brian.recoveryplus@outlook.com</a></li>
+                        <li>322 Parker Street<br>Vacaville, CA</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 Recovery Plus. All rights reserved.</p>
+                <div class="footer-badges">
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        Professional Grade
+                    </span>
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        Mobile Service
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky Bar -->
+    <div class="mobile-sticky">
+        <a href="tel:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Call</span>
+        </a>
+        <a href="mailto:Brian.recoveryplus@outlook.com">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>Email</span>
+        </a>
+        <a href="contact.html" class="primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Book Now</span>
+        </a>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

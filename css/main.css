@@ -901,8 +901,8 @@ section {
 /* Services Grid */
 .services-grid {
     display: grid;
-    gap: 2px;
-    background: var(--border-color);
+    gap: 2rem;
+    background: transparent;
 }
 
 .services-grid-6 {
@@ -912,6 +912,7 @@ section {
 @media (min-width: 768px) {
     .services-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
     }
 
     .services-grid-6 {
@@ -922,6 +923,7 @@ section {
 @media (min-width: 1024px) {
     .services-grid {
         grid-template-columns: repeat(4, 1fr);
+        gap: 3rem;
     }
 
     .services-grid-6 {
@@ -938,7 +940,9 @@ section {
 /* Service Card */
 .service-card {
     background: var(--bg-secondary);
-    padding: 2.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 3rem 2rem;
     position: relative;
     overflow: hidden;
     transition: all 0.4s ease;
@@ -1021,84 +1025,134 @@ section {
 
 .how-grid {
     display: grid;
-    gap: 4rem;
+    gap: 3rem;
 }
 
 @media (min-width: 768px) {
     .how-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
+        gap: 4rem;
     }
 }
 
 .how-step {
     position: relative;
-    padding-left: 2rem;
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    text-align: center;
 }
 
 @media (min-width: 768px) {
     .how-step {
-        padding-left: 0;
-        text-align: center;
+        padding: 3rem 2rem;
     }
 }
 
 .how-step::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--accent-400), transparent);
-}
-
-@media (min-width: 768px) {
-    .how-step::before {
-        top: 70px;
-        left: 50%;
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, var(--border-color), transparent);
-    }
-
-    .how-step:last-child::before {
-        display: none;
-    }
+    display: none;
 }
 
 .how-number {
     font-family: var(--font-display);
-    font-size: 5rem;
+    font-size: 6rem;
     line-height: 1;
     color: var(--bg-tertiary);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     position: relative;
+    font-weight: 700;
 }
 
 .how-number span {
     position: absolute;
     top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    font-size: 2rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
     color: var(--accent-400);
-}
-
-@media (min-width: 768px) {
-    .how-number span {
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
+    font-weight: 700;
 }
 
 .how-step h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
     margin-bottom: 1rem;
+    color: var(--text-primary);
 }
 
 .how-step p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+/* ========================================================================
+   CRYO EDUCATION SECTION
+   ======================================================================== */
+
+.cryo-education {
+    background: var(--bg-primary);
+}
+
+.cryo-grid {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+@media (min-width: 768px) {
+    .cryo-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+    }
+}
+
+.cryo-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.cryo-card:hover {
+    border-color: var(--accent-400);
+    transform: translateY(-4px);
+    box-shadow: var(--glow);
+}
+
+.cryo-card-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-tertiary);
+    border-radius: 50%;
+    color: var(--accent-400);
+}
+
+.cryo-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.cryo-card p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+.cryo-card p strong {
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 /* ========================================================================
@@ -1138,9 +1192,9 @@ section {
 
 .stat-item {
     text-align: center;
-    padding: 2rem;
+    padding: 2.5rem 2rem;
     background: var(--bg-tertiary);
-    border-radius: 8px;
+    border-radius: 12px;
     border: 1px solid var(--border-color);
     transition: all 0.3s ease;
 }
@@ -1153,26 +1207,31 @@ section {
 
 .stat-number {
     font-family: var(--font-display);
-    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-size: clamp(4rem, 10vw, 7rem);
     line-height: 1;
     color: var(--accent-400);
     text-shadow: var(--glow-strong);
     display: inline-block;
+    font-weight: 700;
+    letter-spacing: 0.02em;
 }
 
 .stat-suffix {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     color: var(--accent-400);
     display: inline-block;
-    margin-left: 0.25rem;
+    margin-left: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
 }
 
 .stat-label {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    margin-top: 1rem;
-    line-height: 1.6;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 1.5rem;
+    line-height: 1.8;
+    font-weight: 400;
 }
 
 /* ========================================================================
@@ -2529,4 +2588,386 @@ section {
 @keyframes partnersScroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
+}
+
+/* ========================================================================
+   SCROLL-TRIGGERED ANIMATIONS
+   ======================================================================== */
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Slide Up Animation */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide In From Left */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Slide In From Right */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Scale Up Animation */
+@keyframes scaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Zoom In Animation */
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ========================================================================
+   ANIMATION UTILITIES
+   ======================================================================== */
+
+/* Base styles for animated elements */
+[data-animate],
+.animate-stagger {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Visible state */
+[data-animate].is-visible,
+.animate-stagger.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation variants */
+[data-animate="fade"] {
+    transform: none;
+}
+
+[data-animate="slideLeft"] {
+    transform: translateX(-40px);
+}
+
+[data-animate="slideLeft"].is-visible {
+    transform: translateX(0);
+}
+
+[data-animate="slideRight"] {
+    transform: translateX(40px);
+}
+
+[data-animate="slideRight"].is-visible {
+    transform: translateX(0);
+}
+
+[data-animate="scale"] {
+    transform: scale(0.9);
+}
+
+[data-animate="scale"].is-visible {
+    transform: scale(1);
+}
+
+[data-animate="zoom"] {
+    transform: scale(0.8);
+}
+
+[data-animate="zoom"].is-visible {
+    transform: scale(1);
+}
+
+/* ========================================================================
+   PAGE LOAD ANIMATIONS
+   ======================================================================== */
+
+/* Body fade in */
+body {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+body.page-loaded {
+    opacity: 1;
+}
+
+/* Header slide down */
+.header {
+    transform: translateY(-100%);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header.header-loaded {
+    transform: translateY(0);
+}
+
+/* Hero content animations */
+.hero-content > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-content > *.hero-item-loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================================================
+   ENHANCED HOVER EFFECTS
+   ======================================================================== */
+
+/* Smooth card transitions */
+.service-card,
+.pricing-card,
+.testimonial-card,
+.reward-card {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s ease;
+    will-change: transform;
+}
+
+.service-card:hover,
+.pricing-card:hover,
+.testimonial-card:hover,
+.reward-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Button transitions */
+.btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    position: relative;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn:hover::before {
+    opacity: 1;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Link underline animation */
+.nav-link,
+.footer-links a {
+    position: relative;
+    --underline-width: 0%;
+}
+
+.nav-link::after,
+.footer-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: var(--underline-width, 0%);
+    height: 2px;
+    background: var(--accent-400);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover::after,
+.footer-links a:hover::after {
+    width: 100%;
+}
+
+/* Icon animations */
+.service-icon {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* FAQ item hover */
+.faq-item {
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.faq-item:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-400);
+}
+
+/* Pricing card popular glow */
+.pricing-card.popular {
+    animation: pulseGlow 3s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.3),
+                    0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(0, 212, 255, 0.5),
+                    0 15px 50px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Input focus animations */
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):focus,
+textarea:focus,
+select:focus {
+    transform: translateY(-2px);
+    border-color: var(--accent-400);
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
+}
+
+/* Theme toggle animation */
+.theme-toggle {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle:hover {
+    transform: rotate(180deg);
+}
+
+/* Mobile sticky button tap effect */
+.mobile-sticky a {
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.mobile-sticky a:active {
+    transform: scale(0.95);
+}
+
+/* ========================================================================
+   PERFORMANCE OPTIMIZATIONS
+   ======================================================================== */
+
+/* Reduce animations on mobile for performance */
+@media (max-width: 768px) {
+    [data-animate],
+    .animate-stagger {
+        transition-duration: 0.4s;
+    }
+
+    .service-card:hover,
+    .pricing-card:hover,
+    .testimonial-card:hover,
+    .reward-card:hover {
+        transform: translateY(-4px);
+    }
+
+    /* Disable complex hover effects on mobile */
+    .btn:hover {
+        transform: none;
+    }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    [data-animate],
+    .animate-stagger {
+        opacity: 1;
+        transform: none;
+    }
+
+    body {
+        opacity: 1;
+    }
+
+    .header {
+        transform: none;
+    }
+
+    .hero-content > * {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* GPU acceleration for smooth animations */
+.service-card,
+.pricing-card,
+.testimonial-card,
+.reward-card,
+.btn,
+[data-animate],
+.animate-stagger {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
 }

@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book your mobile cryotherapy session with Recovery Plus. Compare 5 different booking layouts.">
+    <title>Book Your Session | Recovery Plus - Mobile Cryotherapy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=optional" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        /* ====================================================================
+           BOOKING PAGE - 5 LAYOUT COMPARISON
+           ==================================================================== */
+
+        .booking-container {
+            padding: 120px 0 80px;
+            min-height: 100vh;
+        }
+
+        /* Layout Switcher */
+        .layout-switcher {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .layout-switcher-label {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .layout-switcher-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .layout-btn {
+            padding: 0.75rem 1rem;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .layout-btn:hover {
+            border-color: var(--accent-400);
+            color: var(--accent-400);
+        }
+
+        .layout-btn.active {
+            background: var(--accent-400);
+            border-color: var(--accent-400);
+            color: var(--bg-primary);
+        }
+
+        .layout-btn span {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .layout-btn span {
+                display: inline;
+            }
+        }
+
+        /* Shared Service Option Styles */
+        .service-option {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: left;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .service-option:hover {
+            border-color: var(--accent-400);
+            background: var(--bg-card);
+            transform: translateY(-2px);
+        }
+
+        .service-option.selected {
+            border-color: var(--accent-400);
+            background: var(--bg-card);
+        }
+
+        .service-option.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+
+        .service-option h3 {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .service-option .service-price {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--accent-400);
+            margin-bottom: 0.5rem;
+        }
+
+        .service-option .service-price span {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .service-option .service-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .service-option .per-session {
+            font-size: 0.75rem;
+            color: var(--neon);
+            margin-top: 0.5rem;
+        }
+
+        .service-option .badge {
+            position: absolute;
+            top: -8px;
+            right: 1rem;
+            background: var(--neon);
+            color: var(--bg-primary);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.25rem 0.5rem;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Layout Container */
+        .layout-container {
+            display: none;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .layout-container.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ====================================================================
+           LAYOUT 1: Netflix-Style Horizontal Sliders
+           ==================================================================== */
+        .layout-netflix .category-row {
+            margin-bottom: 2.5rem;
+        }
+
+        .layout-netflix .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .layout-netflix .category-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            letter-spacing: 0.1em;
+            color: var(--text-primary);
+        }
+
+        .layout-netflix .slider-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .layout-netflix .slider-nav button {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .layout-netflix .slider-nav button:hover {
+            border-color: var(--accent-400);
+            color: var(--accent-400);
+        }
+
+        .layout-netflix .slider-track {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 0.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-400) var(--bg-tertiary);
+        }
+
+        .layout-netflix .slider-track::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .layout-netflix .slider-track::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+        }
+
+        .layout-netflix .slider-track::-webkit-scrollbar-thumb {
+            background: var(--accent-400);
+            border-radius: 3px;
+        }
+
+        .layout-netflix .service-option {
+            min-width: 220px;
+            flex-shrink: 0;
+        }
+
+        /* ====================================================================
+           LAYOUT 2: Vertical Accordion
+           ==================================================================== */
+        .layout-accordion .accordion-item {
+            border: 1px solid var(--border-color);
+            margin-bottom: 0.5rem;
+            background: var(--bg-secondary);
+        }
+
+        .layout-accordion .accordion-header {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .layout-accordion .accordion-header:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .layout-accordion .accordion-title {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            letter-spacing: 0.1em;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .layout-accordion .accordion-count {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            letter-spacing: normal;
+        }
+
+        .layout-accordion .accordion-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        .layout-accordion .accordion-item.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .layout-accordion .accordion-item.open .accordion-header {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .layout-accordion .accordion-content {
+            display: none;
+            padding: 1.5rem;
+        }
+
+        .layout-accordion .accordion-item.open .accordion-content {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .layout-accordion .accordion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        /* ====================================================================
+           LAYOUT 3: Tab-Based Filter
+           ==================================================================== */
+        .layout-tabs .tab-bar {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .layout-tabs .tab-btn {
+            padding: 0.875rem 1.5rem;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .layout-tabs .tab-btn:hover {
+            border-color: var(--accent-400);
+            color: var(--accent-400);
+        }
+
+        .layout-tabs .tab-btn.active {
+            background: var(--accent-400);
+            border-color: var(--accent-400);
+            color: var(--bg-primary);
+        }
+
+        .layout-tabs .tab-content {
+            display: none;
+        }
+
+        .layout-tabs .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .layout-tabs .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .layout-tabs .result-count {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ====================================================================
+           LAYOUT 4: Search + Filter Chips
+           ==================================================================== */
+        .layout-search .search-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .layout-search .search-input-wrapper {
+            position: relative;
+        }
+
+        .layout-search .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .layout-search .search-input:focus {
+            outline: none;
+            border-color: var(--accent-400);
+        }
+
+        .layout-search .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .layout-search .filter-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .layout-search .filter-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .layout-search .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .layout-search .filter-chip {
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+
+        .layout-search .filter-chip:hover {
+            border-color: var(--accent-400);
+            color: var(--accent-400);
+        }
+
+        .layout-search .filter-chip.active {
+            background: var(--accent-400);
+            border-color: var(--accent-400);
+            color: var(--bg-primary);
+        }
+
+        .layout-search .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .layout-search .result-count {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .layout-search .clear-filters {
+            color: var(--accent-400);
+            font-size: 0.8rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .layout-search .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        /* ====================================================================
+           LAYOUT 5: Context-Aware Guided Selection
+           ==================================================================== */
+        .layout-guided .step-indicator {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .layout-guided .step-indicator span {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+
+        .layout-guided .guided-question {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .layout-guided .guided-question h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .layout-guided .guided-question p {
+            color: var(--text-muted);
+        }
+
+        .layout-guided .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .layout-guided .category-card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .layout-guided .category-card:hover {
+            border-color: var(--accent-400);
+            transform: translateY(-4px);
+        }
+
+        .layout-guided .category-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .layout-guided .category-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .layout-guided .category-card p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .layout-guided .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            background: none;
+            border: none;
+            transition: color 0.3s ease;
+        }
+
+        .layout-guided .back-btn:hover {
+            color: var(--accent-400);
+        }
+
+        .layout-guided .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .layout-guided .tip-box {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--neon);
+            padding: 1rem 1.5rem;
+            margin-top: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .layout-guided .tip-box p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Hidden state for guided sub-panels */
+        .layout-guided .guided-panel {
+            display: none;
+        }
+
+        .layout-guided .guided-panel.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* Continue Button */
+        .continue-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .continue-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .continue-btn:not(:disabled):hover {
+            background: var(--accent-300);
+            transform: translateY(-2px);
+        }
+
+        /* Selected service display */
+        .selected-service-display {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--accent-400);
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .selected-service-display.visible {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .selected-service-display .service-info h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .selected-service-display .service-info p {
+            color: var(--accent-400);
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+        }
+
+        .selected-service-display .change-btn {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="../index.html" class="logo">
+                    <img src="../images/logo.png" alt="Recovery Plus" class="logo-full">
+                </a>
+                <nav class="nav-desktop">
+                    <a href="../index.html#services" class="nav-link">Services</a>
+                    <a href="../index.html#pricing" class="nav-link">Pricing</a>
+                    <a href="../index.html#about" class="nav-link">About</a>
+                    <a href="../index.html#contact" class="nav-link">Contact</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="tel:7077611528" class="header-phone">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        (707) 761-1528
+                    </a>
+                    <button class="theme-toggle" id="themeToggle">
+                        <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                        </svg>
+                        <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="booking-container">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="section-header center" style="margin-bottom: 2rem;">
+                <span class="eyebrow">Book Your Session</span>
+                <h1 style="font-size: clamp(2.5rem, 6vw, 4rem);">SELECT YOUR <span class="highlight">SERVICE</span></h1>
+                <p>Choose from our mobile cryotherapy services, packages, or subscriptions</p>
+            </div>
+
+            <!-- Layout Switcher -->
+            <div class="layout-switcher">
+                <span class="layout-switcher-label">COMPARE LAYOUT STYLES:</span>
+                <div class="layout-switcher-buttons">
+                    <button class="layout-btn active" data-layout="netflix">1. <span>Netflix Sliders</span></button>
+                    <button class="layout-btn" data-layout="accordion">2. <span>Accordion</span></button>
+                    <button class="layout-btn" data-layout="tabs">3. <span>Tab Filters</span></button>
+                    <button class="layout-btn" data-layout="search">4. <span>Search + Chips</span></button>
+                    <button class="layout-btn" data-layout="guided">5. <span>Guided Selection</span></button>
+                </div>
+            </div>
+
+            <!-- ================================================================
+                 LAYOUT 1: Netflix-Style Horizontal Sliders
+                 ================================================================ -->
+            <div class="layout-container layout-netflix active" data-layout-content="netflix">
+
+                <!-- Cryo Facials Row -->
+                <div class="category-row">
+                    <div class="category-header">
+                        <h3 class="category-title">CRYO FACIALS</h3>
+                        <div class="slider-nav">
+                            <button onclick="scrollSlider(this, -1)">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                            </button>
+                            <button onclick="scrollSlider(this, 1)">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="slider-track">
+                        <button type="button" class="service-option" data-service="cryo-facial-4" data-price="100" data-name="Cryo Facial - 4 Sessions">
+                            <h3>4 Sessions</h3>
+                            <div class="service-price">$100</div>
+                            <p class="service-desc">Start your skin rejuvenation journey</p>
+                            <p class="per-session">$25 per session</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-8" data-price="180" data-name="Cryo Facial - 8 Sessions">
+                            <span class="badge">Popular</span>
+                            <h3>8 Sessions</h3>
+                            <div class="service-price">$180</div>
+                            <p class="service-desc">Most popular facial package</p>
+                            <p class="per-session">$22.50 per session</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-12" data-price="240" data-name="Cryo Facial - 12 Sessions">
+                            <span class="badge" style="background: var(--accent-400);">Best Value</span>
+                            <h3>12 Sessions</h3>
+                            <div class="service-price">$240</div>
+                            <p class="service-desc">Maximum transformation results</p>
+                            <p class="per-session">$20 per session</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-16" data-price="300" data-name="Cryo Facial - 16 Sessions">
+                            <h3>16 Sessions</h3>
+                            <div class="service-price">$300</div>
+                            <p class="service-desc">Ultimate skin wellness program</p>
+                            <p class="per-session">$18.75 per session</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pain Relief Row -->
+                <div class="category-row">
+                    <div class="category-header">
+                        <h3 class="category-title">PAIN RELIEF</h3>
+                        <div class="slider-nav">
+                            <button onclick="scrollSlider(this, -1)">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                            </button>
+                            <button onclick="scrollSlider(this, 1)">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="slider-track">
+                        <button type="button" class="service-option" data-service="pain-relief-4" data-price="120" data-name="Pain Relief - 4 Sessions">
+                            <h3>4 Sessions</h3>
+                            <div class="service-price">$120</div>
+                            <p class="service-desc">Targeted pain relief therapy</p>
+                            <p class="per-session">$30 per session</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-8" data-price="220" data-name="Pain Relief - 8 Sessions">
+                            <span class="badge">Popular</span>
+                            <h3>8 Sessions</h3>
+                            <div class="service-price">$220</div>
+                            <p class="service-desc">Chronic pain management</p>
+                            <p class="per-session">$27.50 per session</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-12" data-price="300" data-name="Pain Relief - 12 Sessions">
+                            <span class="badge" style="background: var(--accent-400);">Best Value</span>
+                            <h3>12 Sessions</h3>
+                            <div class="service-price">$300</div>
+                            <p class="service-desc">Long-term relief program</p>
+                            <p class="per-session">$25 per session</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-16" data-price="380" data-name="Pain Relief - 16 Sessions">
+                            <h3>16 Sessions</h3>
+                            <div class="service-price">$380</div>
+                            <p class="service-desc">Comprehensive wellness plan</p>
+                            <p class="per-session">$23.75 per session</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Subscriptions Row -->
+                <div class="category-row">
+                    <div class="category-header">
+                        <h3 class="category-title">MONTHLY SUBSCRIPTIONS</h3>
+                    </div>
+                    <div class="slider-track">
+                        <button type="button" class="service-option" data-service="sub-bronze" data-price="99" data-name="Bronze Subscription">
+                            <h3>Bronze</h3>
+                            <div class="service-price">$99<span>/mo</span></div>
+                            <p class="service-desc">4 sessions per month</p>
+                            <p class="per-session">Perfect for maintenance</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="sub-silver" data-price="179" data-name="Silver Subscription">
+                            <span class="badge">Popular</span>
+                            <h3>Silver</h3>
+                            <div class="service-price">$179<span>/mo</span></div>
+                            <p class="service-desc">8 sessions per month</p>
+                            <p class="per-session">Active recovery plan</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="sub-gold" data-price="299" data-name="Gold Subscription">
+                            <span class="badge" style="background: gold; color: #000;">Premium</span>
+                            <h3>Gold</h3>
+                            <div class="service-price">$299<span>/mo</span></div>
+                            <p class="service-desc">Unlimited sessions</p>
+                            <p class="per-session">Ultimate wellness plan</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Single Session & Events -->
+                <div class="category-row">
+                    <div class="category-header">
+                        <h3 class="category-title">SINGLE SESSION & EVENTS</h3>
+                    </div>
+                    <div class="slider-track">
+                        <button type="button" class="service-option" data-service="single" data-price="35" data-name="Single Session">
+                            <h3>Single Session</h3>
+                            <div class="service-price">$35</div>
+                            <p class="service-desc">Try it out or one-time treatment</p>
+                            <p class="per-session">Mobile service to your location</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="freeze-party" data-price="0" data-name="Freeze Party">
+                            <h3>Freeze Party</h3>
+                            <div class="service-price">Custom</div>
+                            <p class="service-desc">Host a cryotherapy party!</p>
+                            <p class="per-session">Contact for group pricing</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Selected Service Display -->
+                <div class="selected-service-display" id="selectedDisplay1">
+                    <div class="service-info">
+                        <h4 id="selectedName1">-</h4>
+                        <p id="selectedPrice1">-</p>
+                    </div>
+                    <button class="change-btn" onclick="clearSelection()">Change</button>
+                </div>
+
+                <!-- Continue Button -->
+                <div class="continue-section">
+                    <button class="continue-btn" id="continueBtn1" disabled>
+                        Continue to Schedule
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================================================================
+                 LAYOUT 2: Vertical Accordion
+                 ================================================================ -->
+            <div class="layout-container layout-accordion" data-layout-content="accordion">
+
+                <!-- Cryo Facials Accordion -->
+                <div class="accordion-item open">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="accordion-title">
+                            CRYO FACIALS
+                            <span class="accordion-count">(4 options)</span>
+                        </span>
+                        <svg class="accordion-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-grid">
+                            <button type="button" class="service-option" data-service="cryo-facial-4" data-price="100" data-name="Cryo Facial - 4 Sessions">
+                                <h3>4 Sessions</h3>
+                                <div class="service-price">$100</div>
+                                <p class="service-desc">Skin rejuvenation starter</p>
+                                <p class="per-session">$25/session</p>
+                            </button>
+                            <button type="button" class="service-option" data-service="cryo-facial-8" data-price="180" data-name="Cryo Facial - 8 Sessions">
+                                <span class="badge">Popular</span>
+                                <h3>8 Sessions</h3>
+                                <div class="service-price">$180</div>
+                                <p class="service-desc">Most popular package</p>
+                                <p class="per-session">$22.50/session</p>
+                            </button>
+                            <button type="button" class="service-option" data-service="cryo-facial-12" data-price="240" data-name="Cryo Facial - 12 Sessions">
+                                <span class="badge" style="background: var(--accent-400);">Best Value</span>
+                                <h3>12 Sessions</h3>
+                                <div class="service-price">$240</div>
+                                <p class="service-desc">Maximum results</p>
+                                <p class="per-session">$20/session</p>
+                            </button>
+                            <button type="button" class="service-option" data-service="cryo-facial-16" data-price="300" data-name="Cryo Facial - 16 Sessions">
+                                <h3>16 Sessions</h3>
+                                <div class="service-price">$300</div>
+                                <p class="service-desc">Ultimate program</p>
+                                <p class="per-session">$18.75/session</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pain Relief Accordion -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="accordion-title">
+                            PAIN RELIEF
+                            <span class="accordion-count">(4 options)</span>
+                        </span>
+                        <svg class="accordion-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-grid">
+                            <button type="button" class="service-option" data-service="pain-relief-4" data-price="120" data-name="Pain Relief - 4 Sessions">
+                                <h3>4 Sessions</h3>
+                                <div class="service-price">$120</div>
+                                <p class="service-desc">Targeted relief</p>
+                                <p class="per-session">$30/session</p>
+                            </button>
+                            <button type="button" class="service-option" data-service="pain-relief-8" data-price="220" data-name="Pain Relief - 8 Sessions">
+                                <span class="badge">Popular</span>
+                                <h3>8 Sessions</h3>
+                                <div class="service-price">$220</div>
+                                <p class="service-desc">Pain management</p>
+                                <p class="per-session">$27.50/session</p>
+                            </button>
+                            <button type="button" class="service-option" data-service="pain-relief-12" data-price="300" data-name="Pain Relief - 12 Sessions">
+                                <span class="badge" style="background: var(--accent-400);">Best Value</span>
+                                <h3>12 Sessions</h3>
+                                <div class="service-price">$300</div>
+                                <p class="service-desc">Long-term relief</p>
+                                <p class="per-session">$25/session</p>
+                            </button>
+                            <button type="button" class="service-option" data-service="pain-relief-16" data-price="380" data-name="Pain Relief - 16 Sessions">
+                                <h3>16 Sessions</h3>
+                                <div class="service-price">$380</div>
+                                <p class="service-desc">Comprehensive plan</p>
+                                <p class="per-session">$23.75/session</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subscriptions Accordion -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="accordion-title">
+                            MONTHLY SUBSCRIPTIONS
+                            <span class="accordion-count">(3 options)</span>
+                        </span>
+                        <svg class="accordion-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-grid">
+                            <button type="button" class="service-option" data-service="sub-bronze" data-price="99" data-name="Bronze Subscription">
+                                <h3>Bronze</h3>
+                                <div class="service-price">$99<span>/mo</span></div>
+                                <p class="service-desc">4 sessions/month</p>
+                            </button>
+                            <button type="button" class="service-option" data-service="sub-silver" data-price="179" data-name="Silver Subscription">
+                                <span class="badge">Popular</span>
+                                <h3>Silver</h3>
+                                <div class="service-price">$179<span>/mo</span></div>
+                                <p class="service-desc">8 sessions/month</p>
+                            </button>
+                            <button type="button" class="service-option" data-service="sub-gold" data-price="299" data-name="Gold Subscription">
+                                <span class="badge" style="background: gold; color: #000;">Premium</span>
+                                <h3>Gold</h3>
+                                <div class="service-price">$299<span>/mo</span></div>
+                                <p class="service-desc">Unlimited sessions</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single & Events Accordion -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span class="accordion-title">
+                            SINGLE SESSION & EVENTS
+                            <span class="accordion-count">(2 options)</span>
+                        </span>
+                        <svg class="accordion-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-grid">
+                            <button type="button" class="service-option" data-service="single" data-price="35" data-name="Single Session">
+                                <h3>Single Session</h3>
+                                <div class="service-price">$35</div>
+                                <p class="service-desc">One-time treatment</p>
+                            </button>
+                            <button type="button" class="service-option" data-service="freeze-party" data-price="0" data-name="Freeze Party">
+                                <h3>Freeze Party</h3>
+                                <div class="service-price">Custom</div>
+                                <p class="service-desc">Group event pricing</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected & Continue -->
+                <div class="selected-service-display" id="selectedDisplay2">
+                    <div class="service-info">
+                        <h4 id="selectedName2">-</h4>
+                        <p id="selectedPrice2">-</p>
+                    </div>
+                    <button class="change-btn" onclick="clearSelection()">Change</button>
+                </div>
+                <div class="continue-section">
+                    <button class="continue-btn" id="continueBtn2" disabled>
+                        Continue to Schedule
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================================================================
+                 LAYOUT 3: Tab-Based Filter
+                 ================================================================ -->
+            <div class="layout-container layout-tabs" data-layout-content="tabs">
+
+                <!-- Tab Bar -->
+                <div class="tab-bar">
+                    <button class="tab-btn active" data-tab="all" onclick="switchTab(this, 'all')">ALL</button>
+                    <button class="tab-btn" data-tab="facials" onclick="switchTab(this, 'facials')">FACIALS</button>
+                    <button class="tab-btn" data-tab="pain" onclick="switchTab(this, 'pain')">PAIN RELIEF</button>
+                    <button class="tab-btn" data-tab="subs" onclick="switchTab(this, 'subs')">SUBSCRIPTIONS</button>
+                    <button class="tab-btn" data-tab="other" onclick="switchTab(this, 'other')">OTHER</button>
+                </div>
+
+                <!-- All Services Tab -->
+                <div class="tab-content active" data-tab-content="all">
+                    <p class="result-count">Showing all 13 services</p>
+                    <div class="services-grid">
+                        <!-- All services listed -->
+                        <button type="button" class="service-option" data-service="single" data-price="35" data-name="Single Session">
+                            <h3>Single Session</h3>
+                            <div class="service-price">$35</div>
+                            <p class="service-desc">One-time mobile treatment</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-4" data-price="100" data-name="Cryo Facial - 4 Sessions">
+                            <h3>Cryo Facial 4x</h3>
+                            <div class="service-price">$100</div>
+                            <p class="service-desc">Skin rejuvenation starter</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-8" data-price="180" data-name="Cryo Facial - 8 Sessions">
+                            <span class="badge">Popular</span>
+                            <h3>Cryo Facial 8x</h3>
+                            <div class="service-price">$180</div>
+                            <p class="service-desc">Most popular facial package</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-12" data-price="240" data-name="Cryo Facial - 12 Sessions">
+                            <h3>Cryo Facial 12x</h3>
+                            <div class="service-price">$240</div>
+                            <p class="service-desc">Maximum transformation</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-16" data-price="300" data-name="Cryo Facial - 16 Sessions">
+                            <h3>Cryo Facial 16x</h3>
+                            <div class="service-price">$300</div>
+                            <p class="service-desc">Ultimate skin program</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-4" data-price="120" data-name="Pain Relief - 4 Sessions">
+                            <h3>Pain Relief 4x</h3>
+                            <div class="service-price">$120</div>
+                            <p class="service-desc">Targeted therapy</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-8" data-price="220" data-name="Pain Relief - 8 Sessions">
+                            <span class="badge">Popular</span>
+                            <h3>Pain Relief 8x</h3>
+                            <div class="service-price">$220</div>
+                            <p class="service-desc">Chronic pain management</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-12" data-price="300" data-name="Pain Relief - 12 Sessions">
+                            <h3>Pain Relief 12x</h3>
+                            <div class="service-price">$300</div>
+                            <p class="service-desc">Long-term relief</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-16" data-price="380" data-name="Pain Relief - 16 Sessions">
+                            <h3>Pain Relief 16x</h3>
+                            <div class="service-price">$380</div>
+                            <p class="service-desc">Comprehensive wellness</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="sub-bronze" data-price="99" data-name="Bronze Subscription">
+                            <h3>Bronze Sub</h3>
+                            <div class="service-price">$99<span>/mo</span></div>
+                            <p class="service-desc">4 sessions/month</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="sub-silver" data-price="179" data-name="Silver Subscription">
+                            <span class="badge">Popular</span>
+                            <h3>Silver Sub</h3>
+                            <div class="service-price">$179<span>/mo</span></div>
+                            <p class="service-desc">8 sessions/month</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="sub-gold" data-price="299" data-name="Gold Subscription">
+                            <h3>Gold Sub</h3>
+                            <div class="service-price">$299<span>/mo</span></div>
+                            <p class="service-desc">Unlimited sessions</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="freeze-party" data-price="0" data-name="Freeze Party">
+                            <h3>Freeze Party</h3>
+                            <div class="service-price">Custom</div>
+                            <p class="service-desc">Group event pricing</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Facials Tab -->
+                <div class="tab-content" data-tab-content="facials">
+                    <p class="result-count">Showing 4 facial packages</p>
+                    <div class="services-grid">
+                        <button type="button" class="service-option" data-service="cryo-facial-4" data-price="100" data-name="Cryo Facial - 4 Sessions">
+                            <h3>4 Sessions</h3>
+                            <div class="service-price">$100</div>
+                            <p class="service-desc">Skin rejuvenation starter</p>
+                            <p class="per-session">$25/session</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-8" data-price="180" data-name="Cryo Facial - 8 Sessions">
+                            <span class="badge">Popular</span>
+                            <h3>8 Sessions</h3>
+                            <div class="service-price">$180</div>
+                            <p class="service-desc">Most popular package</p>
+                            <p class="per-session">$22.50/session</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-12" data-price="240" data-name="Cryo Facial - 12 Sessions">
+                            <span class="badge" style="background: var(--accent-400);">Best Value</span>
+                            <h3>12 Sessions</h3>
+                            <div class="service-price">$240</div>
+                            <p class="service-desc">Maximum transformation</p>
+                            <p class="per-session">$20/session</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-16" data-price="300" data-name="Cryo Facial - 16 Sessions">
+                            <h3>16 Sessions</h3>
+                            <div class="service-price">$300</div>
+                            <p class="service-desc">Ultimate skin program</p>
+                            <p class="per-session">$18.75/session</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pain Tab -->
+                <div class="tab-content" data-tab-content="pain">
+                    <p class="result-count">Showing 4 pain relief packages</p>
+                    <div class="services-grid">
+                        <button type="button" class="service-option" data-service="pain-relief-4" data-price="120" data-name="Pain Relief - 4 Sessions">
+                            <h3>4 Sessions</h3>
+                            <div class="service-price">$120</div>
+                            <p class="service-desc">Targeted therapy</p>
+                            <p class="per-session">$30/session</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-8" data-price="220" data-name="Pain Relief - 8 Sessions">
+                            <span class="badge">Popular</span>
+                            <h3>8 Sessions</h3>
+                            <div class="service-price">$220</div>
+                            <p class="service-desc">Chronic pain management</p>
+                            <p class="per-session">$27.50/session</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-12" data-price="300" data-name="Pain Relief - 12 Sessions">
+                            <span class="badge" style="background: var(--accent-400);">Best Value</span>
+                            <h3>12 Sessions</h3>
+                            <div class="service-price">$300</div>
+                            <p class="service-desc">Long-term relief</p>
+                            <p class="per-session">$25/session</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-16" data-price="380" data-name="Pain Relief - 16 Sessions">
+                            <h3>16 Sessions</h3>
+                            <div class="service-price">$380</div>
+                            <p class="service-desc">Comprehensive wellness</p>
+                            <p class="per-session">$23.75/session</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Subs Tab -->
+                <div class="tab-content" data-tab-content="subs">
+                    <p class="result-count">Showing 3 subscription plans</p>
+                    <div class="services-grid">
+                        <button type="button" class="service-option" data-service="sub-bronze" data-price="99" data-name="Bronze Subscription">
+                            <h3>Bronze</h3>
+                            <div class="service-price">$99<span>/mo</span></div>
+                            <p class="service-desc">4 sessions per month</p>
+                            <p class="per-session">Perfect for maintenance</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="sub-silver" data-price="179" data-name="Silver Subscription">
+                            <span class="badge">Popular</span>
+                            <h3>Silver</h3>
+                            <div class="service-price">$179<span>/mo</span></div>
+                            <p class="service-desc">8 sessions per month</p>
+                            <p class="per-session">Active recovery plan</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="sub-gold" data-price="299" data-name="Gold Subscription">
+                            <span class="badge" style="background: gold; color: #000;">Premium</span>
+                            <h3>Gold</h3>
+                            <div class="service-price">$299<span>/mo</span></div>
+                            <p class="service-desc">Unlimited sessions</p>
+                            <p class="per-session">Ultimate wellness plan</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Other Tab -->
+                <div class="tab-content" data-tab-content="other">
+                    <p class="result-count">Showing 2 other options</p>
+                    <div class="services-grid">
+                        <button type="button" class="service-option" data-service="single" data-price="35" data-name="Single Session">
+                            <h3>Single Session</h3>
+                            <div class="service-price">$35</div>
+                            <p class="service-desc">One-time mobile treatment</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="freeze-party" data-price="0" data-name="Freeze Party">
+                            <h3>Freeze Party</h3>
+                            <div class="service-price">Custom</div>
+                            <p class="service-desc">Host a cryotherapy event!</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Selected & Continue -->
+                <div class="selected-service-display" id="selectedDisplay3">
+                    <div class="service-info">
+                        <h4 id="selectedName3">-</h4>
+                        <p id="selectedPrice3">-</p>
+                    </div>
+                    <button class="change-btn" onclick="clearSelection()">Change</button>
+                </div>
+                <div class="continue-section">
+                    <button class="continue-btn" id="continueBtn3" disabled>
+                        Continue to Schedule
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================================================================
+                 LAYOUT 4: Search + Filter Chips
+                 ================================================================ -->
+            <div class="layout-container layout-search" data-layout-content="search">
+
+                <!-- Search Input -->
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <svg class="search-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input type="text" class="search-input" id="serviceSearch" placeholder="Search services..." oninput="filterServices()">
+                    </div>
+                </div>
+
+                <!-- Filter Chips -->
+                <div class="filter-section">
+                    <span class="filter-label">Category</span>
+                    <div class="filter-chips">
+                        <button class="filter-chip active" data-filter="category" data-value="all" onclick="toggleFilter(this)">All</button>
+                        <button class="filter-chip" data-filter="category" data-value="facial" onclick="toggleFilter(this)">Facial</button>
+                        <button class="filter-chip" data-filter="category" data-value="pain" onclick="toggleFilter(this)">Pain Relief</button>
+                        <button class="filter-chip" data-filter="category" data-value="sub" onclick="toggleFilter(this)">Monthly</button>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <span class="filter-label">Price Range</span>
+                    <div class="filter-chips">
+                        <button class="filter-chip" data-filter="price" data-value="under100" onclick="toggleFilter(this)">Under $100</button>
+                        <button class="filter-chip" data-filter="price" data-value="100-200" onclick="toggleFilter(this)">$100-$200</button>
+                        <button class="filter-chip" data-filter="price" data-value="200-300" onclick="toggleFilter(this)">$200-$300</button>
+                        <button class="filter-chip" data-filter="price" data-value="300plus" onclick="toggleFilter(this)">$300+</button>
+                    </div>
+                </div>
+
+                <!-- Results Header -->
+                <div class="results-header">
+                    <span class="result-count" id="searchResultCount">Showing 13 of 13 services</span>
+                    <button class="clear-filters" onclick="clearAllFilters()">Clear filters</button>
+                </div>
+
+                <!-- Services Grid -->
+                <div class="services-grid" id="searchResultsGrid">
+                    <button type="button" class="service-option" data-service="single" data-price="35" data-name="Single Session" data-category="other">
+                        <h3>Single Session</h3>
+                        <div class="service-price">$35</div>
+                        <p class="service-desc">One-time mobile treatment</p>
+                    </button>
+                    <button type="button" class="service-option" data-service="cryo-facial-4" data-price="100" data-name="Cryo Facial - 4 Sessions" data-category="facial">
+                        <h3>Cryo Facial 4x</h3>
+                        <div class="service-price">$100</div>
+                        <p class="service-desc">Skin rejuvenation</p>
+                    </button>
+                    <button type="button" class="service-option" data-service="cryo-facial-8" data-price="180" data-name="Cryo Facial - 8 Sessions" data-category="facial">
+                        <span class="badge">Popular</span>
+                        <h3>Cryo Facial 8x</h3>
+                        <div class="service-price">$180</div>
+                        <p class="service-desc">Most popular</p>
+                    </button>
+                    <button type="button" class="service-option" data-service="cryo-facial-12" data-price="240" data-name="Cryo Facial - 12 Sessions" data-category="facial">
+                        <h3>Cryo Facial 12x</h3>
+                        <div class="service-price">$240</div>
+                        <p class="service-desc">Best value</p>
+                    </button>
+                    <button type="button" class="service-option" data-service="cryo-facial-16" data-price="300" data-name="Cryo Facial - 16 Sessions" data-category="facial">
+                        <h3>Cryo Facial 16x</h3>
+                        <div class="service-price">$300</div>
+                        <p class="service-desc">Ultimate program</p>
+                    </button>
+                    <button type="button" class="service-option" data-service="pain-relief-4" data-price="120" data-name="Pain Relief - 4 Sessions" data-category="pain">
+                        <h3>Pain Relief 4x</h3>
+                        <div class="service-price">$120</div>
+                        <p class="service-desc">Targeted therapy</p>
+                    </button>
+                    <button type="button" class="service-option" data-service="pain-relief-8" data-price="220" data-name="Pain Relief - 8 Sessions" data-category="pain">
+                        <span class="badge">Popular</span>
+                        <h3>Pain Relief 8x</h3>
+                        <div class="service-price">$220</div>
+                        <p class="service-desc">Pain management</p>
+                    </button>
+                    <button type="button" class="service-option" data-service="pain-relief-12" data-price="300" data-name="Pain Relief - 12 Sessions" data-category="pain">
+                        <h3>Pain Relief 12x</h3>
+                        <div class="service-price">$300</div>
+                        <p class="service-desc">Long-term relief</p>
+                    </button>
+                    <button type="button" class="service-option" data-service="pain-relief-16" data-price="380" data-name="Pain Relief - 16 Sessions" data-category="pain">
+                        <h3>Pain Relief 16x</h3>
+                        <div class="service-price">$380</div>
+                        <p class="service-desc">Comprehensive</p>
+                    </button>
+                    <button type="button" class="service-option" data-service="sub-bronze" data-price="99" data-name="Bronze Subscription" data-category="sub">
+                        <h3>Bronze Sub</h3>
+                        <div class="service-price">$99<span>/mo</span></div>
+                        <p class="service-desc">4 sessions/mo</p>
+                    </button>
+                    <button type="button" class="service-option" data-service="sub-silver" data-price="179" data-name="Silver Subscription" data-category="sub">
+                        <span class="badge">Popular</span>
+                        <h3>Silver Sub</h3>
+                        <div class="service-price">$179<span>/mo</span></div>
+                        <p class="service-desc">8 sessions/mo</p>
+                    </button>
+                    <button type="button" class="service-option" data-service="sub-gold" data-price="299" data-name="Gold Subscription" data-category="sub">
+                        <h3>Gold Sub</h3>
+                        <div class="service-price">$299<span>/mo</span></div>
+                        <p class="service-desc">Unlimited</p>
+                    </button>
+                    <button type="button" class="service-option" data-service="freeze-party" data-price="0" data-name="Freeze Party" data-category="other">
+                        <h3>Freeze Party</h3>
+                        <div class="service-price">Custom</div>
+                        <p class="service-desc">Group event</p>
+                    </button>
+                </div>
+
+                <!-- Selected & Continue -->
+                <div class="selected-service-display" id="selectedDisplay4">
+                    <div class="service-info">
+                        <h4 id="selectedName4">-</h4>
+                        <p id="selectedPrice4">-</p>
+                    </div>
+                    <button class="change-btn" onclick="clearSelection()">Change</button>
+                </div>
+                <div class="continue-section">
+                    <button class="continue-btn" id="continueBtn4" disabled>
+                        Continue to Schedule
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================================================================
+                 LAYOUT 5: Context-Aware Guided Selection
+                 ================================================================ -->
+            <div class="layout-container layout-guided" data-layout-content="guided">
+
+                <!-- Step 1: Category Selection -->
+                <div class="guided-panel active" id="guidedCategories">
+                    <div class="step-indicator">
+                        <span>STEP 1 OF 2</span>
+                    </div>
+                    <div class="guided-question">
+                        <h2>WHAT ARE YOU LOOKING FOR?</h2>
+                        <p>Select the type of treatment that matches your goals</p>
+                    </div>
+                    <div class="category-grid">
+                        <div class="category-card" onclick="showGuidedCategory('facial')">
+                            <div class="icon">✨</div>
+                            <h3>CRYO FACIAL</h3>
+                            <p>Skin rejuvenation, anti-aging, and enhanced circulation</p>
+                        </div>
+                        <div class="category-card" onclick="showGuidedCategory('pain')">
+                            <div class="icon">💪</div>
+                            <h3>PAIN RELIEF</h3>
+                            <p>Recovery, inflammation reduction, and muscle therapy</p>
+                        </div>
+                        <div class="category-card" onclick="showGuidedCategory('sub')">
+                            <div class="icon">📆</div>
+                            <h3>SUBSCRIPTION</h3>
+                            <p>Monthly plans for regular maintenance and savings</p>
+                        </div>
+                        <div class="category-card" onclick="showGuidedCategory('other')">
+                            <div class="icon">⚡</div>
+                            <h3>SINGLE SESSION</h3>
+                            <p>Try it out or one-time treatment</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Facial Packages -->
+                <div class="guided-panel" id="guidedFacial">
+                    <button class="back-btn" onclick="showGuidedCategory('main')">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        Back to categories
+                    </button>
+                    <div class="step-indicator">
+                        <span>CRYO FACIAL PACKAGES</span>
+                    </div>
+                    <div class="guided-question">
+                        <h2>HOW MANY SESSIONS?</h2>
+                        <p>More sessions = better per-session value</p>
+                    </div>
+                    <div class="package-grid">
+                        <button type="button" class="service-option" data-service="cryo-facial-4" data-price="100" data-name="Cryo Facial - 4 Sessions">
+                            <h3>4 Sessions</h3>
+                            <div class="service-price">$100</div>
+                            <p class="per-session">$25 per session</p>
+                            <p class="service-desc">Start your journey</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-8" data-price="180" data-name="Cryo Facial - 8 Sessions">
+                            <span class="badge">Popular</span>
+                            <h3>8 Sessions</h3>
+                            <div class="service-price">$180</div>
+                            <p class="per-session">$22.50 per session</p>
+                            <p class="service-desc">Most chosen package</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-12" data-price="240" data-name="Cryo Facial - 12 Sessions">
+                            <span class="badge" style="background: var(--accent-400);">Best Value</span>
+                            <h3>12 Sessions</h3>
+                            <div class="service-price">$240</div>
+                            <p class="per-session">$20 per session</p>
+                            <p class="service-desc">Maximum results</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="cryo-facial-16" data-price="300" data-name="Cryo Facial - 16 Sessions">
+                            <h3>16 Sessions</h3>
+                            <div class="service-price">$300</div>
+                            <p class="per-session">$18.75 per session</p>
+                            <p class="service-desc">Ultimate program</p>
+                        </button>
+                    </div>
+                    <div class="tip-box">
+                        <p>💡 Not sure? Start with 4 sessions to try it out. You can always add more!</p>
+                    </div>
+                </div>
+
+                <!-- Step 2: Pain Relief Packages -->
+                <div class="guided-panel" id="guidedPain">
+                    <button class="back-btn" onclick="showGuidedCategory('main')">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        Back to categories
+                    </button>
+                    <div class="step-indicator">
+                        <span>PAIN RELIEF PACKAGES</span>
+                    </div>
+                    <div class="guided-question">
+                        <h2>HOW MANY SESSIONS?</h2>
+                        <p>Consistent treatment delivers the best results</p>
+                    </div>
+                    <div class="package-grid">
+                        <button type="button" class="service-option" data-service="pain-relief-4" data-price="120" data-name="Pain Relief - 4 Sessions">
+                            <h3>4 Sessions</h3>
+                            <div class="service-price">$120</div>
+                            <p class="per-session">$30 per session</p>
+                            <p class="service-desc">Targeted relief</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-8" data-price="220" data-name="Pain Relief - 8 Sessions">
+                            <span class="badge">Popular</span>
+                            <h3>8 Sessions</h3>
+                            <div class="service-price">$220</div>
+                            <p class="per-session">$27.50 per session</p>
+                            <p class="service-desc">Best for chronic pain</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-12" data-price="300" data-name="Pain Relief - 12 Sessions">
+                            <span class="badge" style="background: var(--accent-400);">Best Value</span>
+                            <h3>12 Sessions</h3>
+                            <div class="service-price">$300</div>
+                            <p class="per-session">$25 per session</p>
+                            <p class="service-desc">Long-term relief</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="pain-relief-16" data-price="380" data-name="Pain Relief - 16 Sessions">
+                            <h3>16 Sessions</h3>
+                            <div class="service-price">$380</div>
+                            <p class="per-session">$23.75 per session</p>
+                            <p class="service-desc">Comprehensive plan</p>
+                        </button>
+                    </div>
+                    <div class="tip-box">
+                        <p>💡 For chronic conditions, we recommend at least 8 sessions for lasting results.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2: Subscriptions -->
+                <div class="guided-panel" id="guidedSub">
+                    <button class="back-btn" onclick="showGuidedCategory('main')">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        Back to categories
+                    </button>
+                    <div class="step-indicator">
+                        <span>MONTHLY SUBSCRIPTIONS</span>
+                    </div>
+                    <div class="guided-question">
+                        <h2>CHOOSE YOUR PLAN</h2>
+                        <p>Commit to your wellness with monthly savings</p>
+                    </div>
+                    <div class="package-grid">
+                        <button type="button" class="service-option" data-service="sub-bronze" data-price="99" data-name="Bronze Subscription">
+                            <h3>Bronze</h3>
+                            <div class="service-price">$99<span>/mo</span></div>
+                            <p class="service-desc">4 sessions per month</p>
+                            <p class="per-session">Perfect for maintenance</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="sub-silver" data-price="179" data-name="Silver Subscription">
+                            <span class="badge">Popular</span>
+                            <h3>Silver</h3>
+                            <div class="service-price">$179<span>/mo</span></div>
+                            <p class="service-desc">8 sessions per month</p>
+                            <p class="per-session">Active recovery plan</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="sub-gold" data-price="299" data-name="Gold Subscription">
+                            <span class="badge" style="background: gold; color: #000;">Premium</span>
+                            <h3>Gold</h3>
+                            <div class="service-price">$299<span>/mo</span></div>
+                            <p class="service-desc">Unlimited sessions</p>
+                            <p class="per-session">Ultimate wellness</p>
+                        </button>
+                    </div>
+                    <div class="tip-box">
+                        <p>💡 Subscriptions auto-renew monthly. Cancel anytime with 30-day notice.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2: Single/Other -->
+                <div class="guided-panel" id="guidedOther">
+                    <button class="back-btn" onclick="showGuidedCategory('main')">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        Back to categories
+                    </button>
+                    <div class="step-indicator">
+                        <span>SINGLE SESSION & EVENTS</span>
+                    </div>
+                    <div class="guided-question">
+                        <h2>SELECT AN OPTION</h2>
+                        <p>Perfect for trying cryotherapy or special occasions</p>
+                    </div>
+                    <div class="package-grid" style="max-width: 500px;">
+                        <button type="button" class="service-option" data-service="single" data-price="35" data-name="Single Session">
+                            <h3>Single Session</h3>
+                            <div class="service-price">$35</div>
+                            <p class="service-desc">One-time mobile treatment</p>
+                            <p class="per-session">We come to you!</p>
+                        </button>
+                        <button type="button" class="service-option" data-service="freeze-party" data-price="0" data-name="Freeze Party">
+                            <h3>Freeze Party</h3>
+                            <div class="service-price">Custom</div>
+                            <p class="service-desc">Host a cryotherapy event!</p>
+                            <p class="per-session">Contact for group pricing</p>
+                        </button>
+                    </div>
+                    <div class="tip-box">
+                        <p>💡 First time? Use code FIRST25 for 25% off your first session!</p>
+                    </div>
+                </div>
+
+                <!-- Selected & Continue -->
+                <div class="selected-service-display" id="selectedDisplay5">
+                    <div class="service-info">
+                        <h4 id="selectedName5">-</h4>
+                        <p id="selectedPrice5">-</p>
+                    </div>
+                    <button class="change-btn" onclick="clearSelection()">Change</button>
+                </div>
+                <div class="continue-section">
+                    <button class="continue-btn" id="continueBtn5" disabled>
+                        Continue to Schedule
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo"><img src="../images/logo.png" alt="Recovery Plus"></a>
+                    <p>Mobile cryotherapy in Vacaville, CA.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:7077611528">(707) 761-1528</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2025 Recovery Plus.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // ================================================================
+        // Layout Switching
+        // ================================================================
+        const layoutBtns = document.querySelectorAll('.layout-btn');
+        const layoutContainers = document.querySelectorAll('.layout-container');
+
+        layoutBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const layout = btn.dataset.layout;
+
+                // Update buttons
+                layoutBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Update containers
+                layoutContainers.forEach(c => c.classList.remove('active'));
+                document.querySelector(`[data-layout-content="${layout}"]`).classList.add('active');
+
+                // Clear selection when switching layouts
+                clearSelection();
+            });
+        });
+
+        // ================================================================
+        // Service Selection (works across all layouts)
+        // ================================================================
+        let selectedService = null;
+
+        document.addEventListener('click', (e) => {
+            const option = e.target.closest('.service-option');
+            if (!option) return;
+
+            // Clear previous selection in all layouts
+            document.querySelectorAll('.service-option.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+
+            // Select this option
+            option.classList.add('selected');
+
+            // Store selection
+            selectedService = {
+                id: option.dataset.service,
+                name: option.dataset.name,
+                price: option.dataset.price
+            };
+
+            // Update all display areas
+            updateSelectedDisplays();
+        });
+
+        function updateSelectedDisplays() {
+            if (!selectedService) return;
+
+            for (let i = 1; i <= 5; i++) {
+                const display = document.getElementById(`selectedDisplay${i}`);
+                const nameEl = document.getElementById(`selectedName${i}`);
+                const priceEl = document.getElementById(`selectedPrice${i}`);
+                const continueBtn = document.getElementById(`continueBtn${i}`);
+
+                if (display && nameEl && priceEl) {
+                    display.classList.add('visible');
+                    nameEl.textContent = selectedService.name;
+                    priceEl.textContent = selectedService.price == 0 ? 'Custom Pricing' : `$${selectedService.price}`;
+                }
+                if (continueBtn) {
+                    continueBtn.disabled = false;
+                }
+            }
+        }
+
+        function clearSelection() {
+            selectedService = null;
+            document.querySelectorAll('.service-option.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+            for (let i = 1; i <= 5; i++) {
+                const display = document.getElementById(`selectedDisplay${i}`);
+                const continueBtn = document.getElementById(`continueBtn${i}`);
+                if (display) display.classList.remove('visible');
+                if (continueBtn) continueBtn.disabled = true;
+            }
+        }
+
+        // ================================================================
+        // Layout 1: Netflix Slider Navigation
+        // ================================================================
+        function scrollSlider(btn, direction) {
+            const track = btn.closest('.category-row').querySelector('.slider-track');
+            const scrollAmount = 240 * direction;
+            track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+
+        // ================================================================
+        // Layout 2: Accordion Toggle
+        // ================================================================
+        function toggleAccordion(header) {
+            const item = header.closest('.accordion-item');
+            const wasOpen = item.classList.contains('open');
+
+            // Close all accordions
+            document.querySelectorAll('.layout-accordion .accordion-item').forEach(i => {
+                i.classList.remove('open');
+            });
+
+            // Open clicked one (if it wasn't already open)
+            if (!wasOpen) {
+                item.classList.add('open');
+            }
+        }
+
+        // ================================================================
+        // Layout 3: Tab Switching
+        // ================================================================
+        function switchTab(btn, tabId) {
+            // Update buttons
+            document.querySelectorAll('.layout-tabs .tab-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+            btn.classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.layout-tabs .tab-content').forEach(c => {
+                c.classList.remove('active');
+            });
+            document.querySelector(`[data-tab-content="${tabId}"]`).classList.add('active');
+        }
+
+        // ================================================================
+        // Layout 4: Search & Filter
+        // ================================================================
+        let activeFilters = {
+            category: 'all',
+            price: null,
+            search: ''
+        };
+
+        function toggleFilter(chip) {
+            const filterType = chip.dataset.filter;
+            const value = chip.dataset.value;
+
+            if (filterType === 'category') {
+                document.querySelectorAll(`.filter-chip[data-filter="category"]`).forEach(c => {
+                    c.classList.remove('active');
+                });
+                chip.classList.add('active');
+                activeFilters.category = value;
+            } else if (filterType === 'price') {
+                if (chip.classList.contains('active')) {
+                    chip.classList.remove('active');
+                    activeFilters.price = null;
+                } else {
+                    document.querySelectorAll(`.filter-chip[data-filter="price"]`).forEach(c => {
+                        c.classList.remove('active');
+                    });
+                    chip.classList.add('active');
+                    activeFilters.price = value;
+                }
+            }
+
+            filterServices();
+        }
+
+        function filterServices() {
+            const searchInput = document.getElementById('serviceSearch');
+            activeFilters.search = searchInput.value.toLowerCase();
+
+            const grid = document.getElementById('searchResultsGrid');
+            const services = grid.querySelectorAll('.service-option');
+            let visibleCount = 0;
+
+            services.forEach(service => {
+                const category = service.dataset.category;
+                const price = parseInt(service.dataset.price) || 0;
+                const name = service.dataset.name.toLowerCase();
+
+                let show = true;
+
+                // Category filter
+                if (activeFilters.category !== 'all' && category !== activeFilters.category) {
+                    show = false;
+                }
+
+                // Price filter
+                if (activeFilters.price) {
+                    switch (activeFilters.price) {
+                        case 'under100': show = show && price < 100; break;
+                        case '100-200': show = show && price >= 100 && price < 200; break;
+                        case '200-300': show = show && price >= 200 && price < 300; break;
+                        case '300plus': show = show && price >= 300; break;
+                    }
+                }
+
+                // Search filter
+                if (activeFilters.search && !name.includes(activeFilters.search)) {
+                    show = false;
+                }
+
+                service.style.display = show ? '' : 'none';
+                if (show) visibleCount++;
+            });
+
+            document.getElementById('searchResultCount').textContent = `Showing ${visibleCount} of 13 services`;
+        }
+
+        function clearAllFilters() {
+            activeFilters = { category: 'all', price: null, search: '' };
+            document.getElementById('serviceSearch').value = '';
+            document.querySelectorAll('.layout-search .filter-chip').forEach(c => {
+                c.classList.remove('active');
+            });
+            document.querySelector('.filter-chip[data-value="all"]').classList.add('active');
+            filterServices();
+        }
+
+        // ================================================================
+        // Layout 5: Guided Navigation
+        // ================================================================
+        function showGuidedCategory(category) {
+            // Hide all panels
+            document.querySelectorAll('.layout-guided .guided-panel').forEach(p => {
+                p.classList.remove('active');
+            });
+
+            // Show the selected panel
+            if (category === 'main') {
+                document.getElementById('guidedCategories').classList.add('active');
+            } else if (category === 'facial') {
+                document.getElementById('guidedFacial').classList.add('active');
+            } else if (category === 'pain') {
+                document.getElementById('guidedPain').classList.add('active');
+            } else if (category === 'sub') {
+                document.getElementById('guidedSub').classList.add('active');
+            } else if (category === 'other') {
+                document.getElementById('guidedOther').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

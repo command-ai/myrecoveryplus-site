@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Issue | Recovery Plus - Mobile Cryotherapy</title>
+    <meta name="description" content="There was an issue processing your payment. Please try again or contact Recovery Plus for assistance.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=optional" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <!-- Page-specific styles -->
+    <style>
+        .payment-failure-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            padding-top: 140px;
+            min-height: 100vh;
+        }
+
+        .payment-failure-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Error Icon */
+        .error-icon-wrapper {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .error-icon-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: shake 0.5s ease-out;
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.4);
+        }
+
+        .error-icon-circle svg {
+            width: 60px;
+            height: 60px;
+            color: white;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        .error-pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.3);
+            animation: pulse 2s ease-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* Header */
+        .error-header {
+            margin-bottom: 2rem;
+        }
+
+        .error-header h1 {
+            font-size: 2.5rem;
+            color: #ef4444;
+            margin-bottom: 0.5rem;
+            animation: fadeUp 0.5s ease-out 0.3s both;
+        }
+
+        .error-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            animation: fadeUp 0.5s ease-out 0.4s both;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Error Message Box */
+        .error-message-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeUp 0.5s ease-out 0.5s both;
+        }
+
+        .error-message-box h3 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: #ef4444;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .error-message-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .error-code {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+        }
+
+        /* Common Issues */
+        .common-issues {
+            text-align: left;
+            margin-bottom: 2rem;
+            animation: fadeUp 0.5s ease-out 0.6s both;
+        }
+
+        .common-issues h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .issues-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .issue-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .issue-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ef4444;
+            flex-shrink: 0;
+        }
+
+        .issue-content h4 {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .issue-content p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Try Again Options */
+        .try-again-section {
+            text-align: left;
+            margin-bottom: 2rem;
+            animation: fadeUp 0.5s ease-out 0.7s both;
+        }
+
+        .try-again-section h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .options-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .options-list li:last-child {
+            border-bottom: none;
+        }
+
+        .options-list li svg {
+            flex-shrink: 0;
+            color: var(--accent-400);
+            margin-top: 2px;
+        }
+
+        .options-list li span {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .options-list li strong {
+            color: var(--text-primary);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeUp 0.5s ease-out 0.8s both;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 1.25rem;
+            font-size: 1.125rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-display);
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .action-btn.primary {
+            background: var(--accent-400);
+            color: var(--bg-primary);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--accent-500);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .action-btn.secondary:hover {
+            border-color: var(--accent-400);
+            color: var(--accent-400);
+        }
+
+        /* Support Contact Box */
+        .support-contact {
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            animation: fadeUp 0.5s ease-out 0.9s both;
+        }
+
+        .support-contact h4 {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .support-contact h4 svg {
+            color: var(--accent-400);
+        }
+
+        .support-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        @media (min-width: 480px) {
+            .support-options {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .support-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .support-option:hover {
+            border-color: var(--accent-400);
+            transform: translateY(-2px);
+        }
+
+        .support-option svg {
+            color: var(--accent-400);
+            margin-bottom: 0.5rem;
+        }
+
+        .support-option .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .support-option .value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            animation: fadeUp 0.5s ease-out 1s both;
+        }
+
+        .order-summary h4 {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .order-summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .order-summary-row .label {
+            color: var(--text-muted);
+        }
+
+        .order-summary-row .value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        @media (max-width: 640px) {
+            .payment-failure-container {
+                padding: 1rem;
+                padding-top: 160px;
+            }
+
+            .payment-failure-card {
+                padding: 1.5rem;
+            }
+
+            .error-header h1 {
+                font-size: 2rem;
+            }
+
+            .error-icon-wrapper,
+            .error-icon-circle,
+            .error-pulse {
+                width: 100px;
+                height: 100px;
+            }
+
+            .error-icon-circle svg {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="header" data-header role="banner">
+        <div class="container">
+            <div class="header-inner">
+                <a href="../index.html" class="logo" aria-label="Recovery Plus Home">
+                    <img src="../images/logo.png" alt="Recovery Plus">
+                </a>
+
+                <nav class="nav-desktop" aria-label="Primary Navigation">
+                    <a href="../index.html" class="nav-link">Home</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="pricing.html" class="nav-link">Pricing</a>
+                    <a href="booking.html" class="nav-link">Booking</a>
+                    <a href="checkin.html" class="nav-link">Check-In</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </nav>
+
+                <div class="header-actions">
+                    <a href="tel:+17077611528" class="header-phone" aria-label="Call us">
+                        (707) 761-1528
+                    </a>
+
+                    <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+                        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+
+                    <a href="booking.html" class="btn btn-primary header-cta">
+                        <span>Book Now</span>
+                    </a>
+
+                    <button class="mobile-menu-toggle" data-mobile-menu-toggle aria-label="Toggle mobile menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-menu" data-mobile-menu role="navigation" aria-label="Mobile Navigation" aria-hidden="true">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" data-mobile-menu-close aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <nav class="mobile-nav">
+                <a href="../index.html" class="mobile-nav-link">Home</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="pricing.html" class="mobile-nav-link">Pricing</a>
+                <a href="booking.html" class="mobile-nav-link">Booking</a>
+                <a href="checkin.html" class="mobile-nav-link">Check-In</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+            </nav>
+            <div class="mobile-menu-footer">
+                <a href="tel:+17077611528" class="mobile-cta-button">Call Now</a>
+                <a href="booking.html" class="mobile-cta-button mobile-cta-primary">Book Session</a>
+            </div>
+        </div>
+    </div>
+    <div class="mobile-menu-overlay" data-mobile-menu-overlay></div>
+
+    <!-- Main Content -->
+    <div class="payment-failure-container">
+        <div class="payment-failure-card">
+            <!-- Error Icon -->
+            <div class="error-icon-wrapper">
+                <div class="error-pulse"></div>
+                <div class="error-icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="15" y1="9" x2="9" y2="15"/>
+                        <line x1="9" y1="9" x2="15" y2="15"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Header -->
+            <div class="error-header">
+                <h1>PAYMENT ISSUE</h1>
+                <p>We couldn't process your payment</p>
+            </div>
+
+            <!-- Error Message Box -->
+            <div class="error-message-box">
+                <h3>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    Transaction Declined
+                </h3>
+                <p id="errorMessage">Your card was declined. Please check your card details or try a different payment method.</p>
+                <div class="error-code" id="errorCode">Error Code: CARD_DECLINED</div>
+            </div>
+
+            <!-- Common Issues -->
+            <div class="common-issues">
+                <h3>Common Reasons for Payment Failure</h3>
+                <div class="issues-grid">
+                    <div class="issue-card">
+                        <div class="issue-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                <line x1="1" y1="10" x2="23" y2="10"/>
+                            </svg>
+                        </div>
+                        <div class="issue-content">
+                            <h4>Card Declined</h4>
+                            <p>Your bank may have declined the transaction for security reasons</p>
+                        </div>
+                    </div>
+                    <div class="issue-card">
+                        <div class="issue-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <div class="issue-content">
+                            <h4>Insufficient Funds</h4>
+                            <p>Not enough balance available on your card</p>
+                        </div>
+                    </div>
+                    <div class="issue-card">
+                        <div class="issue-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <div class="issue-content">
+                            <h4>Expired Card</h4>
+                            <p>Your card may have expired - check the expiration date</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Try Again Options -->
+            <div class="try-again-section">
+                <h3>What You Can Do</h3>
+                <ul class="options-list">
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span><strong>Update payment method</strong> - Use a different card or payment option</span>
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span><strong>Try a different card</strong> - Some cards have spending limits or restrictions</span>
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span><strong>Contact your bank</strong> - They may need to authorize the transaction</span>
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span><strong>Check card details</strong> - Verify the card number, expiration, and CVV</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="booking.html" class="action-btn primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"/>
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                    </svg>
+                    TRY AGAIN
+                </a>
+                <a href="contact.html" class="action-btn secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    CONTACT SUPPORT
+                </a>
+            </div>
+
+            <!-- Support Contact -->
+            <div class="support-contact">
+                <h4>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    Need Help?
+                </h4>
+                <div class="support-options">
+                    <a href="tel:+17077611528" class="support-option">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        <span class="label">Call Us</span>
+                        <span class="value">(707) 761-1528</span>
+                    </a>
+                    <a href="mailto:Brian.recoveryplus@outlook.com" class="support-option">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <span class="label">Email Us</span>
+                        <span class="value">Send Message</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h4>YOUR ORDER</h4>
+                <div class="order-summary-row">
+                    <span class="label">Item</span>
+                    <span class="value" id="orderItem">8-Session Package</span>
+                </div>
+                <div class="order-summary-row">
+                    <span class="label">Amount</span>
+                    <span class="value" id="orderAmount">$195.08</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="../images/logo.png" alt="Recovery Plus">
+                    </a>
+                    <p>Mobile cryotherapy for Northern California. We come to you.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/recoveryplus" aria-label="Instagram" target="_blank" rel="noopener">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/recoveryplus" aria-label="Facebook" target="_blank" rel="noopener">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html">Cryotherapy</a></li>
+                        <li><a href="pricing.html">Pricing Plans</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:7077611528">(707) 761-1528</a></li>
+                        <li><a href="mailto:Brian.recoveryplus@outlook.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Recovery Plus. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Nav -->
+    <nav class="mobile-bottom-nav" role="navigation" aria-label="Mobile Bottom Navigation">
+        <a href="../index.html" class="mobile-bottom-link" aria-label="Home">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="services.html" class="mobile-bottom-link" aria-label="Services">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Services</span>
+        </a>
+        <a href="booking.html" class="mobile-bottom-link mobile-bottom-link-primary" aria-label="Book Now">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>Book</span>
+        </a>
+        <a href="contact.html" class="mobile-bottom-link" aria-label="Contact">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <span>Contact</span>
+        </a>
+    </nav>
+
+    <!-- Scripts -->
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // Get URL parameters for dynamic error messages
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Error types and their messages
+            const errorMessages = {
+                'card_declined': {
+                    message: 'Your card was declined. Please check your card details or try a different payment method.',
+                    code: 'CARD_DECLINED'
+                },
+                'insufficient_funds': {
+                    message: 'Your card has insufficient funds. Please use a different card or add funds to your account.',
+                    code: 'INSUFFICIENT_FUNDS'
+                },
+                'expired_card': {
+                    message: 'Your card has expired. Please update your card information or use a different payment method.',
+                    code: 'CARD_EXPIRED'
+                },
+                'invalid_card': {
+                    message: 'The card number entered is invalid. Please check the card number and try again.',
+                    code: 'INVALID_CARD'
+                },
+                'processing_error': {
+                    message: 'There was an error processing your payment. Please try again in a few minutes.',
+                    code: 'PROCESSING_ERROR'
+                },
+                'timeout': {
+                    message: 'The payment request timed out. Please check your internet connection and try again.',
+                    code: 'TIMEOUT'
+                }
+            };
+
+            // Get error type from URL or default
+            const errorType = urlParams.get('error') || 'card_declined';
+            const error = errorMessages[errorType] || errorMessages['card_declined'];
+
+            // Get order details from URL
+            const orderItem = urlParams.get('item') || '8-Session Package';
+            const orderAmount = urlParams.get('amount') || '$195.08';
+
+            // Update display
+            document.getElementById('errorMessage').textContent = error.message;
+            document.getElementById('errorCode').textContent = 'Error Code: ' + error.code;
+            document.getElementById('orderItem').textContent = orderItem;
+            document.getElementById('orderAmount').textContent = orderAmount;
+        })();
+    </script>
+
+    <!-- Mobile Sticky Bar -->
+    <div class="mobile-sticky">
+        <a href="tel:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Call</span>
+        </a>
+        <a href="mailto:Brian.recoveryplus@outlook.com">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>Email</span>
+        </a>
+        <a href="booking.html" class="primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Book Now</span>
+        </a>
+    </div>
+</body>
+</html>

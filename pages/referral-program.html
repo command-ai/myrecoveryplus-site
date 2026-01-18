@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral Program | Recovery Plus | Share Recovery, Earn Rewards</title>
+    <meta name="description" content="Share Recovery Plus with friends and earn rewards. Give your friends $10 off their first session and get $10 credit when they book. Refer more, earn more!">
+    <meta name="keywords" content="referral program, cryotherapy referral, earn rewards, share recovery, mobile cryotherapy, Vacaville, Napa, Fairfield">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=optional" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <style>
+        .referral-hero {
+            min-height: 60vh;
+            padding: 160px 0 80px;
+        }
+        .referral-code-box {
+            background: var(--bg-tertiary);
+            border: 2px dashed var(--accent-400);
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .referral-code {
+            font-family: 'Bebas Neue', var(--font-display-fallback);
+            font-size: 2.5rem;
+            letter-spacing: 0.1em;
+            color: var(--accent-400);
+            margin: 0.5rem 0;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .share-btn:hover {
+            border-color: var(--accent-400);
+            color: var(--accent-400);
+        }
+        .tier-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .tier-card:hover {
+            border-color: var(--accent-400);
+            transform: translateY(-4px);
+        }
+        .tier-card.featured {
+            border: 2px solid var(--accent-400);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
+        }
+        .tier-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            padding: 0.25rem 1rem;
+            font-family: 'Bebas Neue', var(--font-display-fallback);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+        .tier-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .tier-name {
+            font-family: 'Bebas Neue', var(--font-display-fallback);
+            font-size: 1.75rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        .tier-referrals {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .tier-reward {
+            font-family: 'Bebas Neue', var(--font-display-fallback);
+            font-size: 2.5rem;
+            color: var(--accent-400);
+        }
+        .leaderboard {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+        }
+        .leaderboard-row {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .leaderboard-row:last-child {
+            border-bottom: none;
+        }
+        .leaderboard-rank {
+            width: 40px;
+            font-family: 'Bebas Neue', var(--font-display-fallback);
+            font-size: 1.5rem;
+            color: var(--accent-400);
+        }
+        .leaderboard-name {
+            flex: 1;
+            font-weight: 600;
+        }
+        .leaderboard-referrals {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .terms-box {
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--accent-400);
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        .terms-box h4 {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .terms-box ul {
+            margin: 0;
+            padding-left: 1.25rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        .terms-box li {
+            margin-bottom: 0.5rem;
+        }
+        .how-step-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        .how-step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            font-family: 'Bebas Neue', var(--font-display-fallback);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .how-step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" data-header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="../index.html" class="logo" aria-label="Recovery Plus Home">
+                    <img src="../images/logo.png" alt="Recovery Plus" class="logo-full">
+                </a>
+
+                <nav class="nav-desktop" aria-label="Primary Navigation">
+                    <a href="../index.html" class="nav-link">Home</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="pricing.html" class="nav-link">Pricing</a>
+                    <a href="booking.html" class="nav-link">Booking</a>
+                    <a href="checkin.html" class="nav-link">Check-In</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </nav>
+
+                <div class="header-actions">
+                    <a href="tel:+17077611528" class="header-phone" aria-label="Call us at 707-761-1528">
+                        (707) 761-1528
+                    </a>
+
+                    <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark/light theme">
+                        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+
+                    <a href="booking.html" class="btn btn-primary header-cta">
+                        <span>Book Now</span>
+                    </a>
+
+                    <button class="mobile-menu-toggle" data-mobile-menu-toggle aria-label="Toggle mobile menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-menu" data-mobile-menu role="navigation" aria-label="Mobile Navigation" aria-hidden="true">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" data-mobile-menu-close aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <nav class="mobile-nav">
+                <a href="../index.html" class="mobile-nav-link">Home</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="pricing.html" class="mobile-nav-link">Pricing</a>
+                <a href="booking.html" class="mobile-nav-link">Booking</a>
+                <a href="checkin.html" class="mobile-nav-link">Check-In</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+            </nav>
+            <div class="mobile-menu-footer">
+                <a href="tel:+17077611528" class="mobile-cta-button">Call Now</a>
+                <a href="booking.html" class="mobile-cta-button mobile-cta-primary">Book Session</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" data-mobile-menu-overlay></div>
+
+    <!-- Hero Section -->
+    <section class="hero referral-hero">
+        <div class="hero-bg">
+            <div class="hero-grid"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <span class="eyebrow">Referral Program</span>
+                </div>
+                <h1>SHARE RECOVERY,<br><span class="highlight">EARN REWARDS</span></h1>
+                <p class="hero-sub">
+                    Love Recovery Plus? Share it with friends and family. When they book their first session, you BOTH get $10 credit. The more you refer, the more you earn.
+                </p>
+                <div class="hero-ctas">
+                    <a href="#get-code" class="btn btn-primary">
+                        <span>Get Your Code</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </a>
+                    <a href="#how-it-works" class="btn btn-outline">Learn More</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">$10</div>
+                        <div class="hero-stat-label">You Get</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">$10</div>
+                        <div class="hero-stat-label">They Get</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">Unlimited</div>
+                        <div class="hero-stat-label">Referrals</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" style="padding: 6rem 0; background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+                <span class="eyebrow">Simple Process</span>
+                <h2>How It Works</h2>
+                <p style="max-width: 600px; margin: 1rem auto 0; color: var(--text-muted);">
+                    Earning rewards through referrals is easy. Just three simple steps.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                <!-- Step 1 -->
+                <div class="how-step-card">
+                    <div class="how-step-number">1</div>
+                    <div class="how-step-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent-400)" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <h3 style="font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.5rem; margin-bottom: 0.5rem;">Share Your Code</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">
+                        Log into your account to get your unique referral code. Share it via text, email, or social media with friends and family.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="how-step-card">
+                    <div class="how-step-number">2</div>
+                    <div class="how-step-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent-400)" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <h3 style="font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.5rem; margin-bottom: 0.5rem;">Friend Books Session</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">
+                        Your friend uses your code when booking their first Recovery Plus session. They get $10 off their first treatment.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="how-step-card">
+                    <div class="how-step-number">3</div>
+                    <div class="how-step-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent-400)" stroke-width="2">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 style="font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.5rem; margin-bottom: 0.5rem;">You Both Earn</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">
+                        After your friend completes their session, you automatically receive $10 credit in your account. Win-win!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Your Code Section -->
+    <section id="get-code" style="padding: 6rem 0; background: var(--bg-primary);">
+        <div class="container">
+            <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <span class="eyebrow">Your Referral Code</span>
+                <h2 style="margin-bottom: 1rem;">Share & Earn</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">
+                    Log in to your account to access your unique referral code and start earning rewards.
+                </p>
+
+                <div class="referral-code-box">
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">Your Unique Code</p>
+                    <div class="referral-code" id="referralCode">LOGIN TO VIEW</div>
+                    <p style="color: var(--text-faint); font-size: 0.85rem;">Sign in to get your personalized referral code</p>
+
+                    <div class="share-buttons">
+                        <button class="share-btn" onclick="copyCode()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                            Copy Link
+                        </button>
+                        <button class="share-btn" onclick="shareViaText()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                            Text
+                        </button>
+                        <button class="share-btn" onclick="shareViaEmail()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            Email
+                        </button>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="account/login.html" class="btn btn-primary">
+                        <span>Login to Get Code</span>
+                    </a>
+                    <a href="account/signup.html" class="btn btn-outline">
+                        <span>Create Account</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Referral Tiers Section -->
+    <section style="padding: 6rem 0; background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+                <span class="eyebrow">Bonus Rewards</span>
+                <h2>Referral Tiers</h2>
+                <p style="max-width: 600px; margin: 1rem auto 0; color: var(--text-muted);">
+                    The more friends you refer, the bigger your bonuses. Unlock exclusive rewards as you climb the tiers.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto;">
+                <!-- Starter Tier -->
+                <div class="tier-card">
+                    <div class="tier-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <div class="tier-name">Starter</div>
+                    <div class="tier-referrals">1-4 Referrals</div>
+                    <div class="tier-reward">$10<span style="font-size: 1rem; color: var(--text-muted);">/each</span></div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">Standard $10 credit per successful referral</p>
+                </div>
+
+                <!-- Bronze Tier -->
+                <div class="tier-card">
+                    <div class="tier-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#CD7F32" stroke-width="2">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <div class="tier-name">Bronze</div>
+                    <div class="tier-referrals">5-9 Referrals</div>
+                    <div class="tier-reward">$15<span style="font-size: 1rem; color: var(--text-muted);">/each</span></div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">+ Free add-on with your next session</p>
+                </div>
+
+                <!-- Silver Tier -->
+                <div class="tier-card featured">
+                    <div class="tier-badge">POPULAR</div>
+                    <div class="tier-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C0C0C0" stroke-width="2">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <div class="tier-name">Silver</div>
+                    <div class="tier-referrals">10-19 Referrals</div>
+                    <div class="tier-reward">$20<span style="font-size: 1rem; color: var(--text-muted);">/each</span></div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">+ 1 FREE cryotherapy session</p>
+                </div>
+
+                <!-- Gold Tier -->
+                <div class="tier-card">
+                    <div class="tier-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <div class="tier-name">Gold</div>
+                    <div class="tier-referrals">20+ Referrals</div>
+                    <div class="tier-reward">$25<span style="font-size: 1rem; color: var(--text-muted);">/each</span></div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">+ VIP status & exclusive perks</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leaderboard Section -->
+    <section style="padding: 6rem 0; background: var(--bg-primary);">
+        <div class="container">
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                    <span class="eyebrow">Top Referrers</span>
+                    <h2>Leaderboard</h2>
+                    <p style="color: var(--text-muted);">See who's sharing the most recovery love this month</p>
+                </div>
+
+                <div class="leaderboard">
+                    <div class="leaderboard-row">
+                        <div class="leaderboard-rank">1</div>
+                        <div class="leaderboard-name">Sarah M.</div>
+                        <div class="leaderboard-referrals">23 referrals</div>
+                    </div>
+                    <div class="leaderboard-row">
+                        <div class="leaderboard-rank">2</div>
+                        <div class="leaderboard-name">Mike R.</div>
+                        <div class="leaderboard-referrals">18 referrals</div>
+                    </div>
+                    <div class="leaderboard-row">
+                        <div class="leaderboard-rank">3</div>
+                        <div class="leaderboard-name">Jennifer T.</div>
+                        <div class="leaderboard-referrals">15 referrals</div>
+                    </div>
+                    <div class="leaderboard-row">
+                        <div class="leaderboard-rank">4</div>
+                        <div class="leaderboard-name">David K.</div>
+                        <div class="leaderboard-referrals">12 referrals</div>
+                    </div>
+                    <div class="leaderboard-row">
+                        <div class="leaderboard-rank">5</div>
+                        <div class="leaderboard-name">Amanda L.</div>
+                        <div class="leaderboard-referrals">10 referrals</div>
+                    </div>
+                </div>
+
+                <p style="text-align: center; color: var(--text-faint); font-size: 0.85rem; margin-top: 1.5rem;">
+                    Leaderboard resets monthly. Top 3 referrers win bonus rewards!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="padding: 6rem 0; background: var(--bg-secondary); text-align: center;">
+        <div class="container">
+            <span class="eyebrow" style="display: block; margin-bottom: 1rem;">Start Earning Today</span>
+            <h2 style="margin-bottom: 1.5rem;">Ready to Share the Freeze?</h2>
+            <p style="max-width: 600px; margin: 0 auto 2.5rem; font-size: 1.125rem; color: var(--text-muted);">
+                Join our referral program and start earning credits for every friend you bring. It's free to join and there's no limit to how much you can earn.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="account/signup.html" class="btn btn-primary">
+                    <span>Sign Up Now</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </a>
+                <a href="account/login.html" class="btn btn-outline">Already a Member? Login</a>
+            </div>
+
+            <!-- Terms -->
+            <div class="terms-box" style="max-width: 600px; margin: 3rem auto 0; text-align: left;">
+                <h4>Terms & Conditions</h4>
+                <ul>
+                    <li>Referral credits are applied after the referred friend completes their first paid session.</li>
+                    <li>Credits cannot be exchanged for cash and must be used within 12 months.</li>
+                    <li>Self-referrals are not permitted.</li>
+                    <li>Recovery Plus reserves the right to modify or terminate the program at any time.</li>
+                    <li>Bonus tier rewards are in addition to standard referral credits.</li>
+                    <li>Must have an active Recovery Plus account to participate.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" style="background: var(--bg-secondary); padding: 4rem 0 2rem; border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div style="display: grid; gap: 3rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-bottom: 3rem;">
+                <!-- Brand Column -->
+                <div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+                            <path d="M20 0L40 20L20 40L0 20L20 0Z" fill="var(--accent-400)"/>
+                            <circle cx="20" cy="20" r="8" fill="var(--bg-primary)"/>
+                        </svg>
+                        <span style="font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.25rem; letter-spacing: 0.05em; color: var(--text-primary);">RECOVERY PLUS</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Elite mobile cryotherapy for everyone. Professional recovery delivered to you.</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 style="font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-primary);">QUICK LINKS</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.75rem;"><a href="services.html" style="color: var(--text-muted); font-size: 0.9rem;">Services</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="pricing.html" style="color: var(--text-muted); font-size: 0.9rem;">Pricing</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="rewards.html" style="color: var(--text-muted); font-size: 0.9rem;">Rewards Program</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="referral-program.html" style="color: var(--text-muted); font-size: 0.9rem;">Referral Program</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 style="font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-primary);">CONTACT</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.75rem;"><a href="tel:+17077611528" style="color: var(--text-muted); font-size: 0.9rem;">(707) 761-1528</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="mailto:Brian.recoveryplus@outlook.com" style="color: var(--text-muted); font-size: 0.9rem;">Brian.recoveryplus@outlook.com</a></li>
+                        <li style="margin-bottom: 0.75rem; color: var(--text-muted); font-size: 0.9rem;">Vacaville, CA</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="padding-top: 2rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <p style="color: var(--text-faint); font-size: 0.85rem;">&copy; 2025 Recovery Plus. All rights reserved.</p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="legal/privacy-policy.html" style="color: var(--text-faint); font-size: 0.85rem;">Privacy Policy</a>
+                    <a href="legal/terms-and-conditions.html" style="color: var(--text-faint); font-size: 0.85rem;">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky Bar -->
+    <div class="mobile-sticky-bar" style="position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 0.75rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; z-index: 999;">
+        <a href="../index.html" style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Home
+        </a>
+        <a href="services.html" style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            Services
+        </a>
+        <a href="booking.html" style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Book
+        </a>
+        <a href="contact.html" style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Contact
+        </a>
+    </div>
+
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        function copyCode() {
+            const code = document.getElementById('referralCode').innerText;
+            if (code !== 'LOGIN TO VIEW') {
+                navigator.clipboard.writeText('https://myrecoveryplus.com/ref/' + code);
+                alert('Referral link copied to clipboard!');
+            } else {
+                window.location.href = 'account/login.html';
+            }
+        }
+
+        function shareViaText() {
+            const code = document.getElementById('referralCode').innerText;
+            if (code !== 'LOGIN TO VIEW') {
+                window.location.href = 'sms:?body=Try Recovery Plus mobile cryotherapy! Use my code ' + code + ' and get $10 off your first session: https://myrecoveryplus.com/ref/' + code;
+            } else {
+                window.location.href = 'account/login.html';
+            }
+        }
+
+        function shareViaEmail() {
+            const code = document.getElementById('referralCode').innerText;
+            if (code !== 'LOGIN TO VIEW') {
+                window.location.href = 'mailto:?subject=Get $10 off Recovery Plus Cryotherapy&body=Hey! I\'ve been using Recovery Plus for mobile cryotherapy and thought you\'d love it. Use my referral code ' + code + ' and get $10 off your first session!%0A%0ABook here: https://myrecoveryplus.com/ref/' + code;
+            } else {
+                window.location.href = 'account/login.html';
+            }
+        }
+    </script>
+
+    <!-- Mobile Sticky Bar -->
+    <div class="mobile-sticky">
+        <a href="tel:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Call</span>
+        </a>
+        <a href="mailto:Brian.recoveryplus@outlook.com">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>Email</span>
+        </a>
+        <a href="booking.html" class="primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Book Now</span>
+        </a>
+    </div>
+</body>
+</html>

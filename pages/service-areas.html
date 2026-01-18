@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Areas | Recovery Plus | We Bring The Freeze To You</title>
+    <meta name="description" content="Recovery Plus mobile cryotherapy serves Vacaville, Fairfield, Vallejo, Napa, Davis and surrounding areas. Professional cryotherapy delivered to your home, gym, or office.">
+    <meta name="keywords" content="mobile cryotherapy Vacaville, cryotherapy Fairfield, cryotherapy Napa, cryotherapy Davis, cryotherapy Vallejo, Solano County cryotherapy">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=optional" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <style>
+        .service-areas-hero {
+            min-height: 60vh;
+            padding: 160px 0 80px;
+        }
+        .map-placeholder {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .map-placeholder svg {
+            color: var(--accent-400);
+        }
+        .area-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .area-card:hover {
+            border-color: var(--accent-400);
+            transform: translateY(-4px);
+        }
+        .area-card.primary {
+            border: 2px solid var(--accent-400);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
+        }
+        .area-badge {
+            position: absolute;
+            top: -12px;
+            left: 1.5rem;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            padding: 0.25rem 0.75rem;
+            font-family: 'Bebas Neue', var(--font-display-fallback);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+        }
+        .area-name {
+            font-family: 'Bebas Neue', var(--font-display-fallback);
+            font-size: 1.75rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .area-name svg {
+            color: var(--accent-400);
+        }
+        .area-details {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        .area-availability {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .area-availability.same-day {
+            color: var(--neon);
+        }
+        .travel-fee-box {
+            background: var(--bg-tertiary);
+            border-left: 3px solid var(--accent-400);
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        .request-form {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-400);
+        }
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .contact-info-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+        }
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" data-header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="../index.html" class="logo" aria-label="Recovery Plus Home">
+                    <img src="../images/logo.png" alt="Recovery Plus" class="logo-full">
+                </a>
+
+                <nav class="nav-desktop" aria-label="Primary Navigation">
+                    <a href="../index.html" class="nav-link">Home</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="pricing.html" class="nav-link">Pricing</a>
+                    <a href="booking.html" class="nav-link">Booking</a>
+                    <a href="checkin.html" class="nav-link">Check-In</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </nav>
+
+                <div class="header-actions">
+                    <a href="tel:+17077611528" class="header-phone" aria-label="Call us at 707-761-1528">
+                        (707) 761-1528
+                    </a>
+
+                    <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark/light theme">
+                        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+
+                    <a href="booking.html" class="btn btn-primary header-cta">
+                        <span>Book Now</span>
+                    </a>
+
+                    <button class="mobile-menu-toggle" data-mobile-menu-toggle aria-label="Toggle mobile menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-menu" data-mobile-menu role="navigation" aria-label="Mobile Navigation" aria-hidden="true">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" data-mobile-menu-close aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <nav class="mobile-nav">
+                <a href="../index.html" class="mobile-nav-link">Home</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="pricing.html" class="mobile-nav-link">Pricing</a>
+                <a href="booking.html" class="mobile-nav-link">Booking</a>
+                <a href="checkin.html" class="mobile-nav-link">Check-In</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+            </nav>
+            <div class="mobile-menu-footer">
+                <a href="tel:+17077611528" class="mobile-cta-button">Call Now</a>
+                <a href="booking.html" class="mobile-cta-button mobile-cta-primary">Book Session</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" data-mobile-menu-overlay></div>
+
+    <!-- Hero Section -->
+    <section class="hero service-areas-hero">
+        <div class="hero-bg">
+            <div class="hero-grid"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <span class="eyebrow">Service Areas</span>
+                </div>
+                <h1>WE BRING THE<br><span class="highlight">FREEZE TO YOU</span></h1>
+                <p class="hero-sub">
+                    Professional mobile cryotherapy delivered directly to your home, gym, office, or event. Serving Solano County, Napa County, and surrounding areas.
+                </p>
+                <div class="hero-ctas">
+                    <a href="booking.html" class="btn btn-primary">
+                        <span>Book Your Session</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </a>
+                    <a href="#request-service" class="btn btn-outline">Request Your Area</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section style="padding: 6rem 0; background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                <span class="eyebrow">Coverage Map</span>
+                <h2>Our Service Territory</h2>
+                <p style="max-width: 600px; margin: 1rem auto 0; color: var(--text-muted);">
+                    We cover a wide area across Solano and Napa counties. Check if we service your location.
+                </p>
+            </div>
+
+            <div class="map-placeholder">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <p style="color: var(--text-muted); font-size: 1rem;">Interactive Map Coming Soon</p>
+                <p style="color: var(--text-faint); font-size: 0.875rem;">Serving Solano & Napa Counties</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Areas Grid -->
+    <section style="padding: 6rem 0; background: var(--bg-primary);">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+                <span class="eyebrow">Where We Serve</span>
+                <h2>Service Areas</h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <!-- Vacaville - Primary -->
+                <div class="area-card primary">
+                    <div class="area-badge">HOME BASE</div>
+                    <div class="area-name">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Vacaville
+                    </div>
+                    <p class="area-details">
+                        Our home base and primary service area. Full coverage throughout Vacaville including all neighborhoods, gyms, and business parks.
+                    </p>
+                    <div class="area-availability same-day">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Same-day appointments available
+                    </div>
+                </div>
+
+                <!-- Fairfield -->
+                <div class="area-card">
+                    <div class="area-name">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Fairfield
+                    </div>
+                    <p class="area-details">
+                        Full coverage including Travis AFB area, Green Valley, and all Fairfield neighborhoods. Regular scheduling available.
+                    </p>
+                    <div class="area-availability">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Next-day appointments available
+                    </div>
+                </div>
+
+                <!-- Vallejo -->
+                <div class="area-card">
+                    <div class="area-name">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Vallejo
+                    </div>
+                    <p class="area-details">
+                        Serving all of Vallejo including Mare Island, Glen Cove, and downtown areas. Perfect for waterfront recovery sessions.
+                    </p>
+                    <div class="area-availability">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Next-day appointments available
+                    </div>
+                </div>
+
+                <!-- Napa -->
+                <div class="area-card">
+                    <div class="area-name">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Napa
+                    </div>
+                    <p class="area-details">
+                        Wine country recovery at its finest. Serving all of Napa including downtown, Silverado, and surrounding vineyard areas.
+                    </p>
+                    <div class="area-availability">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Next-day appointments available
+                    </div>
+                </div>
+
+                <!-- Davis -->
+                <div class="area-card">
+                    <div class="area-name">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        Davis
+                    </div>
+                    <p class="area-details">
+                        Serving UC Davis area, downtown Davis, and surrounding communities. Popular with student athletes and faculty.
+                    </p>
+                    <div class="area-availability">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        2-3 day scheduling
+                    </div>
+                </div>
+
+                <!-- Surrounding Areas -->
+                <div class="area-card">
+                    <div class="area-name">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                        Surrounding Areas
+                    </div>
+                    <p class="area-details">
+                        Dixon, Suisun City, American Canyon, Benicia, and other nearby areas. Contact us to check availability in your location.
+                    </p>
+                    <div class="area-availability">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
+                        </svg>
+                        Call for availability
+                    </div>
+                </div>
+            </div>
+
+            <!-- Travel Fee Info -->
+            <div class="travel-fee-box">
+                <h4 style="margin-bottom: 0.75rem; font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.25rem; letter-spacing: 0.05em;">Travel Fee Information</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem;">
+                    <strong style="color: var(--text-primary);">Vacaville:</strong> No travel fee - included with all services
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem;">
+                    <strong style="color: var(--text-primary);">Fairfield, Vallejo, Napa:</strong> $10 travel fee may apply for single sessions
+                </p>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem;">
+                    <strong style="color: var(--text-primary);">Davis & Extended Areas:</strong> Travel fee varies by location - call for quote
+                </p>
+                <p style="color: var(--text-faint); font-size: 0.85rem; margin-top: 1rem;">
+                    * Monthly subscription members receive free travel within our primary service area
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Request Service Form -->
+    <section id="request-service" style="padding: 6rem 0; background: var(--bg-secondary);">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
+                <!-- Form -->
+                <div>
+                    <span class="eyebrow" style="display: block; margin-bottom: 0.5rem;">Not In Our Area?</span>
+                    <h2 style="margin-bottom: 1rem;">Request Service in Your Area</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem;">
+                        We're always expanding! Let us know where you'd like to see Recovery Plus services and we'll reach out when we're available in your area.
+                    </p>
+
+                    <form class="request-form" id="requestAreaForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City *</label>
+                                <input type="text" id="city" name="city" required placeholder="Your city">
+                            </div>
+                            <div class="form-group">
+                                <label for="zipcode">ZIP Code *</label>
+                                <input type="text" id="zipcode" name="zipcode" required placeholder="00000">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="serviceType">Interested In</label>
+                            <select id="serviceType" name="serviceType">
+                                <option value="">Select service type</option>
+                                <option value="personal">Personal / Home Use</option>
+                                <option value="gym">Gym / Fitness Center</option>
+                                <option value="sports">Sports Team</option>
+                                <option value="corporate">Corporate Wellness</option>
+                                <option value="event">Special Event</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Additional Information</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your needs..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <span>Submit Request</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12 5 19 12 12 19"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <div class="contact-info-card" style="margin-bottom: 1.5rem;">
+                        <div class="contact-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.5rem; margin-bottom: 0.5rem;">Call Us Directly</h3>
+                        <a href="tel:+17077611528" style="font-size: 1.5rem; color: var(--accent-400); font-weight: 600;">(707) 761-1528</a>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Available 7 days a week</p>
+                    </div>
+
+                    <div class="contact-info-card" style="margin-bottom: 1.5rem;">
+                        <div class="contact-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.5rem; margin-bottom: 0.5rem;">Email Us</h3>
+                        <a href="mailto:Brian.recoveryplus@outlook.com" style="font-size: 1rem; color: var(--accent-400);">Brian.recoveryplus@outlook.com</a>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">We respond within 24 hours</p>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.5rem; margin-bottom: 0.5rem;">Business Hours</h3>
+                        <p style="color: var(--text-secondary); font-size: 1rem;">Flexible scheduling</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">7 days a week by appointment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="padding: 6rem 0; background: var(--bg-primary); text-align: center;">
+        <div class="container">
+            <span class="eyebrow" style="display: block; margin-bottom: 1rem;">Ready to Get Started?</span>
+            <h2 style="margin-bottom: 1.5rem;">Book Your Mobile Cryotherapy Session</h2>
+            <p style="max-width: 600px; margin: 0 auto 2.5rem; font-size: 1.125rem; color: var(--text-muted);">
+                Experience professional cryotherapy in the comfort of your own space. We bring everything needed for a complete session.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="booking.html" class="btn btn-primary">
+                    <span>Book Now</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </a>
+                <a href="tel:+17077611528" class="btn btn-outline">Call (707) 761-1528</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" style="background: var(--bg-secondary); padding: 4rem 0 2rem; border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div style="display: grid; gap: 3rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-bottom: 3rem;">
+                <!-- Brand Column -->
+                <div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+                            <path d="M20 0L40 20L20 40L0 20L20 0Z" fill="var(--accent-400)"/>
+                            <circle cx="20" cy="20" r="8" fill="var(--bg-primary)"/>
+                        </svg>
+                        <span style="font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.25rem; letter-spacing: 0.05em; color: var(--text-primary);">RECOVERY PLUS</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Elite mobile cryotherapy for everyone. Professional recovery delivered to you.</p>
+                </div>
+
+                <!-- Service Areas -->
+                <div>
+                    <h4 style="font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-primary);">SERVICE AREAS</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.75rem; color: var(--text-muted); font-size: 0.9rem;">Vacaville (Primary)</li>
+                        <li style="margin-bottom: 0.75rem; color: var(--text-muted); font-size: 0.9rem;">Fairfield</li>
+                        <li style="margin-bottom: 0.75rem; color: var(--text-muted); font-size: 0.9rem;">Vallejo</li>
+                        <li style="margin-bottom: 0.75rem; color: var(--text-muted); font-size: 0.9rem;">Napa</li>
+                        <li style="margin-bottom: 0.75rem; color: var(--text-muted); font-size: 0.9rem;">Davis</li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 style="font-family: 'Bebas Neue', var(--font-display-fallback); font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-primary);">CONTACT</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.75rem;"><a href="tel:+17077611528" style="color: var(--text-muted); font-size: 0.9rem;">(707) 761-1528</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="mailto:Brian.recoveryplus@outlook.com" style="color: var(--text-muted); font-size: 0.9rem;">Brian.recoveryplus@outlook.com</a></li>
+                        <li style="margin-bottom: 0.75rem; color: var(--text-muted); font-size: 0.9rem;">Vacaville, CA</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="padding-top: 2rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <p style="color: var(--text-faint); font-size: 0.85rem;">&copy; 2025 Recovery Plus. All rights reserved.</p>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="legal/privacy-policy.html" style="color: var(--text-faint); font-size: 0.85rem;">Privacy Policy</a>
+                    <a href="legal/terms-and-conditions.html" style="color: var(--text-faint); font-size: 0.85rem;">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky Bar -->
+    <div class="mobile-sticky-bar" style="position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 0.75rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; z-index: 999;">
+        <a href="../index.html" style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Home
+        </a>
+        <a href="services.html" style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            Services
+        </a>
+        <a href="booking.html" style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Book
+        </a>
+        <a href="contact.html" style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Contact
+        </a>
+    </div>
+
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        document.getElementById('requestAreaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your interest! We will contact you when service becomes available in your area.');
+            this.reset();
+        });
+    </script>
+
+    <!-- Mobile Sticky Bar -->
+    <div class="mobile-sticky">
+        <a href="tel:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Call</span>
+        </a>
+        <a href="mailto:Brian.recoveryplus@outlook.com">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>Email</span>
+        </a>
+        <a href="booking.html" class="primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Book Now</span>
+        </a>
+    </div>
+</body>
+</html>

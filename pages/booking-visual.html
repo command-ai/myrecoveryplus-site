@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book your mobile cryotherapy session with Recovery Plus. Visual gallery layouts with before/after results.">
+    <title>Book Your Session | Recovery Plus - Mobile Cryotherapy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=optional" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        /* ====================================================================
+           VISUAL BOOKING PAGE - WITH IMAGES & GALLERIES
+           ==================================================================== */
+
+        .booking-container {
+            padding: 120px 0 80px;
+            min-height: 100vh;
+        }
+
+        /* Layout Switcher */
+        .layout-switcher {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .layout-switcher-label {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .layout-switcher-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .layout-btn {
+            padding: 0.75rem 1rem;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .layout-btn:hover {
+            border-color: var(--accent-400);
+            color: var(--accent-400);
+        }
+
+        .layout-btn.active {
+            background: var(--accent-400);
+            border-color: var(--accent-400);
+            color: var(--bg-primary);
+        }
+
+        /* Layout Container */
+        .layout-container {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .layout-container.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ====================================================================
+           PLACEHOLDER IMAGES (Replace with real images)
+           ==================================================================== */
+        .placeholder-img {
+            background: linear-gradient(135deg, var(--accent-500) 0%, var(--accent-400) 50%, var(--neon) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-primary);
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .placeholder-img::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .placeholder-img.facial {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 50%, #ff8a5c 100%);
+        }
+
+        .placeholder-img.pain {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #6B8DD6 100%);
+        }
+
+        .placeholder-img.sub {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #ffd452 100%);
+        }
+
+        /* ====================================================================
+           LAYOUT 1: IMAGE CARDS WITH HOVER GALLERY
+           ==================================================================== */
+        .layout-image-cards .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .layout-image-cards .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .layout-image-cards .category-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--accent-400);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .layout-image-cards .category-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        .layout-image-cards .category-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .layout-image-cards .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .layout-image-cards .service-card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .layout-image-cards .service-card:hover {
+            border-color: var(--accent-400);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .layout-image-cards .service-card.selected {
+            border-color: var(--accent-400);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+        }
+
+        .layout-image-cards .service-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 32px;
+            height: 32px;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .layout-image-cards .card-image {
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .layout-image-cards .card-image img,
+        .layout-image-cards .card-image .placeholder-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .layout-image-cards .service-card:hover .card-image img,
+        .layout-image-cards .service-card:hover .card-image .placeholder-img {
+            transform: scale(1.05);
+        }
+
+        .layout-image-cards .card-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--neon);
+            color: var(--bg-primary);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            z-index: 5;
+        }
+
+        .layout-image-cards .card-content {
+            padding: 1.5rem;
+        }
+
+        .layout-image-cards .card-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .layout-image-cards .card-price {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: var(--accent-400);
+            margin-bottom: 0.5rem;
+        }
+
+        .layout-image-cards .card-price span {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .layout-image-cards .card-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .layout-image-cards .card-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-faint);
+        }
+
+        .layout-image-cards .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* ====================================================================
+           LAYOUT 2: BEFORE/AFTER SHOWCASE
+           ==================================================================== */
+        .layout-before-after .intro-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .layout-before-after .intro-section h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .layout-before-after .intro-section p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .layout-before-after .ba-category {
+            margin-bottom: 4rem;
+        }
+
+        .layout-before-after .ba-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .layout-before-after .ba-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .layout-before-after .ba-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Before/After Slider */
+        .ba-slider-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .ba-slider {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .ba-slider .ba-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ba-slider .ba-before {
+            z-index: 1;
+        }
+
+        .ba-slider .ba-after {
+            z-index: 2;
+            clip-path: inset(0 50% 0 0);
+        }
+
+        .ba-slider .ba-image img,
+        .ba-slider .ba-image .placeholder-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ba-slider .ba-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: var(--accent-400);
+            transform: translateX(-50%);
+            z-index: 10;
+            cursor: ew-resize;
+        }
+
+        .ba-slider .ba-handle::before {
+            content: '◀ ▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background: var(--accent-400);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-primary);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .ba-slider .ba-label {
+            position: absolute;
+            bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            z-index: 5;
+        }
+
+        .ba-slider .ba-label.before {
+            left: 1rem;
+        }
+
+        .ba-slider .ba-label.after {
+            right: 1rem;
+        }
+
+        .ba-results-text {
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .ba-results-text h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            color: var(--accent-400);
+            margin-bottom: 0.5rem;
+        }
+
+        .ba-results-text p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Package Selection Below BA */
+        .ba-packages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .ba-package {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ba-package:hover {
+            border-color: var(--accent-400);
+            transform: translateY(-2px);
+        }
+
+        .ba-package.selected {
+            border-color: var(--accent-400);
+            background: var(--bg-card);
+        }
+
+        .ba-package h4 {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .ba-package .price {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--accent-400);
+        }
+
+        .ba-package .per-session {
+            font-size: 0.75rem;
+            color: var(--neon);
+        }
+
+        .ba-package .sessions {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* ====================================================================
+           LAYOUT 3: PROGRESS TIMELINE
+           ==================================================================== */
+        .layout-progress .timeline-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .layout-progress .timeline-intro h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .layout-progress .timeline-intro p {
+            color: var(--text-muted);
+        }
+
+        /* Category Tabs */
+        .layout-progress .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .layout-progress .category-tab {
+            padding: 1rem 2rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .layout-progress .category-tab:hover {
+            border-color: var(--accent-400);
+        }
+
+        .layout-progress .category-tab.active {
+            background: var(--accent-400);
+            border-color: var(--accent-400);
+            color: var(--bg-primary);
+        }
+
+        /* Progress Timeline */
+        .progress-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+        }
+
+        .progress-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 768px) {
+            .progress-timeline::before {
+                left: 20px;
+            }
+        }
+
+        .timeline-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-step,
+            .timeline-step:nth-child(even) {
+                flex-direction: row;
+            }
+        }
+
+        .timeline-content {
+            width: calc(50% - 40px);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px;
+            }
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--bg-tertiary);
+            border: 3px solid var(--accent-400);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--accent-400);
+            z-index: 5;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-marker {
+                left: 20px;
+            }
+        }
+
+        .timeline-image {
+            height: 120px;
+            margin: -1.5rem -1.5rem 1rem -1.5rem;
+            overflow: hidden;
+        }
+
+        .timeline-image img,
+        .timeline-image .placeholder-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .timeline-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Package Selection */
+        .layout-progress .package-selection {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .layout-progress .package-selection h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            letter-spacing: 0.1em;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .layout-progress .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .layout-progress .package-card {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .layout-progress .package-card:hover {
+            border-color: var(--accent-400);
+        }
+
+        .layout-progress .package-card.selected {
+            border-color: var(--accent-400);
+            background: var(--bg-card);
+        }
+
+        .layout-progress .package-card.recommended::before {
+            content: 'RECOMMENDED';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--neon);
+            color: var(--bg-primary);
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.25rem 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ====================================================================
+           LAYOUT 4: GALLERY SHOWCASE
+           ==================================================================== */
+        .layout-gallery .gallery-hero {
+            position: relative;
+            height: 400px;
+            margin-bottom: 3rem;
+            overflow: hidden;
+        }
+
+        .layout-gallery .gallery-hero .hero-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .layout-gallery .gallery-hero .hero-bg img,
+        .layout-gallery .gallery-hero .hero-bg .placeholder-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .layout-gallery .gallery-hero .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem;
+        }
+
+        .layout-gallery .gallery-hero h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .layout-gallery .gallery-hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+        }
+
+        /* Gallery Thumbnails */
+        .gallery-thumbs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .gallery-thumb {
+            flex-shrink: 0;
+            width: 100px;
+            height: 70px;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            overflow: hidden;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-thumb:hover,
+        .gallery-thumb.active {
+            opacity: 1;
+            border-color: var(--accent-400);
+        }
+
+        .gallery-thumb img,
+        .gallery-thumb .placeholder-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Category Grid */
+        .layout-gallery .category-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .layout-gallery .category-showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .layout-gallery .showcase-card {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid var(--border-color);
+            transition: all 0.4s ease;
+        }
+
+        .layout-gallery .showcase-card:hover {
+            border-color: var(--accent-400);
+        }
+
+        .layout-gallery .showcase-card .card-bg {
+            position: absolute;
+            inset: 0;
+            transition: transform 0.4s ease;
+        }
+
+        .layout-gallery .showcase-card:hover .card-bg {
+            transform: scale(1.05);
+        }
+
+        .layout-gallery .showcase-card .card-bg img,
+        .layout-gallery .showcase-card .card-bg .placeholder-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .layout-gallery .showcase-card .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+        }
+
+        .layout-gallery .showcase-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .layout-gallery .showcase-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .layout-gallery .showcase-card .starting-at {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--accent-400);
+        }
+
+        /* Expanded Package View */
+        .layout-gallery .expanded-view {
+            display: none;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .layout-gallery .expanded-view.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .layout-gallery .expanded-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .layout-gallery .close-expanded {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* ====================================================================
+           SHARED COMPONENTS
+           ==================================================================== */
+
+        /* Selected Service Display */
+        .selected-service-display {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--accent-400);
+            padding: 1.25rem 1.5rem;
+            margin-top: 2rem;
+            display: none;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .selected-service-display.visible {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .selected-service-display .service-info h4 {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            letter-spacing: 0.05em;
+        }
+
+        .selected-service-display .service-info p {
+            color: var(--accent-400);
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+        }
+
+        .selected-service-display .change-btn {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            text-decoration: underline;
+        }
+
+        /* Continue Section */
+        .continue-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .continue-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            letter-spacing: 0.05em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .continue-btn:not(:disabled):hover {
+            background: var(--accent-300);
+            transform: translateY(-2px);
+        }
+
+        /* Results Stats */
+        .results-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--accent-400);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="../index.html" class="logo">
+                    <img src="../images/logo.png" alt="Recovery Plus" class="logo-full">
+                </a>
+                <nav class="nav-desktop">
+                    <a href="../index.html#services" class="nav-link">Services</a>
+                    <a href="../index.html#pricing" class="nav-link">Pricing</a>
+                    <a href="../index.html#about" class="nav-link">About</a>
+                    <a href="../index.html#contact" class="nav-link">Contact</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="tel:7077611528" class="header-phone">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        (707) 761-1528
+                    </a>
+                    <button class="theme-toggle" id="themeToggle">
+                        <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                        </svg>
+                        <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="booking-container">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="section-header center" style="margin-bottom: 2rem;">
+                <span class="eyebrow">Visual Booking Experience</span>
+                <h1 style="font-size: clamp(2rem, 5vw, 3.5rem);">SEE THE <span class="highlight">RESULTS</span></h1>
+                <p>Explore our treatments with images, before/afters, and progress timelines</p>
+            </div>
+
+            <!-- Layout Switcher -->
+            <div class="layout-switcher">
+                <span class="layout-switcher-label">VISUAL LAYOUT STYLES:</span>
+                <div class="layout-switcher-buttons">
+                    <button class="layout-btn active" data-layout="image-cards">1. Image Cards</button>
+                    <button class="layout-btn" data-layout="before-after">2. Before/After</button>
+                    <button class="layout-btn" data-layout="progress">3. Progress Timeline</button>
+                    <button class="layout-btn" data-layout="gallery">4. Gallery Showcase</button>
+                </div>
+            </div>
+
+            <!-- ================================================================
+                 LAYOUT 1: IMAGE CARDS WITH HOVER EFFECTS
+                 ================================================================ -->
+            <div class="layout-container layout-image-cards active" data-layout-content="image-cards">
+
+                <!-- Results Stats -->
+                <div class="results-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Sessions Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4.9★</div>
+                        <div class="stat-label">Average Rating</div>
+                    </div>
+                </div>
+
+                <!-- Cryo Facials -->
+                <div class="category-section">
+                    <div class="category-header">
+                        <div class="category-icon">✨</div>
+                        <div>
+                            <h3 class="category-title">CRYO FACIALS</h3>
+                            <p class="category-desc">Rejuvenate your skin with cold therapy</p>
+                        </div>
+                    </div>
+                    <div class="services-grid">
+                        <div class="service-card" data-service="cryo-facial-4" data-price="100" data-name="Cryo Facial - 4 Sessions">
+                            <div class="card-image">
+                                <div class="placeholder-img facial">CRYO FACIAL</div>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">4 Sessions</h4>
+                                <div class="card-price">$100</div>
+                                <p class="card-desc">Begin your skin transformation journey</p>
+                                <div class="card-meta">
+                                    <span>💎 $25/session</span>
+                                    <span>⏱ 15 min each</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-card" data-service="cryo-facial-8" data-price="180" data-name="Cryo Facial - 8 Sessions">
+                            <div class="card-badge">Most Popular</div>
+                            <div class="card-image">
+                                <div class="placeholder-img facial">CRYO FACIAL</div>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">8 Sessions</h4>
+                                <div class="card-price">$180</div>
+                                <p class="card-desc">Our most chosen facial package</p>
+                                <div class="card-meta">
+                                    <span>💎 $22.50/session</span>
+                                    <span>⏱ 15 min each</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-card" data-service="cryo-facial-12" data-price="240" data-name="Cryo Facial - 12 Sessions">
+                            <div class="card-badge" style="background: var(--accent-400);">Best Value</div>
+                            <div class="card-image">
+                                <div class="placeholder-img facial">CRYO FACIAL</div>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">12 Sessions</h4>
+                                <div class="card-price">$240</div>
+                                <p class="card-desc">Maximum transformation results</p>
+                                <div class="card-meta">
+                                    <span>💎 $20/session</span>
+                                    <span>⏱ 15 min each</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-card" data-service="cryo-facial-16" data-price="300" data-name="Cryo Facial - 16 Sessions">
+                            <div class="card-image">
+                                <div class="placeholder-img facial">CRYO FACIAL</div>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">16 Sessions</h4>
+                                <div class="card-price">$300</div>
+                                <p class="card-desc">Ultimate skin wellness program</p>
+                                <div class="card-meta">
+                                    <span>💎 $18.75/session</span>
+                                    <span>⏱ 15 min each</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pain Relief -->
+                <div class="category-section">
+                    <div class="category-header">
+                        <div class="category-icon">💪</div>
+                        <div>
+                            <h3 class="category-title">PAIN RELIEF</h3>
+                            <p class="category-desc">Recovery and inflammation reduction</p>
+                        </div>
+                    </div>
+                    <div class="services-grid">
+                        <div class="service-card" data-service="pain-relief-4" data-price="120" data-name="Pain Relief - 4 Sessions">
+                            <div class="card-image">
+                                <div class="placeholder-img pain">PAIN RELIEF</div>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">4 Sessions</h4>
+                                <div class="card-price">$120</div>
+                                <p class="card-desc">Targeted pain relief therapy</p>
+                                <div class="card-meta">
+                                    <span>💎 $30/session</span>
+                                    <span>⏱ 20 min each</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-card" data-service="pain-relief-8" data-price="220" data-name="Pain Relief - 8 Sessions">
+                            <div class="card-badge">Most Popular</div>
+                            <div class="card-image">
+                                <div class="placeholder-img pain">PAIN RELIEF</div>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">8 Sessions</h4>
+                                <div class="card-price">$220</div>
+                                <p class="card-desc">Chronic pain management</p>
+                                <div class="card-meta">
+                                    <span>💎 $27.50/session</span>
+                                    <span>⏱ 20 min each</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-card" data-service="pain-relief-12" data-price="300" data-name="Pain Relief - 12 Sessions">
+                            <div class="card-badge" style="background: var(--accent-400);">Best Value</div>
+                            <div class="card-image">
+                                <div class="placeholder-img pain">PAIN RELIEF</div>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">12 Sessions</h4>
+                                <div class="card-price">$300</div>
+                                <p class="card-desc">Long-term relief program</p>
+                                <div class="card-meta">
+                                    <span>💎 $25/session</span>
+                                    <span>⏱ 20 min each</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-card" data-service="pain-relief-16" data-price="380" data-name="Pain Relief - 16 Sessions">
+                            <div class="card-image">
+                                <div class="placeholder-img pain">PAIN RELIEF</div>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">16 Sessions</h4>
+                                <div class="card-price">$380</div>
+                                <p class="card-desc">Comprehensive wellness plan</p>
+                                <div class="card-meta">
+                                    <span>💎 $23.75/session</span>
+                                    <span>⏱ 20 min each</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subscriptions -->
+                <div class="category-section">
+                    <div class="category-header">
+                        <div class="category-icon">📆</div>
+                        <div>
+                            <h3 class="category-title">MONTHLY SUBSCRIPTIONS</h3>
+                            <p class="category-desc">Commit to your wellness journey</p>
+                        </div>
+                    </div>
+                    <div class="services-grid">
+                        <div class="service-card" data-service="sub-bronze" data-price="99" data-name="Bronze Subscription">
+                            <div class="card-image">
+                                <div class="placeholder-img sub">BRONZE</div>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">Bronze</h4>
+                                <div class="card-price">$99<span>/mo</span></div>
+                                <p class="card-desc">4 sessions per month</p>
+                                <div class="card-meta">
+                                    <span>✓ Perfect for maintenance</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-card" data-service="sub-silver" data-price="179" data-name="Silver Subscription">
+                            <div class="card-badge">Most Popular</div>
+                            <div class="card-image">
+                                <div class="placeholder-img sub">SILVER</div>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">Silver</h4>
+                                <div class="card-price">$179<span>/mo</span></div>
+                                <p class="card-desc">8 sessions per month</p>
+                                <div class="card-meta">
+                                    <span>✓ Active recovery plan</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-card" data-service="sub-gold" data-price="299" data-name="Gold Subscription">
+                            <div class="card-badge" style="background: gold; color: #000;">Premium</div>
+                            <div class="card-image">
+                                <div class="placeholder-img sub">GOLD</div>
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">Gold</h4>
+                                <div class="card-price">$299<span>/mo</span></div>
+                                <p class="card-desc">Unlimited sessions</p>
+                                <div class="card-meta">
+                                    <span>✓ Ultimate wellness</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================================================================
+                 LAYOUT 2: BEFORE/AFTER SHOWCASE
+                 ================================================================ -->
+            <div class="layout-container layout-before-after" data-layout-content="before-after">
+
+                <div class="intro-section">
+                    <h2>REAL RESULTS FROM <span class="highlight">REAL CLIENTS</span></h2>
+                    <p>See the transformative power of cryotherapy. Drag the slider to compare before and after results.</p>
+                </div>
+
+                <!-- Cryo Facial Before/After -->
+                <div class="ba-category">
+                    <div class="ba-header">
+                        <div>
+                            <h3 class="ba-title">CRYO FACIAL RESULTS</h3>
+                            <p class="ba-subtitle">Skin rejuvenation and anti-aging benefits</p>
+                        </div>
+                    </div>
+
+                    <div class="ba-slider-container">
+                        <div class="ba-slider" id="facialSlider">
+                            <div class="ba-image ba-before">
+                                <div class="placeholder-img facial" style="filter: saturate(0.5) brightness(0.8);">BEFORE</div>
+                            </div>
+                            <div class="ba-image ba-after">
+                                <div class="placeholder-img facial">AFTER</div>
+                            </div>
+                            <div class="ba-handle" id="facialHandle"></div>
+                            <span class="ba-label before">Before</span>
+                            <span class="ba-label after">After 8 Sessions</span>
+                        </div>
+                        <div class="ba-results-text">
+                            <h4>VISIBLE IMPROVEMENT</h4>
+                            <p>Clients typically see reduced pore size, improved skin tone, and diminished fine lines after 8 sessions.</p>
+                        </div>
+                    </div>
+
+                    <div class="ba-packages">
+                        <div class="ba-package" data-service="cryo-facial-4" data-price="100" data-name="Cryo Facial - 4 Sessions">
+                            <h4>4 Sessions</h4>
+                            <div class="price">$100</div>
+                            <div class="per-session">$25/session</div>
+                            <div class="sessions">Initial results</div>
+                        </div>
+                        <div class="ba-package" data-service="cryo-facial-8" data-price="180" data-name="Cryo Facial - 8 Sessions">
+                            <h4>8 Sessions</h4>
+                            <div class="price">$180</div>
+                            <div class="per-session">$22.50/session</div>
+                            <div class="sessions">Visible change</div>
+                        </div>
+                        <div class="ba-package" data-service="cryo-facial-12" data-price="240" data-name="Cryo Facial - 12 Sessions">
+                            <h4>12 Sessions</h4>
+                            <div class="price">$240</div>
+                            <div class="per-session">$20/session</div>
+                            <div class="sessions">Best results</div>
+                        </div>
+                        <div class="ba-package" data-service="cryo-facial-16" data-price="300" data-name="Cryo Facial - 16 Sessions">
+                            <h4>16 Sessions</h4>
+                            <div class="price">$300</div>
+                            <div class="per-session">$18.75/session</div>
+                            <div class="sessions">Maximum value</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pain Relief Before/After -->
+                <div class="ba-category">
+                    <div class="ba-header">
+                        <div>
+                            <h3 class="ba-title">PAIN RELIEF RESULTS</h3>
+                            <p class="ba-subtitle">Recovery and inflammation reduction</p>
+                        </div>
+                    </div>
+
+                    <div class="ba-slider-container">
+                        <div class="ba-slider" id="painSlider">
+                            <div class="ba-image ba-before">
+                                <div class="placeholder-img pain" style="filter: saturate(0.5) brightness(0.8);">BEFORE</div>
+                            </div>
+                            <div class="ba-image ba-after">
+                                <div class="placeholder-img pain">AFTER</div>
+                            </div>
+                            <div class="ba-handle" id="painHandle"></div>
+                            <span class="ba-label before">Before</span>
+                            <span class="ba-label after">After Treatment</span>
+                        </div>
+                        <div class="ba-results-text">
+                            <h4>REDUCED INFLAMMATION</h4>
+                            <p>Athletes report 68% faster recovery times and significant reduction in muscle soreness.</p>
+                        </div>
+                    </div>
+
+                    <div class="ba-packages">
+                        <div class="ba-package" data-service="pain-relief-4" data-price="120" data-name="Pain Relief - 4 Sessions">
+                            <h4>4 Sessions</h4>
+                            <div class="price">$120</div>
+                            <div class="per-session">$30/session</div>
+                            <div class="sessions">Targeted relief</div>
+                        </div>
+                        <div class="ba-package" data-service="pain-relief-8" data-price="220" data-name="Pain Relief - 8 Sessions">
+                            <h4>8 Sessions</h4>
+                            <div class="price">$220</div>
+                            <div class="per-session">$27.50/session</div>
+                            <div class="sessions">Pain management</div>
+                        </div>
+                        <div class="ba-package" data-service="pain-relief-12" data-price="300" data-name="Pain Relief - 12 Sessions">
+                            <h4>12 Sessions</h4>
+                            <div class="price">$300</div>
+                            <div class="per-session">$25/session</div>
+                            <div class="sessions">Long-term relief</div>
+                        </div>
+                        <div class="ba-package" data-service="pain-relief-16" data-price="380" data-name="Pain Relief - 16 Sessions">
+                            <h4>16 Sessions</h4>
+                            <div class="price">$380</div>
+                            <div class="per-session">$23.75/session</div>
+                            <div class="sessions">Comprehensive</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================================================================
+                 LAYOUT 3: PROGRESS TIMELINE
+                 ================================================================ -->
+            <div class="layout-container layout-progress" data-layout-content="progress">
+
+                <div class="timeline-intro">
+                    <h2>YOUR <span class="highlight">TRANSFORMATION</span> JOURNEY</h2>
+                    <p>See what to expect at each stage of your cryotherapy treatment</p>
+                </div>
+
+                <!-- Category Tabs -->
+                <div class="category-tabs">
+                    <button class="category-tab active" onclick="showProgressCategory(this, 'facial')">CRYO FACIAL</button>
+                    <button class="category-tab" onclick="showProgressCategory(this, 'pain')">PAIN RELIEF</button>
+                </div>
+
+                <!-- Facial Timeline -->
+                <div class="progress-timeline" id="facialTimeline">
+                    <div class="timeline-step">
+                        <div class="timeline-marker">1</div>
+                        <div class="timeline-content">
+                            <div class="timeline-image">
+                                <div class="placeholder-img facial">SESSION 1-2</div>
+                            </div>
+                            <h4 class="timeline-title">SESSIONS 1-2: INTRODUCTION</h4>
+                            <p class="timeline-desc">Your skin begins to respond to the cold therapy. You'll notice immediate tightening and a healthy glow after each session.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-marker">2</div>
+                        <div class="timeline-content">
+                            <div class="timeline-image">
+                                <div class="placeholder-img facial">SESSION 3-4</div>
+                            </div>
+                            <h4 class="timeline-title">SESSIONS 3-4: BUILDING</h4>
+                            <p class="timeline-desc">Collagen production increases. Pores begin to appear smaller and skin texture starts to improve.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-marker">3</div>
+                        <div class="timeline-content">
+                            <div class="timeline-image">
+                                <div class="placeholder-img facial">SESSION 5-8</div>
+                            </div>
+                            <h4 class="timeline-title">SESSIONS 5-8: TRANSFORMATION</h4>
+                            <p class="timeline-desc">Visible improvements in skin tone, reduced fine lines, and enhanced elasticity. Friends start noticing!</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-marker">4</div>
+                        <div class="timeline-content">
+                            <div class="timeline-image">
+                                <div class="placeholder-img facial">SESSION 9-12</div>
+                            </div>
+                            <h4 class="timeline-title">SESSIONS 9-12: RESULTS</h4>
+                            <p class="timeline-desc">Maximum benefits achieved. Dramatic improvement in overall skin health and youthful appearance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pain Timeline (hidden by default) -->
+                <div class="progress-timeline" id="painTimeline" style="display: none;">
+                    <div class="timeline-step">
+                        <div class="timeline-marker">1</div>
+                        <div class="timeline-content">
+                            <div class="timeline-image">
+                                <div class="placeholder-img pain">SESSION 1-2</div>
+                            </div>
+                            <h4 class="timeline-title">SESSIONS 1-2: RELIEF BEGINS</h4>
+                            <p class="timeline-desc">Immediate reduction in inflammation. Many clients feel relief after just one session.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-marker">2</div>
+                        <div class="timeline-content">
+                            <div class="timeline-image">
+                                <div class="placeholder-img pain">SESSION 3-4</div>
+                            </div>
+                            <h4 class="timeline-title">SESSIONS 3-4: RECOVERY</h4>
+                            <p class="timeline-desc">Reduced muscle soreness and faster recovery between workouts. Range of motion improves.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-marker">3</div>
+                        <div class="timeline-content">
+                            <div class="timeline-image">
+                                <div class="placeholder-img pain">SESSION 5-8</div>
+                            </div>
+                            <h4 class="timeline-title">SESSIONS 5-8: MANAGEMENT</h4>
+                            <p class="timeline-desc">Chronic pain significantly reduced. Better sleep and improved daily function.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-marker">4</div>
+                        <div class="timeline-content">
+                            <div class="timeline-image">
+                                <div class="placeholder-img pain">SESSION 9-12</div>
+                            </div>
+                            <h4 class="timeline-title">SESSIONS 9-12: MAINTENANCE</h4>
+                            <p class="timeline-desc">Long-term pain management achieved. Consider a subscription for ongoing wellness.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package Selection -->
+                <div class="package-selection" id="progressPackages">
+                    <h3>CHOOSE YOUR JOURNEY</h3>
+                    <div class="packages-grid" id="facialPackagesGrid">
+                        <div class="package-card" data-service="cryo-facial-4" data-price="100" data-name="Cryo Facial - 4 Sessions">
+                            <h4>4 Sessions</h4>
+                            <div class="price" style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-400);">$100</div>
+                            <p style="font-size: 0.75rem; color: var(--neon);">$25/session</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Start here</p>
+                        </div>
+                        <div class="package-card recommended" data-service="cryo-facial-8" data-price="180" data-name="Cryo Facial - 8 Sessions">
+                            <h4>8 Sessions</h4>
+                            <div class="price" style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-400);">$180</div>
+                            <p style="font-size: 0.75rem; color: var(--neon);">$22.50/session</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Best choice</p>
+                        </div>
+                        <div class="package-card" data-service="cryo-facial-12" data-price="240" data-name="Cryo Facial - 12 Sessions">
+                            <h4>12 Sessions</h4>
+                            <div class="price" style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-400);">$240</div>
+                            <p style="font-size: 0.75rem; color: var(--neon);">$20/session</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Full journey</p>
+                        </div>
+                        <div class="package-card" data-service="cryo-facial-16" data-price="300" data-name="Cryo Facial - 16 Sessions">
+                            <h4>16 Sessions</h4>
+                            <div class="price" style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-400);">$300</div>
+                            <p style="font-size: 0.75rem; color: var(--neon);">$18.75/session</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Best value</p>
+                        </div>
+                    </div>
+                    <div class="packages-grid" id="painPackagesGrid" style="display: none;">
+                        <div class="package-card" data-service="pain-relief-4" data-price="120" data-name="Pain Relief - 4 Sessions">
+                            <h4>4 Sessions</h4>
+                            <div class="price" style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-400);">$120</div>
+                            <p style="font-size: 0.75rem; color: var(--neon);">$30/session</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Quick relief</p>
+                        </div>
+                        <div class="package-card recommended" data-service="pain-relief-8" data-price="220" data-name="Pain Relief - 8 Sessions">
+                            <h4>8 Sessions</h4>
+                            <div class="price" style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-400);">$220</div>
+                            <p style="font-size: 0.75rem; color: var(--neon);">$27.50/session</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Best choice</p>
+                        </div>
+                        <div class="package-card" data-service="pain-relief-12" data-price="300" data-name="Pain Relief - 12 Sessions">
+                            <h4>12 Sessions</h4>
+                            <div class="price" style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-400);">$300</div>
+                            <p style="font-size: 0.75rem; color: var(--neon);">$25/session</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Long-term</p>
+                        </div>
+                        <div class="package-card" data-service="pain-relief-16" data-price="380" data-name="Pain Relief - 16 Sessions">
+                            <h4>16 Sessions</h4>
+                            <div class="price" style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-400);">$380</div>
+                            <p style="font-size: 0.75rem; color: var(--neon);">$23.75/session</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Best value</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================================================================
+                 LAYOUT 4: GALLERY SHOWCASE
+                 ================================================================ -->
+            <div class="layout-container layout-gallery" data-layout-content="gallery">
+
+                <!-- Hero Gallery -->
+                <div class="gallery-hero">
+                    <div class="hero-bg">
+                        <div class="placeholder-img" id="galleryHeroImg">RECOVERY PLUS</div>
+                    </div>
+                    <div class="hero-overlay">
+                        <h2>PROFESSIONAL <span class="highlight">CRYOTHERAPY</span></h2>
+                        <p>Mobile treatments delivered to your location in Vacaville and surrounding areas</p>
+                    </div>
+                </div>
+
+                <!-- Gallery Thumbnails -->
+                <div class="gallery-thumbs">
+                    <div class="gallery-thumb active" onclick="changeHeroImage(this, '')">
+                        <div class="placeholder-img">HERO</div>
+                    </div>
+                    <div class="gallery-thumb" onclick="changeHeroImage(this, 'facial')">
+                        <div class="placeholder-img facial">FACIAL</div>
+                    </div>
+                    <div class="gallery-thumb" onclick="changeHeroImage(this, 'pain')">
+                        <div class="placeholder-img pain">PAIN</div>
+                    </div>
+                    <div class="gallery-thumb" onclick="changeHeroImage(this, 'sub')">
+                        <div class="placeholder-img sub">SUBS</div>
+                    </div>
+                    <div class="gallery-thumb" onclick="changeHeroImage(this, '')">
+                        <div class="placeholder-img">MOBILE</div>
+                    </div>
+                    <div class="gallery-thumb" onclick="changeHeroImage(this, '')">
+                        <div class="placeholder-img">TEAM</div>
+                    </div>
+                </div>
+
+                <!-- Category Showcase Cards -->
+                <div class="category-showcase">
+                    <div class="showcase-card" onclick="expandCategory('facial')">
+                        <div class="card-bg">
+                            <div class="placeholder-img facial">CRYO FACIAL</div>
+                        </div>
+                        <div class="card-overlay">
+                            <h3>CRYO FACIALS</h3>
+                            <p>Skin rejuvenation & anti-aging treatments</p>
+                            <span class="starting-at">Starting at $100</span>
+                        </div>
+                    </div>
+                    <div class="showcase-card" onclick="expandCategory('pain')">
+                        <div class="card-bg">
+                            <div class="placeholder-img pain">PAIN RELIEF</div>
+                        </div>
+                        <div class="card-overlay">
+                            <h3>PAIN RELIEF</h3>
+                            <p>Recovery & inflammation reduction</p>
+                            <span class="starting-at">Starting at $120</span>
+                        </div>
+                    </div>
+                    <div class="showcase-card" onclick="expandCategory('sub')">
+                        <div class="card-bg">
+                            <div class="placeholder-img sub">SUBSCRIPTIONS</div>
+                        </div>
+                        <div class="card-overlay">
+                            <h3>SUBSCRIPTIONS</h3>
+                            <p>Monthly wellness plans</p>
+                            <span class="starting-at">Starting at $99/mo</span>
+                        </div>
+                    </div>
+                    <div class="showcase-card" onclick="expandCategory('other')">
+                        <div class="card-bg">
+                            <div class="placeholder-img">SINGLE & EVENTS</div>
+                        </div>
+                        <div class="card-overlay">
+                            <h3>SINGLE & EVENTS</h3>
+                            <p>Try it out or host a party</p>
+                            <span class="starting-at">Starting at $35</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expanded Category View (appears when clicking a showcase card) -->
+                <div class="expanded-view" id="expandedFacial">
+                    <div class="expanded-header">
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.1em;">CRYO FACIAL PACKAGES</h3>
+                        <button class="close-expanded" onclick="closeExpanded()">✕</button>
+                    </div>
+                    <div class="ba-packages">
+                        <div class="ba-package" data-service="cryo-facial-4" data-price="100" data-name="Cryo Facial - 4 Sessions">
+                            <h4>4 Sessions</h4>
+                            <div class="price">$100</div>
+                            <div class="per-session">$25/session</div>
+                        </div>
+                        <div class="ba-package" data-service="cryo-facial-8" data-price="180" data-name="Cryo Facial - 8 Sessions">
+                            <h4>8 Sessions</h4>
+                            <div class="price">$180</div>
+                            <div class="per-session">$22.50/session</div>
+                        </div>
+                        <div class="ba-package" data-service="cryo-facial-12" data-price="240" data-name="Cryo Facial - 12 Sessions">
+                            <h4>12 Sessions</h4>
+                            <div class="price">$240</div>
+                            <div class="per-session">$20/session</div>
+                        </div>
+                        <div class="ba-package" data-service="cryo-facial-16" data-price="300" data-name="Cryo Facial - 16 Sessions">
+                            <h4>16 Sessions</h4>
+                            <div class="price">$300</div>
+                            <div class="per-session">$18.75/session</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expanded-view" id="expandedPain">
+                    <div class="expanded-header">
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.1em;">PAIN RELIEF PACKAGES</h3>
+                        <button class="close-expanded" onclick="closeExpanded()">✕</button>
+                    </div>
+                    <div class="ba-packages">
+                        <div class="ba-package" data-service="pain-relief-4" data-price="120" data-name="Pain Relief - 4 Sessions">
+                            <h4>4 Sessions</h4>
+                            <div class="price">$120</div>
+                            <div class="per-session">$30/session</div>
+                        </div>
+                        <div class="ba-package" data-service="pain-relief-8" data-price="220" data-name="Pain Relief - 8 Sessions">
+                            <h4>8 Sessions</h4>
+                            <div class="price">$220</div>
+                            <div class="per-session">$27.50/session</div>
+                        </div>
+                        <div class="ba-package" data-service="pain-relief-12" data-price="300" data-name="Pain Relief - 12 Sessions">
+                            <h4>12 Sessions</h4>
+                            <div class="price">$300</div>
+                            <div class="per-session">$25/session</div>
+                        </div>
+                        <div class="ba-package" data-service="pain-relief-16" data-price="380" data-name="Pain Relief - 16 Sessions">
+                            <h4>16 Sessions</h4>
+                            <div class="price">$380</div>
+                            <div class="per-session">$23.75/session</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expanded-view" id="expandedSub">
+                    <div class="expanded-header">
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.1em;">MONTHLY SUBSCRIPTIONS</h3>
+                        <button class="close-expanded" onclick="closeExpanded()">✕</button>
+                    </div>
+                    <div class="ba-packages">
+                        <div class="ba-package" data-service="sub-bronze" data-price="99" data-name="Bronze Subscription">
+                            <h4>Bronze</h4>
+                            <div class="price">$99/mo</div>
+                            <div class="sessions">4 sessions</div>
+                        </div>
+                        <div class="ba-package" data-service="sub-silver" data-price="179" data-name="Silver Subscription">
+                            <h4>Silver</h4>
+                            <div class="price">$179/mo</div>
+                            <div class="sessions">8 sessions</div>
+                        </div>
+                        <div class="ba-package" data-service="sub-gold" data-price="299" data-name="Gold Subscription">
+                            <h4>Gold</h4>
+                            <div class="price">$299/mo</div>
+                            <div class="sessions">Unlimited</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expanded-view" id="expandedOther">
+                    <div class="expanded-header">
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.1em;">SINGLE SESSION & EVENTS</h3>
+                        <button class="close-expanded" onclick="closeExpanded()">✕</button>
+                    </div>
+                    <div class="ba-packages">
+                        <div class="ba-package" data-service="single" data-price="35" data-name="Single Session">
+                            <h4>Single Session</h4>
+                            <div class="price">$35</div>
+                            <div class="sessions">One-time</div>
+                        </div>
+                        <div class="ba-package" data-service="freeze-party" data-price="0" data-name="Freeze Party">
+                            <h4>Freeze Party</h4>
+                            <div class="price">Custom</div>
+                            <div class="sessions">Group event</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shared Selected Display & Continue -->
+            <div class="selected-service-display" id="selectedDisplay">
+                <div class="service-info">
+                    <h4 id="selectedName">-</h4>
+                    <p id="selectedPrice">-</p>
+                </div>
+                <button class="change-btn" onclick="clearSelection()">Change</button>
+            </div>
+
+            <div class="continue-section">
+                <button class="continue-btn" id="continueBtn" disabled>
+                    Continue to Schedule
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo"><img src="../images/logo.png" alt="Recovery Plus"></a>
+                    <p>Mobile cryotherapy in Vacaville, CA.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:7077611528">(707) 761-1528</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2025 Recovery Plus.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // ================================================================
+        // Layout Switching
+        // ================================================================
+        const layoutBtns = document.querySelectorAll('.layout-btn');
+        const layoutContainers = document.querySelectorAll('.layout-container');
+
+        layoutBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const layout = btn.dataset.layout;
+                layoutBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                layoutContainers.forEach(c => c.classList.remove('active'));
+                document.querySelector(`[data-layout-content="${layout}"]`).classList.add('active');
+                clearSelection();
+                closeExpanded();
+            });
+        });
+
+        // ================================================================
+        // Service Selection
+        // ================================================================
+        let selectedService = null;
+
+        document.addEventListener('click', (e) => {
+            const option = e.target.closest('.service-card, .ba-package, .package-card');
+            if (!option || !option.dataset.service) return;
+
+            document.querySelectorAll('.service-card.selected, .ba-package.selected, .package-card.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+
+            option.classList.add('selected');
+
+            selectedService = {
+                id: option.dataset.service,
+                name: option.dataset.name,
+                price: option.dataset.price
+            };
+
+            updateSelectedDisplay();
+        });
+
+        function updateSelectedDisplay() {
+            if (!selectedService) return;
+
+            const display = document.getElementById('selectedDisplay');
+            const nameEl = document.getElementById('selectedName');
+            const priceEl = document.getElementById('selectedPrice');
+            const continueBtn = document.getElementById('continueBtn');
+
+            display.classList.add('visible');
+            nameEl.textContent = selectedService.name;
+            priceEl.textContent = selectedService.price == 0 ? 'Custom Pricing' : `$${selectedService.price}`;
+            continueBtn.disabled = false;
+        }
+
+        function clearSelection() {
+            selectedService = null;
+            document.querySelectorAll('.service-card.selected, .ba-package.selected, .package-card.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+            document.getElementById('selectedDisplay').classList.remove('visible');
+            document.getElementById('continueBtn').disabled = true;
+        }
+
+        // ================================================================
+        // Before/After Slider
+        // ================================================================
+        function initBASlider(sliderId, handleId) {
+            const slider = document.getElementById(sliderId);
+            const handle = document.getElementById(handleId);
+            if (!slider || !handle) return;
+
+            let isDragging = false;
+
+            const updateSlider = (x) => {
+                const rect = slider.getBoundingClientRect();
+                let percent = ((x - rect.left) / rect.width) * 100;
+                percent = Math.max(0, Math.min(100, percent));
+
+                handle.style.left = `${percent}%`;
+                const afterImg = slider.querySelector('.ba-after');
+                afterImg.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+            };
+
+            handle.addEventListener('mousedown', () => isDragging = true);
+            handle.addEventListener('touchstart', () => isDragging = true);
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) updateSlider(e.clientX);
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (isDragging) updateSlider(e.touches[0].clientX);
+            });
+
+            document.addEventListener('mouseup', () => isDragging = false);
+            document.addEventListener('touchend', () => isDragging = false);
+        }
+
+        initBASlider('facialSlider', 'facialHandle');
+        initBASlider('painSlider', 'painHandle');
+
+        // ================================================================
+        // Progress Timeline Category Switch
+        // ================================================================
+        function showProgressCategory(btn, category) {
+            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.getElementById('facialTimeline').style.display = category === 'facial' ? '' : 'none';
+            document.getElementById('painTimeline').style.display = category === 'pain' ? '' : 'none';
+            document.getElementById('facialPackagesGrid').style.display = category === 'facial' ? '' : 'none';
+            document.getElementById('painPackagesGrid').style.display = category === 'pain' ? '' : 'none';
+
+            clearSelection();
+        }
+
+        // ================================================================
+        // Gallery Functions
+        // ================================================================
+        function changeHeroImage(thumb, category) {
+            document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+
+            const heroImg = document.getElementById('galleryHeroImg');
+            heroImg.className = 'placeholder-img';
+            if (category) heroImg.classList.add(category);
+            heroImg.textContent = category ? category.toUpperCase() : 'RECOVERY PLUS';
+        }
+
+        function expandCategory(category) {
+            closeExpanded();
+            const expandedId = 'expanded' + category.charAt(0).toUpperCase() + category.slice(1);
+            const expanded = document.getElementById(expandedId);
+            if (expanded) {
+                expanded.classList.add('active');
+                expanded.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        function closeExpanded() {
+            document.querySelectorAll('.expanded-view').forEach(e => e.classList.remove('active'));
+        }
+    </script>
+</body>
+</html>

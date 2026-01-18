@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modify Booking | Recovery Plus - Mobile Cryotherapy</title>
+    <meta name="description" content="Reschedule or cancel your Recovery Plus cryotherapy appointment. Easy booking management with our online portal.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=optional" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <!-- Page-specific styles -->
+    <style>
+        .cancellation-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            padding-top: 140px;
+            min-height: 100vh;
+        }
+
+        .cancellation-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cancellation-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .cancellation-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent-400);
+            margin-bottom: 0.5rem;
+        }
+
+        .cancellation-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-400);
+        }
+
+        .form-input.error {
+            border-color: var(--red);
+        }
+
+        .error-message {
+            display: none;
+            color: var(--red);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        .lookup-btn {
+            width: 100%;
+            padding: 1.25rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            font-family: var(--font-display);
+            letter-spacing: 0.05em;
+        }
+
+        .lookup-btn:hover:not(:disabled) {
+            background: var(--accent-500);
+            transform: translateY(-2px);
+        }
+
+        .lookup-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .loading-spinner.visible {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--accent-400);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Booking Details Section */
+        .booking-details {
+            display: none;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .booking-details.visible {
+            display: block;
+        }
+
+        .booking-info-card {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .booking-info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .booking-info-row:last-child {
+            border-bottom: none;
+        }
+
+        .booking-info-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .booking-info-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .booking-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .booking-status.confirmed {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+        }
+
+        .booking-status.pending {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fbbf24;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (min-width: 480px) {
+            .action-buttons {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .action-btn {
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-display);
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn.reschedule {
+            background: var(--accent-400);
+            color: var(--bg-primary);
+        }
+
+        .action-btn.reschedule:hover {
+            background: var(--accent-500);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.cancel {
+            background: transparent;
+            border: 2px solid var(--red);
+            color: var(--red);
+        }
+
+        .action-btn.cancel:hover {
+            background: var(--red);
+            color: var(--bg-primary);
+        }
+
+        /* Reschedule Form */
+        .reschedule-form {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .reschedule-form.visible {
+            display: block;
+        }
+
+        .reschedule-form h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .datetime-row {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 480px) {
+            .datetime-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Cancel Confirmation */
+        .cancel-confirmation {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid var(--red);
+            border-radius: 8px;
+        }
+
+        .cancel-confirmation.visible {
+            display: block;
+        }
+
+        .cancel-confirmation h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--red);
+            margin-bottom: 0.75rem;
+        }
+
+        .cancel-confirmation p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .confirm-btns {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .confirm-btn {
+            flex: 1;
+            padding: 0.875rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-display);
+        }
+
+        .confirm-btn.yes {
+            background: var(--red);
+            color: white;
+        }
+
+        .confirm-btn.no {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        /* Policy Notice */
+        .policy-notice {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--accent-400);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .policy-notice h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .policy-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .policy-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .policy-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+        }
+
+        .policy-icon.green { color: #22c55e; }
+        .policy-icon.yellow { color: #fbbf24; }
+        .policy-icon.red { color: var(--red); }
+
+        /* Result Messages */
+        .result-message {
+            display: none;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .result-message.visible {
+            display: block;
+        }
+
+        .result-message.success {
+            background: rgba(34, 197, 94, 0.15);
+            border: 2px solid #22c55e;
+        }
+
+        .result-message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid var(--red);
+        }
+
+        .result-icon {
+            font-size: 3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .result-message.success .result-icon { color: #22c55e; }
+        .result-message.error .result-icon { color: var(--red); }
+
+        .result-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Help Section */
+        .help-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .help-section p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .help-section a {
+            color: var(--accent-400);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .help-section a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            .cancellation-container {
+                padding: 1rem;
+                padding-top: 160px;
+            }
+
+            .cancellation-card {
+                padding: 1.5rem;
+            }
+
+            .cancellation-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="header" data-header role="banner">
+        <div class="container">
+            <div class="header-inner">
+                <a href="../index.html" class="logo" aria-label="Recovery Plus Home">
+                    <img src="../images/logo.png" alt="Recovery Plus">
+                </a>
+
+                <nav class="nav-desktop" aria-label="Primary Navigation">
+                    <a href="../index.html" class="nav-link">Home</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="pricing.html" class="nav-link">Pricing</a>
+                    <a href="booking.html" class="nav-link">Booking</a>
+                    <a href="checkin.html" class="nav-link">Check-In</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </nav>
+
+                <div class="header-actions">
+                    <a href="tel:+17077611528" class="header-phone" aria-label="Call us">
+                        (707) 761-1528
+                    </a>
+
+                    <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+                        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+
+                    <a href="booking.html" class="btn btn-primary header-cta">
+                        <span>Book Now</span>
+                    </a>
+
+                    <button class="mobile-menu-toggle" data-mobile-menu-toggle aria-label="Toggle mobile menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-menu" data-mobile-menu role="navigation" aria-label="Mobile Navigation" aria-hidden="true">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" data-mobile-menu-close aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <nav class="mobile-nav">
+                <a href="../index.html" class="mobile-nav-link">Home</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="pricing.html" class="mobile-nav-link">Pricing</a>
+                <a href="booking.html" class="mobile-nav-link">Booking</a>
+                <a href="checkin.html" class="mobile-nav-link">Check-In</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+            </nav>
+            <div class="mobile-menu-footer">
+                <a href="tel:+17077611528" class="mobile-cta-button">Call Now</a>
+                <a href="booking.html" class="mobile-cta-button mobile-cta-primary">Book Session</a>
+            </div>
+        </div>
+    </div>
+    <div class="mobile-menu-overlay" data-mobile-menu-overlay></div>
+
+    <!-- Main Content -->
+    <div class="cancellation-container">
+        <div class="cancellation-card">
+            <div class="cancellation-header">
+                <h1>MODIFY YOUR BOOKING</h1>
+                <p>Reschedule or cancel your appointment</p>
+            </div>
+
+            <!-- Lookup Form -->
+            <form id="lookupForm">
+                <div class="form-group">
+                    <label for="confirmationNumber">Confirmation Number</label>
+                    <input type="text" id="confirmationNumber" class="form-input" placeholder="e.g., RP-2025-12345" required>
+                    <div class="error-message" id="confirmError">Please enter a valid confirmation number</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                    <div class="error-message" id="emailError">Please enter a valid email address</div>
+                </div>
+
+                <button type="submit" class="lookup-btn" id="lookupBtn">
+                    FIND MY BOOKING
+                </button>
+            </form>
+
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner"></div>
+                <p style="margin-top: 1rem; color: var(--text-secondary);">Looking up your booking...</p>
+            </div>
+
+            <!-- Booking Details -->
+            <div class="booking-details" id="bookingDetails">
+                <div class="booking-info-card">
+                    <div class="booking-info-row">
+                        <span class="booking-info-label">Confirmation #</span>
+                        <span class="booking-info-value" id="displayConfirmation">RP-2025-12345</span>
+                    </div>
+                    <div class="booking-info-row">
+                        <span class="booking-info-label">Service</span>
+                        <span class="booking-info-value" id="displayService">Full Body Cryotherapy</span>
+                    </div>
+                    <div class="booking-info-row">
+                        <span class="booking-info-label">Date</span>
+                        <span class="booking-info-value" id="displayDate">January 25, 2025</span>
+                    </div>
+                    <div class="booking-info-row">
+                        <span class="booking-info-label">Time</span>
+                        <span class="booking-info-value" id="displayTime">10:00 AM</span>
+                    </div>
+                    <div class="booking-info-row">
+                        <span class="booking-info-label">Status</span>
+                        <span class="booking-status confirmed" id="displayStatus">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Confirmed
+                        </span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn reschedule" id="rescheduleBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        RESCHEDULE
+                    </button>
+                    <button class="action-btn cancel" id="cancelBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                        </svg>
+                        CANCEL BOOKING
+                    </button>
+                </div>
+
+                <!-- Reschedule Form -->
+                <div class="reschedule-form" id="rescheduleForm">
+                    <h3>SELECT NEW DATE & TIME</h3>
+                    <div class="datetime-row">
+                        <div class="form-group">
+                            <label for="newDate">New Date</label>
+                            <input type="date" id="newDate" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newTime">New Time</label>
+                            <select id="newTime" class="form-input" required>
+                                <option value="">Select time</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                                <option value="17:00">5:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="lookup-btn" id="confirmReschedule">CONFIRM RESCHEDULE</button>
+                </div>
+
+                <!-- Cancel Confirmation -->
+                <div class="cancel-confirmation" id="cancelConfirmation">
+                    <h3>CONFIRM CANCELLATION</h3>
+                    <p>Are you sure you want to cancel this booking? This action cannot be undone.</p>
+                    <div class="confirm-btns">
+                        <button class="confirm-btn no" id="cancelNo">NO, KEEP IT</button>
+                        <button class="confirm-btn yes" id="cancelYes">YES, CANCEL</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Messages -->
+            <div class="result-message" id="resultMessage">
+                <div class="result-icon" id="resultIcon"></div>
+                <div class="result-title" id="resultTitle"></div>
+                <div class="result-text" id="resultText"></div>
+            </div>
+
+            <!-- Cancellation Policy -->
+            <div class="policy-notice">
+                <h4>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    Cancellation Policy
+                </h4>
+                <ul class="policy-list">
+                    <li>
+                        <svg class="policy-icon green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span><strong>24+ hours notice:</strong> Full refund or credit to your account</span>
+                    </li>
+                    <li>
+                        <svg class="policy-icon yellow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                        <span><strong>Under 24 hours:</strong> 50% cancellation fee applies</span>
+                    </li>
+                    <li>
+                        <svg class="policy-icon red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="15" y1="9" x2="9" y2="15"/>
+                            <line x1="9" y1="9" x2="15" y2="15"/>
+                        </svg>
+                        <span><strong>No-show:</strong> No refund provided</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Help Section -->
+            <div class="help-section">
+                <p>Need assistance with your booking?</p>
+                <p>Call us at <a href="tel:+17077611528">(707) 761-1528</a> or <a href="contact.html">contact support</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="../images/logo.png" alt="Recovery Plus">
+                    </a>
+                    <p>Mobile cryotherapy for Northern California. We come to you.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/recoveryplus" aria-label="Instagram" target="_blank" rel="noopener">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/recoveryplus" aria-label="Facebook" target="_blank" rel="noopener">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html">Cryotherapy</a></li>
+                        <li><a href="pricing.html">Pricing Plans</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:7077611528">(707) 761-1528</a></li>
+                        <li><a href="mailto:Brian.recoveryplus@outlook.com">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Recovery Plus. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Nav -->
+    <nav class="mobile-bottom-nav" role="navigation" aria-label="Mobile Bottom Navigation">
+        <a href="../index.html" class="mobile-bottom-link" aria-label="Home">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="services.html" class="mobile-bottom-link" aria-label="Services">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Services</span>
+        </a>
+        <a href="booking.html" class="mobile-bottom-link mobile-bottom-link-primary" aria-label="Book Now">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>Book</span>
+        </a>
+        <a href="contact.html" class="mobile-bottom-link" aria-label="Contact">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <span>Contact</span>
+        </a>
+    </nav>
+
+    <!-- Scripts -->
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+
+    <script>
+        (function() {
+            'use strict';
+
+            const lookupForm = document.getElementById('lookupForm');
+            const confirmationInput = document.getElementById('confirmationNumber');
+            const emailInput = document.getElementById('email');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const bookingDetails = document.getElementById('bookingDetails');
+            const resultMessage = document.getElementById('resultMessage');
+
+            const rescheduleBtn = document.getElementById('rescheduleBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const rescheduleForm = document.getElementById('rescheduleForm');
+            const cancelConfirmation = document.getElementById('cancelConfirmation');
+
+            // Set minimum date for reschedule
+            const newDateInput = document.getElementById('newDate');
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            newDateInput.min = tomorrow.toISOString().split('T')[0];
+
+            // Mock booking lookup
+            async function lookupBooking(confirmation, email) {
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // Mock database
+                const bookings = {
+                    'RP-2025-12345': {
+                        email: 'john@example.com',
+                        service: 'Full Body Cryotherapy',
+                        date: 'January 25, 2025',
+                        time: '10:00 AM',
+                        status: 'confirmed'
+                    }
+                };
+
+                const booking = bookings[confirmation.toUpperCase()];
+                if (booking && booking.email.toLowerCase() === email.toLowerCase()) {
+                    return { success: true, booking };
+                }
+                return { success: false };
+            }
+
+            // Form submission
+            lookupForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const confirmation = confirmationInput.value.trim();
+                const email = emailInput.value.trim();
+
+                loadingSpinner.classList.add('visible');
+                lookupForm.style.display = 'none';
+
+                const result = await lookupBooking(confirmation, email);
+
+                loadingSpinner.classList.remove('visible');
+
+                if (result.success) {
+                    document.getElementById('displayConfirmation').textContent = confirmation.toUpperCase();
+                    document.getElementById('displayService').textContent = result.booking.service;
+                    document.getElementById('displayDate').textContent = result.booking.date;
+                    document.getElementById('displayTime').textContent = result.booking.time;
+                    bookingDetails.classList.add('visible');
+                } else {
+                    showResult('error', 'Booking Not Found', 'We could not find a booking with those details. Please check your confirmation number and email.');
+                    lookupForm.style.display = 'block';
+                }
+            });
+
+            // Reschedule button
+            rescheduleBtn.addEventListener('click', function() {
+                rescheduleForm.classList.toggle('visible');
+                cancelConfirmation.classList.remove('visible');
+            });
+
+            // Cancel button
+            cancelBtn.addEventListener('click', function() {
+                cancelConfirmation.classList.toggle('visible');
+                rescheduleForm.classList.remove('visible');
+            });
+
+            // Confirm reschedule
+            document.getElementById('confirmReschedule').addEventListener('click', async function() {
+                const newDate = document.getElementById('newDate').value;
+                const newTime = document.getElementById('newTime').value;
+
+                if (!newDate || !newTime) {
+                    alert('Please select both date and time');
+                    return;
+                }
+
+                loadingSpinner.classList.add('visible');
+                bookingDetails.classList.remove('visible');
+
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                loadingSpinner.classList.remove('visible');
+                showResult('success', 'Booking Rescheduled!', 'Your appointment has been rescheduled. A confirmation email has been sent.');
+            });
+
+            // Cancel confirmation
+            document.getElementById('cancelNo').addEventListener('click', function() {
+                cancelConfirmation.classList.remove('visible');
+            });
+
+            document.getElementById('cancelYes').addEventListener('click', async function() {
+                loadingSpinner.classList.add('visible');
+                bookingDetails.classList.remove('visible');
+
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                loadingSpinner.classList.remove('visible');
+                showResult('success', 'Booking Cancelled', 'Your appointment has been cancelled. A confirmation email has been sent with refund details.');
+            });
+
+            function showResult(type, title, text) {
+                resultMessage.className = 'result-message visible ' + type;
+                document.getElementById('resultIcon').textContent = type === 'success' ? '✓' : '✕';
+                document.getElementById('resultTitle').textContent = title;
+                document.getElementById('resultText').textContent = text;
+            }
+        })();
+    </script>
+
+    <!-- Mobile Sticky Bar -->
+    <div class="mobile-sticky">
+        <a href="tel:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Call</span>
+        </a>
+        <a href="mailto:Brian.recoveryplus@outlook.com">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>Email</span>
+        </a>
+        <a href="booking.html" class="primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Book Now</span>
+        </a>
+    </div>
+</body>
+</html>

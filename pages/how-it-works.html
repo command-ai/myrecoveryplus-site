@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how cryotherapy works at Recovery Plus. Understand the science behind localized cryotherapy, our mobile service process, and the benefits of cold therapy.">
+    <meta name="keywords" content="how cryotherapy works, cryotherapy science, localized cryotherapy, mobile cryotherapy process, cold therapy benefits">
+    <meta name="author" content="Recovery Plus">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="How Cryotherapy Works | Recovery Plus Mobile Cryotherapy">
+    <meta property="og:description" content="Discover the science behind cryotherapy and how our mobile service brings professional recovery to you.">
+    <meta property="og:image" content="../images/og-how-it-works.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How Cryotherapy Works | Recovery Plus">
+    <meta name="twitter:description" content="The science and process behind mobile cryotherapy treatments.">
+
+    <title>How Cryotherapy Works | Recovery Plus Mobile Cryotherapy</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=optional" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <style>
+        /* How It Works Page Specific Styles */
+
+        /* Process Steps */
+        .process-section {
+            position: relative;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            position: relative;
+        }
+
+        @media (max-width: 1024px) {
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .process-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            border-color: var(--accent-400);
+            box-shadow: var(--glow);
+            transform: translateY(-4px);
+        }
+
+        .process-number {
+            position: absolute;
+            top: -1rem;
+            left: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-400), var(--neon));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: #000;
+        }
+
+        .process-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            margin-top: 1rem;
+            color: var(--accent-400);
+        }
+
+        .process-title {
+            font-family: var(--font-body);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: none;
+            line-height: 1.3;
+            margin-bottom: 0.75rem;
+        }
+
+        .process-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Science Section */
+        .science-explanation {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 1024px) {
+            .science-explanation {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        .science-visual {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .science-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-400), var(--neon));
+        }
+
+        .temperature-display {
+            font-family: var(--font-display);
+            font-size: 6rem;
+            color: var(--accent-400);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .temperature-label {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .temperature-comparison {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .temp-item {
+            text-align: center;
+        }
+
+        .temp-item-value {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--text-primary);
+        }
+
+        .temp-item-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .science-content h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .science-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .benefit-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            border-color: var(--accent-400);
+            box-shadow: var(--glow);
+        }
+
+        .benefit-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(200, 255, 0, 0.15));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .benefit-icon svg {
+            width: 32px;
+            height: 32px;
+            color: var(--accent-400);
+        }
+
+        .benefit-title {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: none;
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+        }
+
+        .benefit-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Timeline */
+        .timeline-section {
+            position: relative;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: row;
+                padding-left: 50px;
+            }
+        }
+
+        .timeline-content {
+            width: calc(50% - 40px);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-content {
+                width: 100%;
+            }
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--accent-400);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-marker {
+                left: 20px;
+            }
+        }
+
+        .timeline-time {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-400);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Safety Section */
+        .safety-section {
+            background: var(--bg-secondary);
+        }
+
+        .safety-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .safety-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .safety-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+        }
+
+        .safety-card h4 {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: none;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .safety-card h4 svg {
+            width: 24px;
+            height: 24px;
+            color: var(--neon);
+        }
+
+        .safety-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .safety-card li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .safety-card li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.9rem;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-400);
+            border-radius: 50%;
+        }
+
+        /* FAQ Section */
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: left;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--accent-400);
+        }
+
+        .faq-question svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question svg {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================================
+         HEADER
+         ======================================================================== -->
+    <header class="header" data-header>
+        <div class="container header-inner">
+            <!-- Logo -->
+            <a href="../index.html" class="logo" aria-label="Recovery Plus Home">
+                <img src="../images/logo.png" alt="Recovery Plus" class="logo-full">
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="nav-desktop" aria-label="Main navigation">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services/index.html" class="nav-link">Services</a>
+                <a href="how-it-works.html" class="nav-link" aria-current="page">How It Works</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <!-- Phone -->
+                <a href="tel:7077611528" class="header-phone" aria-label="Call us">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <span>(707) 761-1528</span>
+                </a>
+
+                <!-- CTA Button -->
+                <a href="contact.html" class="btn btn-primary header-cta">
+                    <span>Book Now</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark/light mode">
+                    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================================================
+         HERO SECTION
+         ======================================================================== -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="hero-grid"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-eyebrow eyebrow">
+                    The Science of Cold
+                </div>
+                <h1>
+                    HOW CRYOTHERAPY<br>
+                    <span class="highlight">WORKS</span>
+                </h1>
+                <p class="hero-sub">
+                    Discover the science behind localized cryotherapy and how our mobile service brings professional-grade recovery directly to your door.
+                </p>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         PROCESS SECTION
+         ======================================================================== -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header center">
+                <div class="eyebrow">Your Session</div>
+                <h2>Simple 4-Step<br>Process</h2>
+                <p>From booking to feeling the difference, here's how it works.</p>
+            </div>
+
+            <div class="process-grid">
+                <!-- Step 1 -->
+                <div class="process-step">
+                    <span class="process-number">1</span>
+                    <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <h3 class="process-title">Book Your Session</h3>
+                    <p class="process-description">Schedule online or call us at (707) 761-1528. Choose your preferred date, time, and location. We offer flexible scheduling to fit your lifestyle.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="process-step">
+                    <span class="process-number">2</span>
+                    <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                    </svg>
+                    <h3 class="process-title">We Come To You</h3>
+                    <p class="process-description">Our mobile unit arrives at your home, office, gym, or event location. No need to travel - we bring professional-grade equipment directly to you.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="process-step">
+                    <span class="process-number">3</span>
+                    <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                    </svg>
+                    <h3 class="process-title">Quick Treatment</h3>
+                    <p class="process-description">Sessions typically last 15-30 minutes depending on the treatment area. Our localized approach targets specific areas for maximum efficiency.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="process-step">
+                    <span class="process-number">4</span>
+                    <svg class="process-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <h3 class="process-title">Feel The Difference</h3>
+                    <p class="process-description">Experience immediate relief from pain and inflammation. Many clients report feeling better right after their session and for days afterward.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         SCIENCE SECTION
+         ======================================================================== -->
+    <section class="science">
+        <div class="science-bg"></div>
+        <div class="container">
+            <div class="section-header center">
+                <div class="eyebrow">The Science</div>
+                <h2>Understanding<br>Localized Cryotherapy</h2>
+            </div>
+
+            <div class="science-explanation">
+                <div class="science-visual">
+                    <div class="temperature-display">-109&deg;F</div>
+                    <div class="temperature-label">Therapeutic Treatment Temperature</div>
+                    <div class="temperature-comparison">
+                        <div class="temp-item">
+                            <div class="temp-item-value">32&deg;F</div>
+                            <div class="temp-item-label">Freezing Point</div>
+                        </div>
+                        <div class="temp-item">
+                            <div class="temp-item-value">60 sec</div>
+                            <div class="temp-item-label">Per Target Area</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="science-content">
+                    <h3>How Cold Therapy Heals</h3>
+                    <p>Localized cryotherapy uses precisely controlled cold temperatures to target specific areas of your body. Unlike whole-body cryotherapy chambers, our treatment focuses the therapeutic cold exactly where you need it most.</p>
+                    <p>When extremely cold air (-109°F) is applied to the skin for 60 seconds per area, it triggers a powerful physiological response called the "cold shock response." This response activates your body's natural healing mechanisms.</p>
+                    <p>The treatment is non-invasive, drug-free, and produces immediate results. Professional athletes have used cryotherapy for decades to speed recovery and enhance performance - now this same technology is available to everyone through our mobile service.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         BIOLOGICAL RESPONSE TIMELINE
+         ======================================================================== -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="section-header center">
+                <div class="eyebrow">Your Body's Response</div>
+                <h2>What Happens<br>During Treatment</h2>
+            </div>
+
+            <div class="timeline">
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-time">0-30 Seconds</span>
+                        <h4 class="timeline-title">Vasoconstriction Begins</h4>
+                        <p class="timeline-description">Blood vessels in the treated area begin to constrict. This reduces blood flow to the surface and numbs pain receptors, providing immediate relief.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-time">30-60 Seconds</span>
+                        <h4 class="timeline-title">Cold Shock Response</h4>
+                        <p class="timeline-description">Your body releases norepinephrine, reducing inflammation and triggering endorphin production. Pain signals are blocked and healing begins.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-time">Post-Treatment</span>
+                        <h4 class="timeline-title">Vasodilation</h4>
+                        <p class="timeline-description">As your body warms, blood vessels rapidly expand. Fresh, oxygen-rich blood floods the area, accelerating healing and flushing out metabolic waste.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-time">Hours After</span>
+                        <h4 class="timeline-title">Continued Relief</h4>
+                        <p class="timeline-description">Reduced inflammation and pain relief continue for hours to days. Regular treatments compound these benefits for lasting improvement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         BENEFITS SECTION
+         ======================================================================== -->
+    <section class="services">
+        <div class="container">
+            <div class="section-header center">
+                <div class="eyebrow">Benefits</div>
+                <h2>Why Cryotherapy<br>Works</h2>
+                <p>Discover the science-backed benefits of localized cryotherapy.</p>
+            </div>
+
+            <div class="benefits-grid">
+                <!-- Benefit 1 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                    </div>
+                    <h4 class="benefit-title">Pain Relief</h4>
+                    <p class="benefit-description">Cold therapy numbs pain receptors and reduces nerve signal transmission, providing immediate and lasting relief from acute and chronic pain.</p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <h4 class="benefit-title">Reduced Inflammation</h4>
+                    <p class="benefit-description">Vasoconstriction reduces blood flow to inflamed areas, decreasing swelling and the inflammatory response that causes discomfort.</p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <h4 class="benefit-title">Faster Recovery</h4>
+                    <p class="benefit-description">Enhanced blood circulation post-treatment delivers oxygen and nutrients that accelerate muscle repair and reduce recovery time.</p>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="benefit-title">Endorphin Release</h4>
+                    <p class="benefit-description">The cold shock triggers release of endorphins - your body's natural painkillers and mood enhancers - promoting well-being.</p>
+                </div>
+
+                <!-- Benefit 5 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2"></path>
+                            <path d="M12 20v2"></path>
+                            <path d="m4.93 4.93 1.41 1.41"></path>
+                            <path d="m17.66 17.66 1.41 1.41"></path>
+                            <path d="M2 12h2"></path>
+                            <path d="M20 12h2"></path>
+                            <path d="m6.34 17.66-1.41 1.41"></path>
+                            <path d="m19.07 4.93-1.41 1.41"></path>
+                        </svg>
+                    </div>
+                    <h4 class="benefit-title">Skin Benefits</h4>
+                    <p class="benefit-description">Increased collagen production, tighter pores, and improved circulation give skin a more youthful, radiant appearance.</p>
+                </div>
+
+                <!-- Benefit 6 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 20V10"></path>
+                            <path d="M12 20V4"></path>
+                            <path d="M6 20v-6"></path>
+                        </svg>
+                    </div>
+                    <h4 class="benefit-title">Enhanced Performance</h4>
+                    <p class="benefit-description">Athletes use cryotherapy to train harder and compete longer. Reduced muscle fatigue means better performance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         SAFETY SECTION
+         ======================================================================== -->
+    <section class="safety-section">
+        <div class="container">
+            <div class="section-header center">
+                <div class="eyebrow">Safety First</div>
+                <h2>Safe & Professional<br>Treatment</h2>
+                <p>Your safety and comfort are our top priorities.</p>
+            </div>
+
+            <div class="safety-grid">
+                <!-- Safety Card 1 -->
+                <div class="safety-card">
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                        Safety Protocols
+                    </h4>
+                    <ul>
+                        <li>Professional-grade equipment maintained to highest standards</li>
+                        <li>Treatment time precisely controlled (60 seconds per area)</li>
+                        <li>Continuous monitoring during your entire session</li>
+                        <li>Trained and certified technician performs all treatments</li>
+                        <li>Pre-treatment consultation to assess your needs</li>
+                    </ul>
+                </div>
+
+                <!-- Safety Card 2 -->
+                <div class="safety-card">
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        Who Should Avoid Cryotherapy
+                    </h4>
+                    <ul>
+                        <li>Individuals with severe cold sensitivity or Raynaud's disease</li>
+                        <li>Those with uncontrolled high blood pressure</li>
+                        <li>People with severe heart conditions</li>
+                        <li>Pregnant women (unless cleared by doctor)</li>
+                        <li>Those with open wounds in treatment area</li>
+                    </ul>
+                </div>
+
+                <!-- Safety Card 3 -->
+                <div class="safety-card">
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        What to Expect
+                    </h4>
+                    <ul>
+                        <li>Brief sensation of intense cold during treatment</li>
+                        <li>Skin may appear red temporarily (normal response)</li>
+                        <li>Most people feel energized immediately after</li>
+                        <li>No downtime - return to normal activities right away</li>
+                        <li>Results improve with regular sessions</li>
+                    </ul>
+                </div>
+
+                <!-- Safety Card 4 -->
+                <div class="safety-card">
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                        </svg>
+                        Ideal Candidates
+                    </h4>
+                    <ul>
+                        <li>Athletes seeking faster recovery</li>
+                        <li>People with chronic pain or inflammation</li>
+                        <li>Those recovering from injuries or surgery</li>
+                        <li>Anyone seeking skin rejuvenation benefits</li>
+                        <li>Individuals looking to enhance overall wellness</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         FAQ SECTION
+         ======================================================================== -->
+    <section>
+        <div class="container">
+            <div class="section-header center">
+                <div class="eyebrow">Questions</div>
+                <h2>Frequently<br>Asked</h2>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Does cryotherapy hurt?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Most clients describe the sensation as intense cold rather than pain. The treatment is very brief (60 seconds per area), and many people find it surprisingly tolerable. Any discomfort is temporary and subsides immediately after treatment.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How many sessions do I need?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            This depends on your goals. Many clients feel benefits after just one session. For chronic conditions or athletic performance, we typically recommend a series of treatments. Our team will work with you to create a personalized treatment plan.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is cryotherapy safe?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Yes, when performed by trained professionals with proper equipment. Localized cryotherapy has been used safely for decades in medical and athletic settings. We follow strict safety protocols and conduct a pre-treatment consultation to ensure you're a good candidate.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How is localized different from whole-body cryotherapy?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Whole-body cryotherapy requires you to stand in a cold chamber for 2-3 minutes. Localized cryotherapy targets specific areas with precise cold application for 60 seconds. This means faster treatments, more targeted relief, and no need for expensive cryotherapy chambers.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What should I wear for my session?
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Wear comfortable clothing that allows easy access to the treatment area. For leg treatments, shorts work well. For back or shoulder treatments, a loose t-shirt or tank top is ideal. We'll discuss specifics when you book your appointment.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         FINAL CTA
+         ======================================================================== -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to Experience<br><span class="highlight">Cryotherapy?</span></h2>
+            <p class="final-cta-sub">
+                Book your first session today and feel the difference professional recovery can make.
+            </p>
+            <div class="final-cta-buttons">
+                <a href="contact.html" class="btn btn-primary">
+                    <span>Book Your Session</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+                <a href="tel:7077611528" class="btn btn-outline">
+                    <span>Call: (707) 761-1528</span>
+                </a>
+            </div>
+            <p class="final-cta-note">First-time clients receive 25% off with code: FIRST25</p>
+        </div>
+    </section>
+
+    <!-- ========================================================================
+         FOOTER
+         ======================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="../images/logo.png" alt="Recovery Plus">
+                    </a>
+                    <p>Elite mobile cryotherapy bringing professional recovery directly to you. Recover stronger. Perform longer.</p>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/company/recovery-plus" target="_blank" rel="noopener" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/recoveryplus" target="_blank" rel="noopener" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/recoveryplus" target="_blank" rel="noopener" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Services Column -->
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services/mobile.html">Mobile Services</a></li>
+                        <li><a href="services/subscriptions.html">Monthly Subscriptions</a></li>
+                        <li><a href="services/pain-relief.html">Pain Relief Packages</a></li>
+                        <li><a href="services/cryo-facial.html">Cryo Facial</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company Column -->
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Column -->
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:7077611528">(707) 761-1528</a></li>
+                        <li><a href="mailto:Brian.recoveryplus@outlook.com">Brian.recoveryplus@outlook.com</a></li>
+                        <li>322 Parker Street<br>Vacaville, CA</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 Recovery Plus. All rights reserved.</p>
+                <div class="footer-badges">
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        Professional Grade
+                    </span>
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        Mobile Service
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky Bar -->
+    <div class="mobile-sticky">
+        <a href="tel:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Call</span>
+        </a>
+        <a href="mailto:Brian.recoveryplus@outlook.com">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>Email</span>
+        </a>
+        <a href="contact.html" class="primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Book Now</span>
+        </a>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+
+    <!-- FAQ Accordion Script -->
+    <script>
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const isActive = faqItem.classList.contains('active');
+
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

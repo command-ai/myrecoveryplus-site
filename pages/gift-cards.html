@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Give the gift of recovery with Recovery Plus gift cards. Digital delivery, perfect for athletes, chronic pain sufferers, and skincare enthusiasts. Single sessions from $35.">
+    <meta name="keywords" content="cryotherapy gift card, wellness gift, recovery gift, Vacaville gift card, Napa gift card, health gift">
+    <meta name="author" content="Recovery Plus">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Gift Cards | Recovery Plus Mobile Cryotherapy">
+    <meta property="og:description" content="Give the gift of recovery. Digital gift cards for mobile cryotherapy sessions delivered instantly via email.">
+    <meta property="og:image" content="../images/og-gift-cards.jpg">
+
+    <title>Gift Cards | Recovery Plus | Give The Gift of Recovery</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=optional" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <!-- Gift Card Page Styles -->
+    <style>
+        .gift-hero {
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+
+        .gift-cards-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .gift-cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .gift-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .gift-card:hover {
+            border-color: var(--accent-400);
+            transform: translateY(-8px);
+            box-shadow: var(--glow);
+        }
+
+        .gift-card.featured {
+            border: 2px solid var(--accent-400);
+            background: var(--bg-tertiary);
+        }
+
+        .gift-card-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            padding: 0.25rem 1rem;
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            white-space: nowrap;
+        }
+
+        .gift-card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .gift-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .gift-card-price {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--accent-400);
+            margin-bottom: 1rem;
+        }
+
+        .gift-card-price span {
+            font-size: 1rem;
+            color: var(--text-faint);
+        }
+
+        .gift-card-details {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            min-height: 48px;
+        }
+
+        .gift-card .btn {
+            width: 100%;
+        }
+
+        /* Gift Purchase Form */
+        .gift-form-section {
+            background: var(--bg-secondary);
+        }
+
+        .gift-form-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--bg-tertiary);
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .gift-form-wrapper h3 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .gift-form-wrapper > p {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .form-group label .required {
+            color: var(--accent-400);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-400);
+            box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .gift-amount-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .gift-amount-btn {
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .gift-amount-btn:hover,
+        .gift-amount-btn.active {
+            border-color: var(--accent-400);
+            color: var(--accent-400);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        /* How It Works */
+        .how-gift-works {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .how-gift-works {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .how-gift-step {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .how-gift-step-number {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-400);
+            color: var(--bg-primary);
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            border-radius: 50%;
+        }
+
+        .how-gift-step h4 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .how-gift-step p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Perfect For Section */
+        .perfect-for-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .perfect-for-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .perfect-for-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .perfect-for-card:hover {
+            border-color: var(--accent-400);
+        }
+
+        .perfect-for-card svg {
+            flex-shrink: 0;
+            color: var(--accent-400);
+        }
+
+        .perfect-for-card h4 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .perfect-for-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header" data-header>
+        <div class="container header-inner">
+            <a href="../index.html" class="logo" aria-label="Recovery Plus Home">
+                <img src="../images/logo.png" alt="Recovery Plus" class="logo-full">
+            </a>
+
+            <nav class="nav-desktop" aria-label="Primary Navigation">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="booking.html" class="nav-link">Booking</a>
+                <a href="checkin.html" class="nav-link">Check-In</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="tel:7077611528" class="header-phone" aria-label="Call us">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <span>(707) 761-1528</span>
+                </a>
+
+                <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark/light theme">
+                    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+
+                <a href="booking.html" class="btn btn-primary header-cta">
+                    <span>Book Now</span>
+                </a>
+
+                <button class="mobile-menu-toggle" data-mobile-menu-toggle aria-label="Toggle mobile menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-menu" data-mobile-menu role="navigation" aria-label="Mobile Navigation" aria-hidden="true">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" data-mobile-menu-close aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <nav class="mobile-nav">
+                <a href="../index.html" class="mobile-nav-link">Home</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="pricing.html" class="mobile-nav-link">Pricing</a>
+                <a href="booking.html" class="mobile-nav-link">Booking</a>
+                <a href="checkin.html" class="mobile-nav-link">Check-In</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+            </nav>
+            <div class="mobile-menu-footer">
+                <a href="tel:+17077611528" class="mobile-cta-button">Call Now</a>
+                <a href="booking.html" class="mobile-cta-button mobile-cta-primary">Book Session</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" data-mobile-menu-overlay></div>
+
+    <!-- Hero Section -->
+    <section class="gift-hero">
+        <div class="hero-bg">
+            <div class="hero-grid"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <span class="eyebrow">Gift Cards</span>
+                </div>
+                <h1>GIVE THE GIFT<br><span class="highlight">OF RECOVERY</span></h1>
+                <p class="hero-sub">
+                    The perfect gift for athletes, wellness enthusiasts, and anyone who deserves to feel their best. Digital delivery makes gifting instant and easy.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gift Card Options -->
+    <section style="padding: var(--section-padding) 0; background: var(--bg-primary);">
+        <div class="container">
+            <div class="section-header center">
+                <span class="eyebrow">Choose Your Gift</span>
+                <h2>Gift Card Options</h2>
+                <p>Select a package or choose your own amount</p>
+            </div>
+
+            <div class="gift-cards-grid">
+                <!-- Single Session -->
+                <div class="gift-card">
+                    <div class="gift-card-icon">&#10052;</div>
+                    <h3>Single Session</h3>
+                    <div class="gift-card-price">$35</div>
+                    <p class="gift-card-details">Perfect for first-timers to experience the benefits of cryotherapy</p>
+                    <a href="#purchase-form" class="btn btn-outline">Select</a>
+                </div>
+
+                <!-- 4-Session Package -->
+                <div class="gift-card featured">
+                    <div class="gift-card-badge">MOST POPULAR</div>
+                    <div class="gift-card-icon">&#127873;</div>
+                    <h3>4-Session Package</h3>
+                    <div class="gift-card-price">$140<span> - $180</span></div>
+                    <p class="gift-card-details">Choose from Cryo Facial ($140) or Pain Relief ($180) packages</p>
+                    <a href="#purchase-form" class="btn btn-primary"><span>Select</span></a>
+                </div>
+
+                <!-- Custom Amount -->
+                <div class="gift-card">
+                    <div class="gift-card-icon">&#9733;</div>
+                    <h3>Custom Amount</h3>
+                    <div class="gift-card-price">$50+</div>
+                    <p class="gift-card-details">Choose any amount $50 or more for ultimate flexibility</p>
+                    <a href="#purchase-form" class="btn btn-outline">Select</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section style="padding: var(--section-padding) 0; background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header center">
+                <span class="eyebrow">Simple Process</span>
+                <h2>How It Works</h2>
+            </div>
+
+            <div class="how-gift-works">
+                <div class="how-gift-step">
+                    <div class="how-gift-step-number">1</div>
+                    <h4>Choose Amount</h4>
+                    <p>Select a preset package or enter a custom amount</p>
+                </div>
+
+                <div class="how-gift-step">
+                    <div class="how-gift-step-number">2</div>
+                    <h4>Add Details</h4>
+                    <p>Enter recipient's email and a personal message</p>
+                </div>
+
+                <div class="how-gift-step">
+                    <div class="how-gift-step-number">3</div>
+                    <h4>Complete Payment</h4>
+                    <p>Secure checkout with instant confirmation</p>
+                </div>
+
+                <div class="how-gift-step">
+                    <div class="how-gift-step-number">4</div>
+                    <h4>Instant Delivery</h4>
+                    <p>Gift card sent directly to recipient's inbox</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Purchase Form -->
+    <section id="purchase-form" class="gift-form-section" style="padding: var(--section-padding) 0;">
+        <div class="container">
+            <div class="gift-form-wrapper">
+                <h3>Purchase Gift Card</h3>
+                <p>Fill out the details below to send a digital gift card</p>
+
+                <form id="giftCardForm" novalidate>
+                    <!-- Amount Selection -->
+                    <div class="form-group">
+                        <label>Select Amount <span class="required">*</span></label>
+                        <div class="gift-amount-options">
+                            <button type="button" class="gift-amount-btn" data-amount="35">$35</button>
+                            <button type="button" class="gift-amount-btn active" data-amount="140">$140</button>
+                            <button type="button" class="gift-amount-btn" data-amount="180">$180</button>
+                            <button type="button" class="gift-amount-btn" data-amount="custom">Custom</button>
+                        </div>
+                        <input type="number" id="customAmount" name="customAmount" placeholder="Enter custom amount ($50 minimum)" style="display: none;" min="50">
+                    </div>
+
+                    <div class="form-row">
+                        <!-- Recipient Name -->
+                        <div class="form-group">
+                            <label for="recipientName">Recipient's Name <span class="required">*</span></label>
+                            <input type="text" id="recipientName" name="recipientName" required placeholder="John Doe">
+                        </div>
+
+                        <!-- Recipient Email -->
+                        <div class="form-group">
+                            <label for="recipientEmail">Recipient's Email <span class="required">*</span></label>
+                            <input type="email" id="recipientEmail" name="recipientEmail" required placeholder="john@example.com">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <!-- Sender Name -->
+                        <div class="form-group">
+                            <label for="senderName">Your Name <span class="required">*</span></label>
+                            <input type="text" id="senderName" name="senderName" required placeholder="Jane Smith">
+                        </div>
+
+                        <!-- Sender Email -->
+                        <div class="form-group">
+                            <label for="senderEmail">Your Email <span class="required">*</span></label>
+                            <input type="email" id="senderEmail" name="senderEmail" required placeholder="jane@example.com">
+                        </div>
+                    </div>
+
+                    <!-- Personal Message -->
+                    <div class="form-group">
+                        <label for="giftMessage">Personal Message (Optional)</label>
+                        <textarea id="giftMessage" name="giftMessage" placeholder="Add a personal note to your gift..."></textarea>
+                    </div>
+
+                    <!-- Delivery Date -->
+                    <div class="form-group">
+                        <label for="deliveryDate">Delivery Date</label>
+                        <input type="date" id="deliveryDate" name="deliveryDate">
+                        <p style="color: var(--text-faint); font-size: 0.85rem; margin-top: 0.5rem;">Leave blank for immediate delivery</p>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <span>Purchase Gift Card</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12 5 19 12 12 19"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Perfect For Section -->
+    <section style="padding: var(--section-padding) 0; background: var(--bg-primary);">
+        <div class="container">
+            <div class="section-header center">
+                <span class="eyebrow">Great Gift Idea</span>
+                <h2>Perfect For</h2>
+            </div>
+
+            <div class="perfect-for-grid">
+                <div class="perfect-for-card">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                        <line x1="9" y1="9" x2="9.01" y2="9"/>
+                        <line x1="15" y1="9" x2="15.01" y2="9"/>
+                    </svg>
+                    <div>
+                        <h4>Athletes & Fitness Enthusiasts</h4>
+                        <p>Help them recover faster and perform at their peak with professional cryotherapy</p>
+                    </div>
+                </div>
+
+                <div class="perfect-for-card">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                    <div>
+                        <h4>Chronic Pain Sufferers</h4>
+                        <p>Provide relief for those dealing with inflammation, arthritis, or muscle pain</p>
+                    </div>
+                </div>
+
+                <div class="perfect-for-card">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <div>
+                        <h4>Skincare Enthusiasts</h4>
+                        <p>Cryo facials boost collagen production and reduce signs of aging naturally</p>
+                    </div>
+                </div>
+
+                <div class="perfect-for-card">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <div>
+                        <h4>Busy Professionals</h4>
+                        <p>Mobile service means they can recover without disrupting their schedule</p>
+                    </div>
+                </div>
+
+                <div class="perfect-for-card">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <div>
+                        <h4>Wellness Seekers</h4>
+                        <p>Anyone looking to boost their health and try cutting-edge recovery technology</p>
+                    </div>
+                </div>
+
+                <div class="perfect-for-card">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <div>
+                        <h4>Holidays & Special Occasions</h4>
+                        <p>Birthdays, Mother's Day, Father's Day, or just because they deserve it</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Questions About<br><span class="highlight">Gift Cards?</span></h2>
+            <p class="final-cta-sub">
+                We're happy to help you choose the perfect gift for your loved one.
+            </p>
+            <div class="final-cta-buttons">
+                <a href="tel:7077611528" class="btn btn-primary">
+                    <span>Call: (707) 761-1528</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                </a>
+                <a href="mailto:Brian.recoveryplus@outlook.com" class="btn btn-outline">
+                    <span>Email Us</span>
+                </a>
+            </div>
+            <p class="final-cta-note">Gift cards never expire and are redeemable for any service</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">
+                        <img src="../images/logo.png" alt="Recovery Plus">
+                    </a>
+                    <p>Elite mobile cryotherapy bringing professional recovery directly to you. Recover stronger. Perform longer.</p>
+                    <div class="footer-social">
+                        <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html">All Services</a></li>
+                        <li><a href="services/subscription-gold.html">Monthly Subscriptions</a></li>
+                        <li><a href="services/cryo-facial-12.html">Cryo Facial Packages</a></li>
+                        <li><a href="services/pain-relief-12.html">Pain Relief Packages</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="rewards.html">Rewards Program</a></li>
+                        <li><a href="legal/privacy-policy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:7077611528">(707) 761-1528</a></li>
+                        <li><a href="mailto:Brian.recoveryplus@outlook.com">Brian.recoveryplus@outlook.com</a></li>
+                        <li>322 Parker Street<br>Vacaville, CA</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Recovery Plus. All rights reserved.</p>
+                <div class="footer-badges">
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Professional Grade
+                    </span>
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Mobile Service
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky Bottom Nav -->
+    <nav class="mobile-bottom-nav" role="navigation" aria-label="Mobile Bottom Navigation">
+        <a href="../index.html" class="mobile-bottom-link" aria-label="Home">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="services.html" class="mobile-bottom-link" aria-label="Services">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Services</span>
+        </a>
+        <a href="booking.html" class="mobile-bottom-link mobile-bottom-link-primary" aria-label="Book Now">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>Book</span>
+        </a>
+        <a href="contact.html" class="mobile-bottom-link" aria-label="Contact">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <span>Contact</span>
+        </a>
+    </nav>
+
+    <!-- JavaScript -->
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Gift amount selection
+        document.querySelectorAll('.gift-amount-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.gift-amount-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const customInput = document.getElementById('customAmount');
+                if (this.dataset.amount === 'custom') {
+                    customInput.style.display = 'block';
+                    customInput.focus();
+                } else {
+                    customInput.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <!-- Mobile Sticky Bar -->
+    <div class="mobile-sticky">
+        <a href="tel:7077611528">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Call</span>
+        </a>
+        <a href="mailto:Brian.recoveryplus@outlook.com">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span>Email</span>
+        </a>
+        <a href="booking.html" class="primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Book Now</span>
+        </a>
+    </div>
+</body>
+</html>
